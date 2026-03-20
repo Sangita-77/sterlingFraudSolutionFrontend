@@ -1,0 +1,56 @@
+body{
+    margin: 0;
+}
+/* Start Sidebar Start */
+.sidebar { width: 250px; background: #1e293b; color: #fff; position: fixed; height: 100%; left: -250px; transition: 0.3s; z-index: 1000; }
+.sidebar.open { left: 0; }
+.sidebar h2 { padding: 20px; text-align: center; }
+.sidebar ul { list-style: none; padding: 0; margin: 0; }
+.sidebar li { padding: 15px 20px; cursor: pointer; transition: 0.2s; }
+.sidebar li:hover { background: #334155; }
+.sidebar a { color: #fff; text-decoration: none; display: block; }
+.sidebar a.active { background: #334155; }
+/* Start Sidebar End */
+
+/* Navbar Start */
+.navbar { height: 60px; background: #fff; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); } 
+.menu-toggle { font-size: 20px; cursor: pointer; }
+/* Navbar End*/
+
+/* Card Start */
+.card { background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); transition: 0.2s; } 
+.card:hover { transform: translateY(-3px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); } 
+.card h4 { margin-bottom: 10px; font-size: 16px; color: #333; }
+.card p { font-size: 20px; font-weight: bold; color: #1e293b; }
+/* Card End */
+
+/* Table Start */
+.table-container { margin-top: 30px; background: #fff; padding: 20px; border-radius: 10px; overflow-x: auto; }
+.table-title { margin-bottom: 15px; font-size: 18px; font-weight: 600; color: #333; }
+.table { width: 100%; border-collapse: collapse; }
+.table th { padding: 10px; border-bottom: 1px solid #ddd; text-align: left; font-weight: 600; color: #555; }
+.table td { padding: 10px; border-bottom: 1px solid #eee; }
+.table tr:hover {background: #f9fafb;}
+.status-active { color: green; font-weight: 500; }
+.status-inactive { color: red; font-weight: 500; } 
+/* Table Start */
+
+.dashboard {display: flex; min-height: 100vh; background: #f4f6f9;}
+/* Main content area */
+.main {flex: 1; transition: 0.3s;}
+/* Desktop spacing (when sidebar is visible) */
+.main.desktop { margin-left: 250px;} 
+/* Content padding */
+.content {padding: 20px;}
+/* Cards grid */
+.cards {display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;}
+
+
+/* Desktop: always visible */
+@media (min-width: 768px) {
+.sidebar { left: 0; }
+.menu-toggle {display: none;}
+}
+
+
+
