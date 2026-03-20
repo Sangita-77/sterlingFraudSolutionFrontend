@@ -9,7 +9,7 @@ import Appointment from "./DashBoards/Appointment";
 import Shop from "./DashBoards/Shop";
 import Payments from "./DashBoards/Payments";
 import Games from "./DashBoards/Games";
-import Settings from "./DashBoards/settings"; 
+import Settings from "./DashBoards/Settings"; 
 
 
 function App() {
