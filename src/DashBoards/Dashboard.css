@@ -6,9 +6,9 @@ body{
 .sidebar.open { left: 0; }
 .sidebar h2 { padding: 20px; text-align: center; }
 .sidebar ul { list-style: none; padding: 0; margin: 0; }
-.sidebar li { padding: 15px 20px; cursor: pointer; transition: 0.2s; }
-.sidebar li:hover { background: #334155; }
-.sidebar a { color: #fff; text-decoration: none; display: block; }
+/* .sidebar li:hover { background: #334155; } */
+.sidebar a { color: #fff; text-decoration: none; display: block; padding: 15px}
+.sidebar li a:hover { background: #334155; transition: .5s;}
 .sidebar a.active { background: #334155; }
 /* Start Sidebar End */
 
