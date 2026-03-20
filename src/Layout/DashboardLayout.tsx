@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import Sidebar from "./Components/Sidebar";
-import Navbar from "./Components/Navbar";
+import Sidebar from "../Components/Sidebar";
+import Navbar from "../Components/Navbar";
 import { Outlet } from "react-router-dom";
 
-import "./DashBoards/Dashboard.css";
+import "../DashBoards/Dashboard.css";
 
 const DashboardLayOut: React.FC = () => {
   const [open, setOpen] = useState(false);
@@ -38,7 +38,7 @@ const DashboardLayOut: React.FC = () => {
         
         <Navbar toggle={() => !isDesktop && setOpen(!open)} />
           <div className="content">
-              <Outlet />
+              <Outlet/>
           </div>
 
         </div>

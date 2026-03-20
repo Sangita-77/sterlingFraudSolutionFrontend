@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import DashboardLayout from "./DashboardLayout";
+import DashboardLayout from "./Layout/DashboardLayout";
 import MainDashboard from "./DashBoards/MainDashboard";
 import Subscription from "./DashBoards/Subscription";
 import Organization from "./DashBoards/Organization";
@@ -16,12 +16,12 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<DashboardLayout />}>
+        <Route path="/" element={<DashboardLayout/>}>
           <Route index element={<MainDashboard/>} />
           <Route path="subscription" element={<Subscription/>} />
           <Route path="organization" element={<Organization/>} />
           <Route path="doctors" element={<Doctors/>} />
-          <Route path="phychologi_calevolution" element={<PhychologicaEve/>} />
+          <Route path="phychological_evolution" element={<PhychologicaEve/>} />
           <Route path="appointment" element={<Appointment/>} />
           <Route path="shop" element={<Shop/>} />
           <Route path="payments" element={<Payments/>} />
