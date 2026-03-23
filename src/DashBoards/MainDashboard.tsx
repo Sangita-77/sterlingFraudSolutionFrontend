@@ -5,8 +5,7 @@ import Table from "../Components/Table";
 import "./Dashboard.css";
 
 const MainDashboard: React.FC = () => {
-<<<<<<< HEAD
-    const users = [
+ const users = [
     { name: "John Doe", email: "john@example.com", status: "Active" },
     { name: "Jane Smith", email: "jane@example.com", status: "Inactive" },
     { name: "Alice Brown", email: "alice@example.com", status: "Active" },
@@ -21,7 +20,6 @@ const MainDashboard: React.FC = () => {
     { name: "Peter Parker", email: "peter@example.com", status: "Inactive" },
   ];
 
-=======
 
   // const [users, setUsers] = useState([]);
 
@@ -51,7 +49,7 @@ const MainDashboard: React.FC = () => {
   // }, []);
 
     
->>>>>>> fa3f698508e17840a456dbac5821e0778f7ad254
+
   return (
     <>
       
