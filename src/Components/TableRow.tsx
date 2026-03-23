@@ -12,9 +12,9 @@ interface Props {
 
 const TableRow: React.FC<Props> = ({ user }) => {
   return (
-    <tr>
-      <td>{user.name}</td>
-      <td>{user.email}</td>
+    <tr data-label="Name">
+      <td data-label="Email">{user.name}</td>
+      <td data-label="Status">{user.email}</td>
       <td
         className={
           user.status === "Active"

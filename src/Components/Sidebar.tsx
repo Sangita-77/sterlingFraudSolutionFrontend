@@ -1,7 +1,7 @@
 import React from "react";
-import "../DashBoards/Dashboard.css";
+import "./Components.css";
 import { NavLink } from "react-router-dom";
-import { routes } from "../Routes/route";
+import { routes } from "../Routes/route"; 
 
 interface SidebarProps {
   open: boolean;

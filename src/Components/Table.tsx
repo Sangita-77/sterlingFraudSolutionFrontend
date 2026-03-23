@@ -1,70 +1,172 @@
 import React, { useState } from "react";
-import "../DashBoards/Dashboard.css";
+import "./Components.css";
 import TableHeader from "./TableTableHeader";
 import TableRow from "./TableRow";
 
-const Table: React.FC = () => {
-  const users = [
-    { name: "John Doe", email: "john@example.com", status: "Active" },
-    { name: "Jane Smith", email: "jane@example.com", status: "Inactive" },
-    { name: "Alice Brown", email: "alice@example.com", status: "Active" },
-    { name: "Bob White", email: "bob@example.com", status: "Inactive" },
-    { name: "Tom Hardy", email: "tom@example.com", status: "Active" },
-    { name: "Emma Stone", email: "emma@example.com", status: "Active" },
-    { name: "Chris Evans", email: "chris@example.com", status: "Inactive" },
-    { name: "Scarlett", email: "scarlett@example.com", status: "Active" },
-    { name: "Bruce Wayne", email: "bruce@example.com", status: "Active" },
-    { name: "Clark Kent", email: "clark@example.com", status: "Inactive" },
-    { name: "Tony Stark", email: "tony@example.com", status: "Active" },
-    { name: "Peter Parker", email: "peter@example.com", status: "Inactive" },
-  ];
+interface User {
+  name: string;
+  email: string;
+  status: string;
+}
+interface TableProps{
+  users: User[];
+}
+const Table: React.FC<TableProps> = ({ users }) => {
 
-  const ITEMS_PER_PAGE = 10;
 
   const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
+  const [selectedUsers, setSelectedUsers] = useState<number[]>([]);
 
-  // pagination logic
-  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  const currentUsers = users.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const currentUsers = users.slice(startIndex, startIndex + itemsPerPage);
+  const totalPages = Math.ceil(users.length / itemsPerPage);
+    
+  // Select single row
+  const handleSelect = (index: number) => {
+    setSelectedUsers((prev) =>
+      prev.includes(index)
+        ? prev.filter((i) => i !== index)
+        : [...prev, index]
+    );
+  };
 
-  const totalPages = Math.ceil(users.length / ITEMS_PER_PAGE);
+  //Select all (current page)
+  const handleSelectAll = () => {
+    const pageIndexes = currentUsers.map((_, i) => startIndex + i);
+    const allSelected = pageIndexes.every((i) =>
+      selectedUsers.includes(i)
+    );
+    if (allSelected) {
+      setSelectedUsers((prev) =>
+        prev.filter((i) => !pageIndexes.includes(i))
+      );
+    } else {
+      setSelectedUsers((prev) => [...new Set([...prev, ...pageIndexes])]);
+    }
+  };
 
-  return (
-    <div className="table-container">
-      <h3 className="table-title">Recent Users</h3>
+  
+  // Export CSV
+  const exportCSV = () => {
+    const selectedData = selectedUsers.map((i) => users[i]);
 
-      <table className="table">
-        <TableHeader />
+    const csv = [
+      ["Name", "Email", "Status"],
+      ...selectedData.map((u) => [u.name, u.email, u.status]),
+    ]
+      .map((row) => row.join(","))
+      .join("\n");
 
-        <tbody>
-          {currentUsers.map((user, index) => (
-            <TableRow key={index} user={user} />
-          ))}
-        </tbody>
-      </table>
+    const blob = new Blob([csv], { type: "text/csv" });
+    const url = window.URL.createObjectURL(blob);
 
-      {/* ✅ Pagination Controls */}
-      <div className="pagination">
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "users.csv";
+    a.click();
+  };
+
+
+
+return (
+  <div className="table-container">
+    <div className="table-header">
+      <h3>Recent Users</h3>
+
+      <div className="table-actions">
         <button
-          disabled={currentPage === 1}
-          onClick={() => setCurrentPage((prev) => prev - 1)}
+          className="btn primary"
+          onClick={exportCSV}
+          disabled={!selectedUsers.length}
         >
-          Prev
+          Export CSV
         </button>
 
-        <span>
-          Page {currentPage} of {totalPages}
-        </span>
-
-        <button
-          disabled={currentPage === totalPages}
-          onClick={() => setCurrentPage((prev) => prev + 1)}
-        >
-          Next
-        </button>
+        <div className="table-controls">
+          <label>Rows</label>
+          <select
+            value={itemsPerPage}
+            onChange={(e) => {
+              setItemsPerPage(Number(e.target.value));
+              setCurrentPage(1);
+              setSelectedUsers([]);
+            }}
+          >
+            {[5, 10, 20, 50, 100].map((n) => (
+              <option key={n} value={n}>
+                {n}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
     </div>
-  );
+
+    <div className="table-wrapper">
+      <table className="table">
+        <thead>
+          <tr>
+            <th className="checkbox-col">
+              <input
+                type="checkbox"
+                onChange={handleSelectAll}
+                checked={currentUsers.length > 0 && currentUsers.every((_, i) =>
+                  selectedUsers.includes(startIndex + i)
+                )}
+              />
+            </th>
+            <TableHeader />
+          </tr>
+        </thead>
+
+        <tbody>
+          {currentUsers.map((user, index) => {
+            const actualIndex = startIndex + index;
+
+            return (
+              <tr key={index}>
+                <td className="checkbox-col">
+                  <input
+                    type="checkbox"
+                    checked={selectedUsers.includes(actualIndex)}
+                    onChange={() => handleSelect(actualIndex)}
+                  />
+                </td>
+
+                <TableRow user={user} />
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
+
+    {/* Pagination */}
+    <div className="pagination">
+      <button
+        className="btn"
+        disabled={currentPage === 1}
+        onClick={() => setCurrentPage((prev) => prev - 1)}
+      >
+        ← Prev
+      </button>
+
+      <span className="page-info">
+        Page <b>{currentPage}</b> of <b>{totalPages}</b>
+      </span>
+
+      <button
+        className="btn"
+        disabled={currentPage === totalPages}
+        onClick={() => setCurrentPage((prev) => prev + 1)}
+      >
+        Next →
+      </button>
+    </div>
+  </div>
+);
+
 };
 
 export default Table;
