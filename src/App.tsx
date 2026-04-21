@@ -12,6 +12,7 @@ import Communication from "./features/admin/DashBoards/Communication";
 import PermissionsRoles from "./features/admin/DashBoards/PermissionsRoles";
 import Reports from "./features/admin/DashBoards/Reports"; 
 import Settings from "./features/admin/DashBoards/Settings"; 
+import Visualization from "./features/Pages/Visualization";
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
       <Routes>
          {/* Index Start */}
           <Route path="/" element={<Index/>}/>
+          <Route path="/visualization/new/:id" element={<Visualization/>}/>
          {/* Index End */}
           
           {/* User Start */}

@@ -3,6 +3,71 @@
 .header .container{ display: flex; justify-content: space-between; align-items: center; width: 1440px; margin: 0 auto;}
 /* Hamburger */
 .hamburger { display: none; font-size: 24px; cursor: pointer; } 
+
+.header.transparent {
+  background: transparent;
+  position: absolute; 
+  width: 100%;
+}
+
+.header.colored {
+  background: linear-gradient(
+    90deg,
+    #1A0B60 0%,
+    #2618A9 50%,
+    #2A36A5 100%
+  );
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+.primary{background-color: #1682E7; color: #fff;}
+.primary:hover{opacity: 0.8; transition: .5s;}
+
+.danger-t{
+  background-color: transparent;
+  color: red;
+  border: 1px solid red;
+}
+.black-t{
+  background-color: transparent;
+  color: #000;
+  border: 1px solid #000;
+}
+
+.sm{
+    padding: 6px 12px;
+    font-size: 12px;
+}
+.md{
+    padding: 8px 16px;
+    font-size: 14px;
+}
+.lg{
+    padding: 10px 20px;
+    font-size: 16px;
+
+}
+button{
+    cursor: pointer;
+    outline: none;
+    border: none;
+    background: #e1e8ee;
+    color: #2563eb;
+    padding: 6px 12px;
+    border-radius: var(--button-border-radius);
+    cursor: pointer;
+    font-size: 12px;
+    font: 300 18px/28px var(--font-main);
+    align-items: center;
+    
+}
+button span{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Button end */
+
 /* Header End */
 
 /* Headings Start */
@@ -47,6 +112,35 @@ border-radius: var(--button-border-radius); border: 1px solid #ccc; outline: non
 .IndexCards .CardIcon div svg{ stroke-width: 1px;}
 /* Cards End */
 
+
+/* VisualizationCard Start */
+.VisualizationCard{ margin: 25px; width: 375px; /* height: calc(100vh - 100px); */ position: absolute; overflow-y: auto; top: 150px; left: 50px; z-index: 999; background-color: #fff; }
+/* reusable border box */
+.VisualizationCard .box { border: 1px solid #D9D9D9; border-radius: 7px; }
+/* Header */
+.VisualizationCard .sideCardHead { display: flex; justify-content: space-evenly; align-items: center; height: 58px; margin-bottom: 20px; } 
+.VisualizationCard .sideCardHead { border: 1px solid #D9D9D9; border-radius: 7px; }
+/* text */
+.VisualizationCard .textGray { color: #7D7D7D; } 
+/* tag */
+.VisualizationCard .flagTag { background-color: #242889; padding: 2px 5px; border-radius: 6px; color: #fff; }
+/* icons */
+.VisualizationCard .SideCardIcons { width: 28px; height: 28px; }
+/* clickable */
+.VisualizationCard img { cursor: pointer; }
+/* section */
+.VisualizationCard .visualizationDetails { display: flex; justify-content: space-between; align-items: center; padding: 16px; border: 1px solid #D9D9D9; border-radius: 7px; }
+/* details */
+.VisualizationCard .Details { color: #2D3A51; font-size: 18px; font-weight: 500; padding: 16px; } 
+/* search */
+.VisualizationCard .SeachObjectCrad { border: 1px solid #D9D9D9; border-radius: 7px; margin-bottom: 60px; } 
+.VisualizationCard .inputBox { display: flex; gap: 15px; padding: 0 20px; } 
+.VisualizationCard .inputBox input { border: none; outline: none; width: 100%; }
+/* objects */
+.VisualizationCard .addObjects { color: #2D3A51; font-size: 18px; font-weight: 500; }
+.VisualizationCard .ObjectDetails { color: #2D3A51; font-size: 18px; font-weight: 500; padding: 16px; display: flex; justify-content: space-between; align-items: center; }
+.VisualizationCard .ObjectD { display: flex; align-items: center; gap: 15px; } 
+.VisualizationCard .ClickAbeIcon { display: flex; gap: 20px; } 
 /* Brand Start */
 .BrandImages{display: flex;}
 .BrandImages .BrandImages img{width: 100%;}
