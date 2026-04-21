@@ -1,0 +1,21 @@
+src/
+├── assets/          # Images, fonts, styles
+├── components/      # Common UI components (buttons, inputs)
+├── config/          # API URLs, constants
+├── context/         # Global context (auth, theme)
+├── features/        # Feature-based modules
+│   ├── auth/        # Login, registration, forgot password
+│   ├── admin/       # Super Admin dashboard, users management
+│   │   ├── components/
+│   │   ├── hooks/
+│   │   └── pages/
+│   └── user/        # User agent dashboard, client tasks
+│       ├── components/
+│       ├── hooks/
+│       └── pages/
+├── hooks/           # Global custom hooks
+├── layouts/         # Layouts (AdminLayout, UserLayout, AuthLayout) [9]
+├── routes/          # Routing config (Private/Public Routes)
+├── services/        # API calls/service functions [7]
+├── utils/           # Helper functions
+└── types/           # TS definitions
