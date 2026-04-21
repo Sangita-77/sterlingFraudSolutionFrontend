@@ -1,0 +1,229 @@
+
+.BTCModelOverlay {
+    position: fixed;
+    top: 100px;
+    left: 0;
+    width: 100%;
+    height: 90%;
+    z-index: 9999;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+    padding: 20px;
+}
+
+/* Modal box */
+.BTCModel {
+    background: #ffffff;
+    width: 500px;
+    padding: 16px 18px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.2s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    height: 90%;
+    overflow-y: auto;
+}
+
+/* Header layout */
+.BTCModelHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+/* Close button */
+.BTCModelCloseBtn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: black;
+}
+
+.BTCModelCloseBtn:hover {
+    opacity: 0.8;
+    color: red;
+}
+
+.BTCModel p {
+    font-size: 13px;
+    margin-top: 6px;
+    color: #7D7D7D;
+}
+
+.showOrder {
+    background: linear-gradient(90deg,
+            #1A0B60 0%,
+            #2618A9 50%,
+            #2A36A5 100%);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 10px 15px;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 15px;
+    height: 96px;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    margin-bottom: 20px;
+}
+
+.buttons2Div {
+    display: flex;
+    gap: 10px;
+}
+
+.Table {
+    margin-top: 20px;
+    color: #7D7D7D;
+}
+
+.Table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.TableHeader th {
+    color: #736D6D;
+    font-size: 18px !important;
+}
+
+.Table th,
+.Table td {
+    padding: 8px;
+    text-align: left;
+    font-size: 18px;
+}
+
+.marked {
+    float: right;
+}
+
+#balance {
+    color: #484545;
+    font-weight: 600;
+}
+
+.received-amount {
+    color: #56CA9D;
+}
+
+.send-amount {
+    color: #FF5F5F;
+}
+
+.Tabs {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 20px;
+    color: #736D6D;
+    font-size: 18px;
+    cursor: pointer;
+    font-weight: 600;
+    padding: 10px;
+}
+
+.activetab {
+    color: black;
+    border-bottom: 2px solid #1D0F71;
+}
+
+.transactions {
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+
+}
+
+.box {
+    background-color: #fff;
+    padding: 10px 15px;
+    border-radius: 5px;
+    border: 1px solid #736D6D;
+    width: 226px;
+    height: 36px;
+    color: #706F6F;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+
+}
+
+.TableColored {
+    display: flex;
+    justify-content: center;
+    background: linear-gradient(90deg,
+            #1A0B60 0%,
+            #2618A9 50%,
+            #2A36A5 100%);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px 5px 0px 0px !important;
+    color: #fff;
+    font-size: 15px;
+    margin-top: 20px;
+    margin: 10px;
+    width: 100%;
+}
+
+.TableHeaderColor {
+    height: 39px;
+}
+
+.Table2 {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    color: #7D7D7D;
+    font-size: 18px;
+
+}
+
+.DataNotFound {
+    padding: 10px;
+    text-align: center;
+    color: #7D7D7D;
+    font-size: 18px;
+    font-size: 16px;
+}
+
+.SelectRangeOptions {
+    padding: 10px;
+    position: absolute;
+    width: 226px;
+    height: 100px;
+    margin-top: 10px;
+    color: #7D7D7D;
+    font-size: 18px;
+    margin-bottom: 10px;
+    z-index: 999;
+    background-color: #FFF;
+    overflow: auto;
+}
+
+.react-datepicker__input-container input {
+    border: none;
+    outline: none;
+    box-shadow: none;
+    cursor: pointer;
+}
+
+
+/* Smooth appearance */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

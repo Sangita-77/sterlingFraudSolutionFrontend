@@ -1,0 +1,38 @@
+/* Visualization Start*/
+.viz-container { display: flex; flex-direction: column; align-items: center; margin-top: 20px; } 
+.viz-card-wrapper { padding: 20px; } 
+/* controls */
+.viz-controls { display: flex; gap: 12px; padding: 10px 16px; background: #fff; border-radius: 10px; margin: 10px 0; } 
+.viz-controls img { width: 28px; cursor: pointer; }
+.activeControl { transform: scale(1.2); opacity: 0.8; background-color: yellow; border-radius: 5px; } 
+/* map */
+.viz-map { width: 100%; max-width: 900px; height: 450px; background: #f5f7fa; border-radius: 12px; position: relative; overflow: hidden; left: 80px; }
+/* transform wrapper */
+.viz-transform { position: absolute; width: 1000px; height: 300px; }
+/* svg */
+.viz-svg { position: absolute; width: 100%; height: 100%; }
+/* node */
+.viz-node { position: absolute; width: 60px; height: 60px; background: linear-gradient(90deg, #1A0B60 0%, #2618A9 50%, #2A36A5 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 4px solid #5A3CDD; cursor: grab; }
+.viz-node img { width: 24px; }
+.viz-node { display: flex; flex-direction: column; align-items: center; } 
+.viz-node div{ position: relative; top: 30px; color: #2D3A51; font-size: 18px; }
+.viz-node img { position: relative; top: 10px; }
+/* Visualization End*/
+
+
+
+
+
+
+@media (max-width: 768px) {
+ .viz-controls { gap: 32px; padding: 8px; }
+ .viz-controls img { width: 24px; margin-top: 10px; }
+}
+
+
+@media (max-width: 480px) {
+  .viz-controls { gap: 8px; padding: 8px; } 
+  .viz-controls img { width: 24px; margin-top: 10px; }
+  .viz-map{ left: 0px;  }
+  .viz-svg{ left: 0px;  }
+}
