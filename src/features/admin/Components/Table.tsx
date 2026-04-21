@@ -23,13 +23,13 @@ const Table: React.FC<TableProps> = ({ users }) => {
   const totalPages = Math.ceil(users.length / itemsPerPage);
     
   // Select single row
-  const handleSelect = (index: number) => {
-    setSelectedUsers((prev) =>
-      prev.includes(index)
-        ? prev.filter((i) => i !== index)
-        : [...prev, index]
-    );
-  };
+  // const handleSelect = (index: number) => {
+  //   setSelectedUsers((prev) =>
+  //     prev.includes(index)
+  //       ? prev.filter((i) => i !== index)
+  //       : [...prev, index]
+  //   );
+  // };
 
   //Select all (current page)
   const handleSelectAll = () => {
