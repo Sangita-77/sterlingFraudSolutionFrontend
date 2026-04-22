@@ -2,6 +2,7 @@
 export const routes = {
 // Users Routes
 VERIFYCHAIN: "/",
+VIZUALIZATION: "/visualization/new/id:jkhmgkj",
 
 // Super admin Routes
   DASHBOARD: "/admin",

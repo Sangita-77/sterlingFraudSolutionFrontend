@@ -202,7 +202,7 @@ const SearchBar = () => {
               </div>
               <div className="result-actions">
                 {result.actions.map((action, idx) => (
-                  <a key={idx} href="#" className="action-link">
+                  <a key={idx} href="/dev/sterlingFraudSolutionFrontend/visualization/new/id:jkhmgkj" className="action-link">
                     {action} →
                   </a>
                 ))}

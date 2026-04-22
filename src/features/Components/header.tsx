@@ -1,6 +1,8 @@
 import "./IndexComponents.css";
 import Logo from "../../assets/LogoW.webp";
 import Button from "../Components/ButtonCompo";
+import { NavLink } from "react-router-dom";
+import { routes } from "../../Routes/route";
 
 type HeaderProps = {
   variant?: "transparent" | "colored";
@@ -14,7 +16,9 @@ const Header: React.FC<HeaderProps> = ({variant}:any) => {
 
         {/* Logo */}
         <div className="logo">
-          <img src={Logo} alt="" />
+          <NavLink to={routes.VERIFYCHAIN} className="Logout">
+          <img src={Logo} alt="Company Logo"/>
+          </NavLink>
         </div>
 
         {/* Navigation */}

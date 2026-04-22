@@ -78,7 +78,7 @@ const Visualization: React.FC = () => {
   };
 
   // NODE DRAG
-  const handleDrag = (id: string, data: any) => {
+  const handleDrag = (id: string, data: any ) => {
     if (mode !== "cursor") return;
 
     setPositions((prev) => ({
@@ -171,7 +171,7 @@ const Visualization: React.FC = () => {
             </svg>
 
             {/* NODES */}
-            {initialNodes.map((node, i) => {
+            {initialNodes.map((node) => {
               const ref = useRef(null);
               return (
                 <>
@@ -179,7 +179,7 @@ const Visualization: React.FC = () => {
                     key={node.id}
                     nodeRef={ref}
                     position={positions[node.id]}
-                    onDrag={(e, data) => handleDrag(node.id, data)}
+                    onDrag={(_, data) => handleDrag(node.id, data)}
                   >
                     <div ref={ref} className="viz-node" onClick={()=>setOpen(true)}>
                       <img src={MapPin} className="node-icon" />
@@ -211,5 +211,4 @@ const Visualization: React.FC = () => {
 };
 
 export default Visualization;
-
 

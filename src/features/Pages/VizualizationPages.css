@@ -8,7 +8,7 @@
 /* map */
 .viz-map { width: 100%; max-width: 900px; height: 450px; background: #f5f7fa; border-radius: 12px; position: relative; overflow: hidden; left: 80px; }
 /* transform wrapper */
-.viz-transform { position: absolute; width: 1000px; height: 300px; }
+.viz-transform { position: absolute; width: 1000px; height: 100%; }
 /* svg */
 .viz-svg { position: absolute; width: 100%; height: 100%; }
 /* node */
@@ -18,9 +18,6 @@
 .viz-node div{ position: relative; top: 30px; color: #2D3A51; font-size: 18px; }
 .viz-node img { position: relative; top: 10px; }
 /* Visualization End*/
-
-
-
 
 
 
