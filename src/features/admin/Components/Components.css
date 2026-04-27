@@ -94,19 +94,19 @@
 /* Table End */
 
 /* Card Start */
-.card {display: flex; padding: 25px 10px; border-radius: 10px; transition: 0.2s;  align-items: center;} 
+.SuperAdmincard {display: flex; padding: 25px 10px; border-radius: 10px; transition: 0.2s;  align-items: center;} 
 /* Different Gradients */
-.card.purple {background: linear-gradient(29deg, #f7f9ff12, #161A49, #f7f9ff12), linear-gradient(53deg, #5615f294, #161A49, #5615f294); box-shadow: 0px 0px 60px #301d95cf, inset 0px 0px 2px 0px #fff, inset 0px 0px 9px 0px #3b23ff;} 
-.card.blue {background: linear-gradient(29deg, #f7f9ff12, #161A49, #f7f9ff12), linear-gradient(53deg, #1541f1, #161A49, #1541f1);
+.SuperAdmincard.purple {background: linear-gradient(29deg, #f7f9ff12, #161A49, #f7f9ff12), linear-gradient(53deg, #5615f294, #161A49, #5615f294); box-shadow: 0px 0px 60px #301d95cf, inset 0px 0px 2px 0px #fff, inset 0px 0px 9px 0px #3b23ff;} 
+.SuperAdmincard.blue {background: linear-gradient(29deg, #f7f9ff12, #161A49, #f7f9ff12), linear-gradient(53deg, #1541f1, #161A49, #1541f1);
 box-shadow: 0px 0px 41px #2934b39c, inset 0px 0px 2px 0px #fff, inset 0px 0px 9px 0px #238fff;}
-.card.pink {background: linear-gradient(29deg, #f7f9ff12, #101d4e, #f7f9ff12), linear-gradient(53deg, #2da6fb, #161A49, #ff00b185);
+.SuperAdmincard.pink {background: linear-gradient(29deg, #f7f9ff12, #101d4e, #f7f9ff12), linear-gradient(53deg, #2da6fb, #161A49, #ff00b185);
 box-shadow: 0px 0px 41px #4e049366, inset 0px 0px 2px 0px #ddbbf799, inset 0px 0px 9px 0px #7823ff52;}
-.card .CardIcon img { width: 48px; height: 48px; }
-.card .CardText h4 { margin: 0; font-size: 14px; color: var(--whiteColor);}
-.card .CardText p { margin: 5px 0 0; font-size: 22px; font-weight: bold; color: var(--whiteColor);}
-.card:hover { transform: translateY(-3px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); } 
-.card .CardIcon{width: 25%;}
-.card .CardText{width: 75%;}
+.SuperAdmincard .CardIcon img { width: 48px; height: 48px; }
+.SuperAdmincard .CardText h4 { margin: 0; font-size: 14px; color: var(--whiteColor);}
+.SuperAdmincard .CardText p { margin: 5px 0 0; font-size: 22px; font-weight: bold; color: var(--whiteColor);}
+.SuperAdmincard:hover { transform: translateY(-3px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); } 
+.SuperAdmincard .CardIcon{width: 25%;}
+.SuperAdmincard .CardText{width: 75%;}
 /* Card End */
 /* #1D3388, #161A49 */
 

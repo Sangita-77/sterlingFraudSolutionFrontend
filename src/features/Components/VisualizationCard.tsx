@@ -23,7 +23,7 @@ const VisualizationCard = () => {
     console.log(`${action} clicked`)
   }
   return (
-     <div className='sideCard'>
+     <div className='Visualization sideCard'>
         <div className='sideCardHead'>
           <span>
             <img src={TreeStructure} className='SideCardIcons' onClick={() => handleClick("Tree")} />

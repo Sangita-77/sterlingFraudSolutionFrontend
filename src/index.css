@@ -14,15 +14,25 @@
   --button-border-radius: 8px;
   --purple-text: #242889;
   --dark-text: #2D3A51;
+  --color-skyblue: #1682E7;
 }
-/* Gobal Variables Start */
+/* Gobal Variables End */
+
+/* Global Css start */
+.d-flex{display: flex;}
+/* Global Css End */
+
 
 
 /* Hero Banner start */
 main .HeroBanner{height: 698px; background: url('./assets/images/HeroBanner.png') top center / cover no-repeat; margin-top: -136px; clip-path: ellipse(85% 100% at 50% 0); display: flex; justify-content: center; align-items: center;}
-main .container{width: 1440px; margin: 0 auto;}
+main .container{width: 90%; margin: 0 auto;}
 .HeroBanner h1{ color: var(--whiteColor); font: 500 54px/64px var(--font-main); text-align: center;}
 .HeroBanner p{color: #DCE8F3; font: 300 18px/28px var(--font-main); text-align: center; padding: 10px 0px 20px;}
+/* SignUp Modal */
+.signup.FormWarp{display: flex;}
+.signup.FormWarp .signupBackground{background: linear-gradient(15deg, #1A0B60, #2A36A5, #2618A9); padding: 65px 35px;}
+
 /* Hero Banner End*/
 
 /* Our Solution Start */
@@ -34,9 +44,39 @@ main .container{width: 1440px; margin: 0 auto;}
 .Our_Solution .TextPlate{display: flex; padding-bottom: 40px;}
 .Our_Solution .ESText{ width: 55%; margin-right: 30px;}
 .Our_Solution .ESImage{width: 45%; justify-content: end; display: flex;}
+.Our_Solution .H2Headings{text-align: center; color: var(--purple-text); max-width: 1200px; margin: 0 auto; text-align: center;}
 /* Our Solution End */
 
 /* Our Partner Start */
 .Our_Partners .Partners{padding: 40px 0px 50px;}
 .Our_Partners .Partners .BrandImages .BrandImages{width: 20%;}
 /* Our Partner End */
+
+/* Help center Section Start */
+.HelpSection{background: linear-gradient(15deg, #1A0B60, #2A36A5, #2618A9); padding: 100px 0px;}
+.HelpSection .HelpCardWrap{display: flex;}
+.HelpSection .HelpCardWrap .HelpCard{width: 50%; padding: 30px 10px 20px 40px; border: solid 2px var(--whiteColor); margin: 0px 10px; color: var(--whiteColor);  border-radius: 30px;}
+.HelpSection .HelpCardWrap .HelpCard p{ max-width: 500px; padding: 20px 0px 35px;}
+.HelpSection .HelpBtn{text-align: right;}
+/* Help center Section End */
+
+/* Our Partner Start */
+.Our_trusted_members .Members .BrandImages .BrandImages{width: 25%; margin: 20px 0px; padding: 0px 20px;}
+.Our_trusted_members .Members .BrandImages .BrandImages:not(:last-child){border-right: solid 1px #838383;}
+.Our_trusted_members{ padding: 80px 0px;}
+.Our_trusted_members h5{padding-bottom: 40px;}
+/* Our Partner End */
+
+/* Footer Start */
+footer{background: #34209A;}
+footer .container{width: 90%; margin: 0 auto;}
+footer .container .footerWrap{display: flex; justify-content: center; align-items: center;}
+footer .container .footerWrap .footerWrapChilds{width: 33.33%; color: var(--whiteColor);}
+footer .container .footerWrap  .Social_media{text-align: center;}
+footer .container .footerWrap  .siteName{text-align: right; padding: 30px;}
+footer .container .footerWrap  .mideaIcons{ display: flex; justify-content: center;}
+footer .container .footerWrap  .socialMedia{padding: 5px;}
+footer .container .footerWrap  .socialMedia:hover{transition: .5s; opacity: 0.7;}
+footer .container .footerWrap {font: 400 18px/28px var(--font-main);}
+/* Footer End */
+

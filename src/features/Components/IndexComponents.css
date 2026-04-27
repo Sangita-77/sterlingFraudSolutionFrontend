@@ -1,10 +1,9 @@
 /* Header Start */
 .header {background: transparent; z-index: 99; position: relative; align-items: center; justify-content: center; display: flex; }
-.header .container{ display: flex; justify-content: space-between; align-items: center; width: 1440px; margin: 0 auto;}
+.header .container{ display: flex; justify-content: space-between; align-items: center; width: 90%; margin: 0 auto;}
 /* Hamburger */
 .hamburger { display: none; font-size: 24px; cursor: pointer; } 
-
-.header.transparent {
+ .header.transparent {
   background: transparent;
   position: absolute; 
   width: 100%;
@@ -19,7 +18,7 @@
   );
   box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
-.primary{background-color: #1682E7; color: #fff;}
+/*.primary{background-color: #1682E7; color: #fff;}
 .primary:hover{opacity: 0.8; transition: .5s;}
 
 .danger-t{
@@ -64,16 +63,34 @@ button span{
   display: flex;
   align-items: center;
   gap: 10px;
-}
-
+} */
 /* Button end */
+
+/* Only Popup Form Css Start */
+.FormWarp .ModalsFrom .compoBtn{color: var(--color-skyblue); padding: 0;}
+.FormWarp .ModalsFrom{padding: 30px 30px;}
+.FormWarp .ModalsFrom .form{min-width: 520px; padding-top: 20px;}
+.FormWarp .ModalsFrom .form .form-group{padding: 5px 0px;}
+.FormWarp .ModalsFrom .form label{width: 100%; display: grid; color: var(--color-skyblue);} 
+.FormWarp .ModalsFrom .form input{width: 100%;}
+/* Only Popup Form Css  End */
+/* RegisterForm Start */
+.signup .signupBackground {color: var(--whiteColor); justify-content: center; align-items: center; display: grid;}
+.signup .signupBackground h2{font: 500 24px/34px var(--font-main); text-align: center;}
+.signup .signupBackground p{font: 400 18px/28px var(--font-main); text-align: center; max-width: 358px; margin: 0 auto; opacity: 0.7; padding-top: 10px;}
+/* RegisterForm End */
 
 /* Header End */
 
 /* Headings Start */
 .H3Headings{font: bold 32px/42px var(--font-main); text-transform: capitalize;}
 .Paragraphs{font: 400 20px/29px var(--font-main);}
+.Subheadings{font: 400 18px/28px var(--font-main); text-align: center; color: var(--purple-text);}
+.H2Headings{font: 600 40px/50px var(--font-main); text-transform: capitalize;}
+.H4Headings{font: 600 32px/42px var(--font-main); text-transform: capitalize;}
 /* Headings End */
+
+
 
 /* Search Start */
 .HashSearch {position: relative; width: 100%; max-width: 1015px; margin: 20px auto 10px;} 
@@ -108,16 +125,13 @@ border-radius: var(--button-border-radius); border: 1px solid #ccc; outline: non
 
 
 /* Button Start */
-.header .ButtonRight .compoBtn{font: 500 18px/28px var(--font-main); margin: 0px 10px; border-radius: var(--button-border-radius); border: none; padding: 7px 29px; border: solid 1px var(--whiteColor);}
-.header .ButtonRight .compoBtn:hover{opacity: 0.8; transition: .5s;}
-.header .ButtonRight .compoBtn.solid{background: var(--whiteColor); color: var(--secondary-color);}
-.header .ButtonRight .compoBtn.trashparent{background: transparent; color: var(--whiteColor);}
+.compoBtn{font: 500 18px/28px var(--font-main); margin: 0px 10px; border-radius: var(--button-border-radius); border: none; padding: 7px 29px; border: solid 1px var(--whiteColor);}
+.compoBtn:hover{opacity: 0.8; transition: .5s;}
+.compoBtn.solid{background: var(--whiteColor); color: var(--secondary-color);}
+.compoBtn.trashparent{background: transparent; color: var(--whiteColor);}
+/* .compoBtn.txt{} */
 /* Button end */
 
-/* Mini Section Text Start */
-.Subheadings{font: 400 18px/28px var(--font-main); text-align: center; color: var(--purple-text);}
-.Headings{font: 600 40px/50px var(--font-main); text-align: center; color: var(--purple-text); text-transform: capitalize; max-width: 1200px; margin: 0 auto; text-align: center;}
-/* Mini Section Text End */
 
 /* Cards Start */
 .IndexCards{width: 33.33%; display: flex; padding: 20px; opacity: 0; transform: translateY(40px); transition: all 1s ease;}
@@ -161,15 +175,96 @@ border-radius: var(--button-border-radius); border: 1px solid #ccc; outline: non
 .sideCard .ClickAbeIcon { display: flex; gap: 20px; }
 /* VisualizationCard End */
 
-
 /* Brand Start */
 .BrandImages{display: flex;}
 .BrandImages .BrandImages img{width: 100%;}
 /* Brand End */
 
+/* SlideCard Start */
+.slider-wrapper { position: relative; width: 100%; }
+.slider { overflow: hidden; }
+.slider-track {display: flex; gap: 1.6%; transition: transform 0.3s ease; padding: 20px 3% 20px 0px;}
+/* Each card width (like owl items) */
+.slider-track > * { min-width: 33.33%; flex: 0 0 auto;  background: linear-gradient(15deg, #1A0B60, #2A36A5, #2618A9); border-radius: 12px; padding: 30px;}
+/* Navigation buttons */
+.nav-btn { position: absolute; top: 50%; transform: translateY(-50%); background: #000; color: #fff; border: none; padding: 10px 14px; cursor: pointer; z-index: 2; border-radius: 50%; }
+.nav-btn.left { left: -50px; } 
+.nav-btn.right { right: -50px; }
+/* SlideCard End */
 
+
+/* ModalBox Start */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: rgba(0, 0, 0, 0);
+  transition: background 0.3s ease;
+  z-index: 9999;
+}
+
+.modal-overlay.open {
+  background: rgba(0, 0, 0, 0.5);
+  transition: transform 2s ease, opacity 2s ease;
+}
+
+.modal-overlay.close {
+  background: rgba(0, 0, 0, 0);
+}
+
+/* Slide from TOP */
+.modal-box {
+  background: #fff;
+  border-radius: 12px;
+  min-width: 320px;
+  position: relative;
+
+  transform: translateY(-100px); /* start higher */
+  opacity: 0;
+
+  transition: transform 0.35s ease, opacity 0.25s ease;
+}
+
+.modal-box.open {
+  transform: translateY(0); /* slide down */
+  opacity: 1;
+}
+
+.modal-box.close {
+  transform: translateY(-100px); /* go back up */
+  opacity: 0;
+}
+
+.close-btn {
+  position: absolute;
+  top: 2px;
+  right: 12px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-size: 16px;
+}
+/* ModalBox End */
+
+
+
+
+
+
+
+/* Responsive like Owl */
+@media (max-width: 1024px) {
+.slider-track > * { min-width: 250px; }
+}
 
 @media (max-width: 768px) {
+.slider-track > * { min-width: 200px; }
 
 .nav { position: absolute; top: 60px; right: 0; background: #0f172a; flex-direction: column; width: 200px; padding: 20px; display: none; } 
 .nav.open { display: flex; } 

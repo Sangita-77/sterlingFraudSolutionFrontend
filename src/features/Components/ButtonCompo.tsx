@@ -2,25 +2,30 @@ import "./IndexComponents.css";
 
 interface ButtonProps {
   text: string;
-//   value: string;
-  icon?: any;
-  variant?: "solid" | "trashparent" | "primary" |"danger-t" |"black-t";
+  icon?: React.ReactNode;
+  variant?: "solid" | "trashparent" | "primary" | "danger-t" | "black-t";
   size?: "sm" | "md" | "lg";
-
- 
-
+  iconPosition?: "left" | "right"; 
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  id?: string;
 }
 
 const Buttons: React.FC<ButtonProps> = ({
   text,
-//   value,
+  onClick,
   icon,
   variant = "trashparent",
   size = "md",
-
-
-}) => {return (
-    <button className={`compoBtn ${variant}  ${size}`}><span>{icon} {text}</span></button>
+  iconPosition = "left",
+}) => {
+  return (
+    <button className={`compoBtn ${variant} ${size}`} onClick={onClick}>
+      <span>
+        {iconPosition === "left" && icon}
+        {text}
+        {iconPosition === "right" && icon}
+      </span>
+    </button>
   );
 };
 

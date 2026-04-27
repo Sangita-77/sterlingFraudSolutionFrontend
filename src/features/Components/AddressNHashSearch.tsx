@@ -1,12 +1,14 @@
 import "./IndexComponents.css";
 import SearchIcon from "../../assets/images/HashSearchIcon.svg"
 import { useState, useEffect, useRef } from "react";
+import { BASE_URL, basename } from "../../api/config";
 
 interface SearchResult {
   id: number;
   hash: string;
   type: string;
   icon: string;
+  url: string;
   actions: string[];
   balance?: number;
   fiatRate?: number;
@@ -48,7 +50,8 @@ const SearchBar = () => {
       setIsLoading(true);
       setErrorMessage("");
       const response = await fetch(
-        "https://dreamgroupsindia.com/dev/sterlingFraudSolutionBackend/api/blockchain/address/token-stats",
+        // "https://dreamgroupsindia.com/dev/sterlingFraudSolutionBackend/api/blockchain/address/token-stats",     
+        `${BASE_URL}/api/blockchain/address/token-stats`,
         {
           method: "POST",
           headers: {
@@ -77,6 +80,7 @@ const SearchBar = () => {
             type: "BTC",
             icon: "👤",
             actions: ["Open Visualization"],
+            url: `${basename}/visualization/new/${address}`,
             // balance: tokenData.balance,
             // fiatRate: tokenData.fiat_rate,
             // transactions: tokenData.n_tx,
@@ -87,7 +91,7 @@ const SearchBar = () => {
             type: "BTC",
             icon: "🔄",
             actions: ["Open Explorer"],
-            // balance: tokenData.balance,
+            url: ``,
             // fiatRate: tokenData.fiat_rate,
             // transactions: tokenData.n_tx,
           },
@@ -202,7 +206,7 @@ const SearchBar = () => {
               </div>
               <div className="result-actions">
                 {result.actions.map((action, idx) => (
-                  <a key={idx} href="/dev/sterlingFraudSolutionFrontend/visualization/new/id:jkhmgkj" className="action-link">
+                   <a key={idx} href={result.url} className="action-link">
                     {action} →
                   </a>
                 ))}

@@ -1,12 +1,17 @@
 import React from "react";
 import Header from "./Components/header";
+import Footer from "./Components/footer";
 import SearchBar from "./Components/AddressNHashSearch";
 import {Heading5 , Heading2 , Heading3, Paragraph} from "./Components/Headings";  
-import Card from "./Components/Cards";
+import Button from "./Components/ButtonCompo";
 import { ActivityIcon, ShieldCheckIcon, SearchIcon } from 'lucide-animated';
 import { ImageGallery } from "./Components/Brands";
+import Card from "./Components/Cards";
+import CardSlider from "./Components/Cardslider";
+
 
 import Vizualimg from "../assets/images/Vizualimg.webp";
+import RightArrow from "../assets/images/RightArrow.svg";
 
 
 // Brand Iamges
@@ -17,10 +22,21 @@ import Politie from "../assets/images/Politie.webp";
 import GASA from "../assets/images/GASA.webp";
 import UNODC from "../assets/images/UNODC.webp";
 
+// Trusted Iamges
+import CryptoCurrency from "../assets/images/CryptoCurrency.webp";
+import ChamberDigital from "../assets/images/ChamberDigital.webp";
+import INATBA from "../assets/images/INATBA.webp";
+import CryptoUK from "../assets/images/CryptoUK.webp";
+import CMIC from "../assets/images/CMIC.webp";
+import GDF from "../assets/images/GDF.webp";
+import PolitieLogo from "../assets/images/PolitieLogo.webp";
+// import { BASE_URL } from "../api/config";
+
 type ImageItem = {
   Brandimage: string;
   alt: string;
 };
+// Brand Iamges
 const images: ImageItem[] = [
   { Brandimage: OSCE, alt: "osce" },
   { Brandimage: CrimeSupport, alt: "CrimeSupport" },
@@ -29,7 +45,22 @@ const images: ImageItem[] = [
   { Brandimage: Politie, alt: "Politie" },
   { Brandimage: UNODC, alt: "UNODC" },
 ];
-// Brand Iamges
+// Trusted Iamges
+const secondImages: ImageItem[] = [
+  { Brandimage: CryptoCurrency, alt: "CryptoCurrency" },
+  { Brandimage: ChamberDigital, alt: "ChamberDigital" },
+  { Brandimage: INATBA, alt: "INATBA" },
+  { Brandimage: CryptoUK, alt: "CryptoUK" },
+  { Brandimage: CMIC, alt: "CMIC" },
+  { Brandimage: GDF, alt: "GDF" },
+];
+
+
+const slides = [
+  { image: PolitieLogo, title: "Card 1", description: "“Having worked with Crystal for the last few months using their blockchain analysis program, we can say that the collaboration has been flawless so far. In part, due to the use of their software, we have been able to largely eliminate our backlog of files relating to the abuse of cryptocurrencies.”" },
+  { image: PolitieLogo, title: "Card 2", description: "“Having worked with Crystal for the last few months using their blockchain analysis program, we can say that the collaboration has been flawless so far. In part, due to the use of their software, we have been able to largely eliminate our backlog of files relating to the abuse of cryptocurrencies.”" },
+  { image: PolitieLogo, title: "Card 3", description: "“Having worked with Crystal for the last few months using their blockchain analysis program, we can say that the collaboration has been flawless so far. In part, due to the use of their software, we have been able to largely eliminate our backlog of files relating to the abuse of cryptocurrencies.”" },
+];
 
 
 const App: React.FC = () => {
@@ -106,8 +137,58 @@ const App: React.FC = () => {
         </section>
         {/* Our Partner End */}
 
-       
+        {/* Help center Section Start */}
+        <section className="HelpSection">
+           <div className="container">
+              <div className="HelpCardWrap">
+                  <div className="HelpCard">
+                      <Heading2 text="Suspicious address?"/>
+                      <Paragraph text="Suggest address ownership or report potential abuse, and Crystal will verify and confirm as soon as possible."/>
+                      <div className="HelpBtn">
+                        <Button text="Report" variant="trashparent" iconPosition="right" icon={<img src={RightArrow} />}/>
+                      </div>
+                  </div>
+                  <div className="HelpCard">
+                      <Heading2 text="Need help?"/>
+                      <Paragraph text="We are confident your question can be answered in our FAQs."/>
+                      <div className="HelpBtn">
+                        <Button text="FAQ" variant="trashparent" iconPosition="right" icon={<img src={RightArrow} />}/>
+                      </div>
+                  </div>   
+              </div>           
+           </div>
+        </section>
+        {/* Help center Section End */}
+
+
+        {/* Our Trusted Members Start */}
+        <section  className="Our_trusted_members">
+            <div className="container">
+               <Heading5 text="Our Trusted members"/>
+                  <div className="Members">
+                      <ImageGallery images={secondImages} />
+                  </div>
+            </div>
+        </section>
+        {/* Our Trusted Members End */}
+
+        {/* Trusted worldwide Start */}      
+        <section className="Trusted_worldwide">
+            <div className="container">
+                <CardSlider items={slides} />
+            </div>
+        </section>
+        {/* Trusted worldwide End */}      
+
+
+
       </main>
+  
+
+      {/* Footer Start */}
+      <Footer siteName="SterlingFraudSolution"/>
+      {/* Footer End */}
+
     </>
   );
 };

@@ -15,7 +15,7 @@ const Card: React.FC<CardProps> = ({
   variant = "blue",
 }) => {
   return (
-    <div className={`card ${variant}`}>
+    <div className={`SuperAdmincard ${variant}`}>
       <div className="CardIcon">
         <img src={icon} alt="" />
       </div>
