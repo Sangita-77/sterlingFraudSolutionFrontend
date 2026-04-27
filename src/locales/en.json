@@ -1,0 +1,50 @@
+{
+  "common": {
+    "language": "Language",
+    "selectLanguage": "Select Language",
+    "english": "English",
+    "french": "Français",
+    "german": "Deutsch",
+    "italian": "Italiano",
+    "login": "Login",
+    "signUp": "Sign Up",
+    "ourSolution": "Our Solution",
+    "aboutText": "Sterling Fraud Solution is a free, easy-to-use blockchain exploratory tool for compliance teams and investigators",
+    "mitigateAmlRisk": "Mitigate AML Risk",
+    "exploreBlockchainData": "Explore Addresses",
+    "detectIllicitActivity": "Explore Illicit Activity",
+    "addressRiskInfo": "Understand the potential risk associated with an address to safeguard from transacting with it",
+    "discoverAddressOwner": "Discover who owns an address. Register for a free account to identify up to 15 address owners daily",
+    "investigateAddress": "Investigate an address’s transaction history to determine if it is connected to bad actors or sanctioned entities"
+  },
+  "hero": {
+    "titleLine1": "Access and verify on-chain",
+    "titleLine2": "data with Sterling Fraud Solution",
+    "subtitle": "Manage financial crime risk. Explore BTC addresses. Detect illicit activity"
+  },
+  "nav": {
+    "home": "Home",
+    "dashboard": "Dashboard",
+    "agents": "Agents",
+    "customers": "Customers",
+    "investigations": "Investigations",
+    "insurance": "Insurance",
+    "withdrawalRequests": "Withdrawal Requests",
+    "consultationRequests": "Consultation Requests",
+    "communication": "Communication",
+    "permissions": "Permissions & Roles",
+    "reports": "Reports",
+    "settings": "Settings",
+    "visualization": "Visualization"
+  },
+  "messages": {
+    "welcome": "Welcome to Sterling Fraud Solutions",
+    "selectYourLanguage": "Select your preferred language",
+    "languageDetected": "Language automatically detected based on your location"
+  },
+  "dashboard": {
+    "totalAgents": "Total Agents",
+    "totalUsers": "Total Users",
+    "assignedCases": "Assigned Cases"
+  }
+}

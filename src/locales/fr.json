@@ -1,0 +1,50 @@
+{
+  "common": {
+    "language": "Langue",
+    "selectLanguage": "Sélectionner la langue",
+    "english": "English",
+    "french": "Français",
+    "german": "Deutsch",
+    "italian": "Italiano",
+    "login": "Connexion",
+    "signUp": "S'inscrire",
+    "ourSolution": "Notre solution",
+    "aboutText": "Sterling Fraud Solution est un outil d’exploration blockchain gratuit et facile à utiliser pour les équipes de conformité et les enquêteurs",
+    "mitigateAmlRisk": "Atténuer le risque de blanchiment d'argent",
+    "exploreBlockchainData": "Explorer les adresses",
+    "detectIllicitActivity": "Explorer les activités illicites",
+    "addressRiskInfo": "Comprenez les risques potentiels associés à une adresse afin d’éviter toute transaction avec celle-ci",
+    "discoverAddressOwner": "Découvrez à qui appartient une adresse. Inscrivez-vous gratuitement pour identifier jusqu'à 15 propriétaires d'adresses par jour",
+    "investigateAddress": "Analysez l’historique des transactions d’une adresse afin de déterminer si elle est liée à des acteurs malveillants ou à des entités sanctionnées"
+  },
+  "hero": {
+    "titleLine1": "Accéder et vérifier sur la chaîne",
+    "titleLine2": "données avec Sterling Fraud Solution",
+    "subtitle": "Gérer le risque de criminalité financière. Explorer les adresses BTC. Détecter les activités illicites"
+  },
+  "nav": {
+    "home": "Accueil",
+    "dashboard": "Tableau de bord",
+    "agents": "Agents",
+    "customers": "Clients",
+    "investigations": "Enquêtes",
+    "insurance": "Assurance",
+    "withdrawalRequests": "Demandes de retrait",
+    "consultationRequests": "Demandes de consultation",
+    "communication": "Communication",
+    "permissions": "Permissions et rôles",
+    "reports": "Rapports",
+    "settings": "Paramètres",
+    "visualization": "Visualisation"
+  },
+  "messages": {
+    "welcome": "Bienvenue dans Sterling Fraud Solutions",
+    "selectYourLanguage": "Sélectionnez votre langue préférée",
+    "languageDetected": "Langue automatiquement détectée selon votre localisation"
+  },
+  "dashboard": {
+    "totalAgents": "Total des Agents",
+    "totalUsers": "Total des Utilisateurs",
+    "assignedCases": "Cas Assignés"
+  }
+}

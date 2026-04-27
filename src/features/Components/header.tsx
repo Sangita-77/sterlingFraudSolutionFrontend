@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./IndexComponents.css";
+import { useTranslation } from 'react-i18next';
 import Logo from "../../assets/LogoW.webp";
 import Button from "../Components/ButtonCompo";
 import { NavLink } from "react-router-dom";
@@ -8,6 +9,7 @@ import Modal from "./Modal";
 import {Heading4 , Paragraph} from "./Headings";  
 import RegisterForm from "./RegisterForm";
 import RegImage from "../../assets/images/RegImage.webp";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 
 type HeaderProps = {
@@ -16,6 +18,7 @@ type HeaderProps = {
 
 const Header: React.FC<HeaderProps> = ({ variant }) => {
   const [activeModal, setActiveModal] = useState<string | null>(null);
+  const { t } = useTranslation();
 
   return (
     <>
@@ -30,11 +33,12 @@ const Header: React.FC<HeaderProps> = ({ variant }) => {
 
           {/* Navigation */}
           <nav className="ButtonRight">
+            <LanguageSwitcher />
             <Button
-              onClick={() => setActiveModal("login")} text="Login" variant="solid"
+              onClick={() => setActiveModal("login")} text={t('common.login')} variant="solid"
             />
             <Button
-              onClick={() => setActiveModal("signup")} text="Sign Up" variant="trashparent"
+              onClick={() => setActiveModal("signup")} text={t('common.signUp')} variant="trashparent"
             />
           </nav>
         </div>

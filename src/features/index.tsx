@@ -8,6 +8,7 @@ import { ActivityIcon, ShieldCheckIcon, SearchIcon } from 'lucide-animated';
 import { ImageGallery } from "./Components/Brands";
 import Card from "./Components/Cards";
 import CardSlider from "./Components/Cardslider";
+import { useTranslation } from 'react-i18next';
 
 
 import Vizualimg from "../assets/images/Vizualimg.webp";
@@ -64,6 +65,8 @@ const slides = [
 
 
 const App: React.FC = () => {
+
+  const { t } = useTranslation();
   return (
     <>
       <Header />
@@ -72,9 +75,11 @@ const App: React.FC = () => {
         {/* Herro Banner Start */}
        <section className="HeroBanner">
         <div className="container">
-            <h1>Access and verify on-chain <br/>
-              data with Sterling Fraud Solution</h1>
-            <p>Manage financial crime risk. Explore BTC addresses. Detect illicit activity</p>  
+            {/* <h1>Access and verify on-chain <br/>
+              data with Sterling Fraud Solution</h1> */}
+            <h1>{t('hero.titleLine1')} <br/>
+              {t('hero.titleLine2')}</h1>
+            <p>{t('hero.subtitle')}</p>  
               <SearchBar/>
               
         </div>
@@ -84,22 +89,22 @@ const App: React.FC = () => {
         {/* Our Solution Start */}
         <section className="Our_Solution">
            <div className="container">
-              <Heading5 text="Our Solution"/>
-              <Heading2 text="Sterling Fraud Solution is a free, easy-to-use blockchain exploratory tool for compliance teams and investigators"/>
+              <Heading5 text={t("common.ourSolution")}/>
+              <Heading2 text={t("common.aboutText")}/>
               <div className="SolutionElements">
                     <Card 
-                      title="Mitigate AML Risk" 
-                      paragraph="Understand the potential risk associated with an address to safeguard from transacting with it"
+                      title={t("common.mitigateAmlRisk")} 
+                      paragraph={t("common.addressRiskInfo")}
                       icon={<ShieldCheckIcon size={40} stroke-width="1"/>} 
                     />
                   <Card 
-                    title="Explore Addresses" 
-                    paragraph="Discover who owns an address. Register for a free account to identify up to 15 address owners daily"
+                    title={t("common.exploreBlockchainData")} 
+                    paragraph={t("common.discoverAddressOwner")}
                     icon={<SearchIcon size={40}/>} 
                   />
                   <Card 
-                    title="Explore Illicit Activity" 
-                    paragraph="Investigate an address’s transaction history to determine if it is connected to bad actors or sanctioned entities"
+                    title={t("common.detectIllicitActivity")} 
+                    paragraph={t("common.investigateAddress")}
                     icon={<ActivityIcon size={42} stroke-width="1"/>} 
                   />
               </div>

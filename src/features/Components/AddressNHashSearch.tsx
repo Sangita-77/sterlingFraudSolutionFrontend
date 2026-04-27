@@ -50,8 +50,7 @@ const SearchBar = () => {
       setIsLoading(true);
       setErrorMessage("");
       const response = await fetch(
-        // "https://dreamgroupsindia.com/dev/sterlingFraudSolutionBackend/api/blockchain/address/token-stats",     
-        `${BASE_URL}/api/blockchain/address/token-stats`,
+        `${BASE_URL}/blockchain/address/token-stats`,
         {
           method: "POST",
           headers: {

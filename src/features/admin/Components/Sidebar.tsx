@@ -1,6 +1,7 @@
 import React from "react";
 import "./Components.css";
 import { NavLink } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 import { routes } from "../../../Routes/route";
 
 import Logo from "../../../assets/images/Logo.webp";
@@ -25,23 +26,24 @@ interface SidebarProps {
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ open, toggle }) => {
+  const { t } = useTranslation();
 
   const handleClick = () => {
     setTimeout(toggle, 100);
   };
 
   const menuItems = [
-    { path: routes.DASHBOARD, label: "Dashboard", icon: DashboardIcon, end: true },
-    { path: routes.AGENTS, label: "Agents", icon: Agent },
-    { path: routes.CUSTOMERS, label: "Customers", icon: Customers },
-    { path: routes.INSURANCE, label: "Insurance", icon: Insurance },
-    { path: routes.INVESTIGATIONS, label: "Investigations", icon: Investigations },
-    { path: routes.WITHDRAWALREQUESTS, label: "Withdrawal Requests", icon: Withdrawal },
-    { path: routes.CONSULTATIONREQUESTS, label: "Consultation Requests", icon: Consultation },
-    { path: routes.COMUNICATION, label: "Communication", icon: Communication },
-    { path: routes.PERMISSIONS, label: "Permissions & Roles", icon: Permissions },
-    { path: routes.REPORTS, label: "Reports", icon: Reports },
-    { path: routes.SETTINGS, label: "Settings", icon: Settings },
+    { path: routes.DASHBOARD, label: t('nav.dashboard'), icon: DashboardIcon, end: true },
+    { path: routes.AGENTS, label: t('nav.agents'), icon: Agent },
+    { path: routes.CUSTOMERS, label: t('nav.customers'), icon: Customers },
+    { path: routes.INSURANCE, label: t('nav.insurance'), icon: Insurance },
+    { path: routes.INVESTIGATIONS, label: t('nav.investigations'), icon: Investigations },
+    { path: routes.WITHDRAWALREQUESTS, label: t('nav.withdrawalRequests'), icon: Withdrawal },
+    { path: routes.CONSULTATIONREQUESTS, label: t('nav.consultationRequests'), icon: Consultation },
+    { path: routes.COMUNICATION, label: t('nav.communication'), icon: Communication },
+    { path: routes.PERMISSIONS, label: t('nav.permissions'), icon: Permissions },
+    { path: routes.REPORTS, label: t('nav.reports'), icon: Reports },
+    { path: routes.SETTINGS, label: t('nav.settings'), icon: Settings },
   ];
 
   return (

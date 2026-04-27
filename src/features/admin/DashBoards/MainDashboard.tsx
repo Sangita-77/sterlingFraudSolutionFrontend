@@ -1,5 +1,6 @@
 import React from "react";
 // import React, { useEffect, useState } from "react";
+import { useTranslation } from 'react-i18next';
 import Card from "../Components/Card";
 import "./Dashboard.css";
 import TotalAgents from "../../../assets/images/TotalAgents.svg";
@@ -9,6 +10,7 @@ import AssignedCases from "../../../assets/images/AssignedCases.svg";
 
 
 const MainDashboard: React.FC = () => {
+  const { t } = useTranslation();
 
 
   // const [users, setUsers] = useState([]);
@@ -44,12 +46,12 @@ const MainDashboard: React.FC = () => {
     <>
     <div className="MainDashboard Dashboards">
       <div className="DashboardLeft">
-        <h2>Dashboard</h2>
+        <h2>{t('nav.dashboard')}</h2>
           {/* Cards */}
           <div className="cards">
-            <Card title="Total Agents" value="24" icon={TotalAgents} variant="blue"/>
-            <Card title="Total Users" value="1,205" icon={TotalUsers} variant="purple"/>
-            <Card title="Assigned Cases" value="128" icon={AssignedCases} variant="pink"/>
+            <Card title={t('dashboard.totalAgents')} value="24" icon={TotalAgents} variant="blue"/>
+            <Card title={t('dashboard.totalUsers')} value="1,205" icon={TotalUsers} variant="purple"/>
+            <Card title={t('dashboard.assignedCases')} value="128" icon={AssignedCases} variant="pink"/>
           </div>
       </div> 
       <div className="DashboardRight">
