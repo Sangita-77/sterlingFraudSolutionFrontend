@@ -2,6 +2,7 @@ import "./IndexComponents.css";
 import SearchIcon from "../../assets/images/HashSearchIcon.svg"
 import { useState, useEffect, useRef } from "react";
 import { BASE_URL, basename } from "../../api/config";
+import { fetchWithAuth } from "../../api/authService";
 
 interface SearchResult {
   id: number;
@@ -49,7 +50,7 @@ const SearchBar = () => {
     try {
       setIsLoading(true);
       setErrorMessage("");
-      const response = await fetch(
+      const response = await fetchWithAuth(
         `${BASE_URL}/blockchain/address/token-stats`,
         {
           method: "POST",

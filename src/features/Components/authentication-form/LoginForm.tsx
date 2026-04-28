@@ -1,6 +1,14 @@
 import React, { useState } from 'react'
 import "../IndexComponents.css"
+import { useNavigate } from "react-router-dom";
+
 import Buttons from '../ButtonCompo'
+import { BASE_URL } from "../../../api/config";
+import {
+  getAuthorizedLandingRoute,
+  saveAuthSession,
+  saveAuthUser,
+} from "../../../api/authService";
 
 type LoginProps = {
   onClose: () => void
@@ -14,7 +22,25 @@ type FormData = {
 
 type FormErrors = Partial<Record<keyof FormData, string>>;
 
+type LoginApiResponse = {
+  success: boolean;
+  message?: string;
+  accessToken?: string;
+  refreshToken?: string;
+  sessionId?: string;
+  expiresIn?: number;
+  userLanguage?: string;
+  user?: {
+    id: string;
+    name: string;
+    email: string;
+    flag: number;
+    status: number;
+  };
+};
+
 const LoginForm = ({ onClose, clickRegister, openForgetPassword }: LoginProps) => {
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState<FormData>({
     email: "",
@@ -22,11 +48,14 @@ const LoginForm = ({ onClose, clickRegister, openForgetPassword }: LoginProps) =
   });
 
   const [errors, setErrors] = useState<FormErrors>({});
+  const [submitError, setSubmitError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
     validate(name as keyof FormData, value);
+    setSubmitError("");
   };
 
   const validate = (name: keyof FormData, value: string) => {
@@ -48,20 +77,80 @@ const LoginForm = ({ onClose, clickRegister, openForgetPassword }: LoginProps) =
   };
 
   const validateAllFields = () => {
-    validate("email", formData.email);
-    validate("password", formData.password);
+    const newErrors: FormErrors = {};
+
+    if (!formData.email.trim()) {
+      newErrors.email = "This field is required";
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      newErrors.email = "Invalid email format";
+    }
+
+    if (!formData.password.trim()) {
+      newErrors.password = "This field is required";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // validateAllFields
-    if (errors.email || errors.password) return
-    if (formData.email === "" || formData.password === "") return validateAllFields()
+    if (!validateAllFields()) return;
 
-    console.log("Form Data:", formData);
-    onClose()
+    setIsSubmitting(true);
+    setSubmitError("");
+
+    try {
+      const response = await fetch(`${BASE_URL}/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: formData.email.trim(),
+          password: formData.password,
+        }),
+      });
+
+      const result: LoginApiResponse = await response.json();
+
+      if (!response.ok || !result.success || !result.user) {
+        setSubmitError(result.message || "Login failed. Please try again.");
+        return;
+      }
+
+      saveAuthUser(result.user);
+
+      if (result.userLanguage) {
+        localStorage.setItem("selectedLanguage", result.userLanguage);
+      }
+
+      if (result.accessToken && result.refreshToken && result.sessionId) {
+        saveAuthSession({
+          userId: result.user.id,
+          sessionId: result.sessionId,
+          refreshToken: result.refreshToken,
+          accessToken: result.accessToken,
+          expiresAt: result.expiresIn
+            ? Date.now() + result.expiresIn * 1000
+            : undefined,
+        });
+      }
+
+      onClose();
+      const redirectPath = getAuthorizedLandingRoute(result.user);
+
+      if (redirectPath) {
+        navigate(redirectPath);
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+      setSubmitError("Something went wrong while logging in.");
+    } finally {
+      setIsSubmitting(false);
+    }
 
   };
 
@@ -111,9 +200,16 @@ const LoginForm = ({ onClose, clickRegister, openForgetPassword }: LoginProps) =
             />
             {errors.password && <p className="error">{errors.password}</p>}
           </div>
+          {submitError && <p className="error">{submitError}</p>}
           <br />
 
-          <Buttons text="LOGIN" variant="primary" size='full' />
+          <Buttons
+            text={isSubmitting ? "LOGGING IN..." : "LOGIN"}
+            variant="primary"
+            size='full'
+            type="submit"
+            disabled={isSubmitting}
+          />
         </form>
         <div className="needHelp">
           <a href="mailto:info@sterlingfraudsolution.com" className='link-login'>Need Help ?</a>

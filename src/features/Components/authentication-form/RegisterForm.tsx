@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+
 import "../IndexComponents.css";
+import React, { useEffect, useState } from "react";
 import Buttons from "../ButtonCompo";
+import { BASE_URL } from "../../../api/config";
+import { detectLanguageByIP } from "../../../api/languageService";
 
 type FormData = {
   fullName: string;
@@ -16,11 +19,34 @@ type FormData = {
 type formProps ={
     onClose: () => void
     clickLogin: () => void
+    onSuccess: () => void
 }
 
 type FormErrors = Partial<Record<keyof FormData, string>>;
 
-const RegisterForm = ({onClose, clickLogin}: formProps) => {
+type RegisterApiResponse = {
+  success: boolean;
+  message?: string;
+  detectedLanguage?: string;
+  accessToken?: string;
+  refreshToken?: string;
+  sessionId?: string;
+  expiresIn?: number;
+      data?: {
+        _id: string;
+        userId: number;
+        detectedCountry?: string;
+        email: string;
+        name: string;
+        activity: string;
+        flag?: number;
+        status?: number;
+        sessionId?: string;
+        refreshToken?: string;
+      };
+};
+
+const RegisterForm = ({onClose, clickLogin, onSuccess}: formProps) => {
   const [formData, setFormData] = useState<FormData>({
     fullName: "",
     companyName: "",
@@ -33,6 +59,29 @@ const RegisterForm = ({onClose, clickLogin}: formProps) => {
   });
 
   const [errors, setErrors] = useState<FormErrors>({});
+  const [submitError, setSubmitError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isDetectingCountry, setIsDetectingCountry] = useState(true);
+
+  useEffect(() => {
+    const setDetectedCountry = async () => {
+      try {
+        const detectionResult = await detectLanguageByIP();
+        const detectedCountry = detectionResult?.geoData?.country?.trim();
+
+        if (detectedCountry) {
+          setFormData((prev) => ({ ...prev, country: detectedCountry }));
+          setErrors((prev) => ({ ...prev, country: "" }));
+        }
+      } catch (error) {
+        console.error("Failed to detect country:", error);
+      } finally {
+        setIsDetectingCountry(false);
+      }
+    };
+
+    setDetectedCountry();
+  }, []);
 
   const validate = (name: keyof FormData, value: string) => {
     let error = "";
@@ -69,19 +118,36 @@ const RegisterForm = ({onClose, clickLogin}: formProps) => {
 
     setFormData({ ...formData, [name]: value });
     validate(name as keyof FormData, value);
+    setSubmitError("");
 
   };
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    let newErrors: FormErrors = {};
+    const newErrors: FormErrors = {};
+    const requiredFields: Array<keyof FormData> = [
+      "fullName",
+      "country",
+      "activity",
+      "email",
+      "password",
+      "repeatPassword",
+    ];
 
-    Object.entries(formData).forEach(([key, value]) => {
-      if (!value) {
-        newErrors[key as keyof FormData] = "This field is required";
+    requiredFields.forEach((field) => {
+      if (!formData[field].trim()) {
+        newErrors[field] = "This field is required";
       }
     });
+
+    if (formData.email && !/\S+@\S+\.\S+/.test(formData.email)) {
+      newErrors.email = "Invalid email format";
+    }
+
+    if (formData.password && formData.password.length < 6) {
+      newErrors.password = "Password must be at least 6 characters";
+    }
 
     if (formData.password !== formData.repeatPassword) {
       newErrors.repeatPassword = "Passwords do not match";
@@ -89,11 +155,52 @@ const RegisterForm = ({onClose, clickLogin}: formProps) => {
 
     setErrors(newErrors);
 
-    if (Object.keys(newErrors).length === 0) {
-      console.log("Form Data:", formData);
-      onClose()
+    if (Object.keys(newErrors).length > 0) {
+      return;
     }
-    
+
+    setIsSubmitting(true);
+    setSubmitError("");
+
+    try {
+      const payload = {
+        name: formData.fullName.trim(),
+        email: formData.email.trim(),
+        password: formData.password,
+        activity: formData.activity.trim(),
+        status: 1,
+        country: formData.country.trim(),
+        companyName: formData.companyName.trim() || undefined,
+        phone: formData.phone.trim() || undefined,
+        flag: 2,
+      };
+
+      const response = await fetch(`${BASE_URL}/register`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const result: RegisterApiResponse = await response.json();
+
+      if (!response.ok || !result.success) {
+        setSubmitError(result.message || "Registration failed. Please try again.");
+        return;
+      }
+
+      if (result.detectedLanguage) {
+        localStorage.setItem("selectedLanguage", result.detectedLanguage);
+      }
+      onClose();
+      onSuccess();
+    } catch (error) {
+      console.error("Registration error:", error);
+      setSubmitError("Something went wrong while creating your account.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const redirectToLogin = () => {
@@ -157,8 +264,12 @@ const RegisterForm = ({onClose, clickLogin}: formProps) => {
                 name="country"
                 value={formData.country}
                 onChange={handleChange}
+                disabled={isDetectingCountry}
               >
                 <option value="">Select your country</option>
+                {formData.country && (
+                  <option value={formData.country}>{formData.country}</option>
+                )}
                 <option value="India">India</option>
                 <option value="USA">USA</option>
               </select>
@@ -173,6 +284,7 @@ const RegisterForm = ({onClose, clickLogin}: formProps) => {
                 onChange={handleChange}
               >
                 <option value="">Select your activity</option>
+                <option value="AA">AA</option>
                 <option value="Business">Business</option>
                 <option value="Example">Example</option>
               </select>
@@ -222,8 +334,15 @@ const RegisterForm = ({onClose, clickLogin}: formProps) => {
               )}
             </div>
           </div>
+          {submitError && <p className="error">{submitError}</p>}
             <br />
-          <Buttons text="SIGN UP" variant="primary" size="form_side_btn" />
+          <Buttons
+            text={isSubmitting ? "SIGNING UP..." : "SIGN UP"}
+            variant="primary"
+            size="form_side_btn"
+            type="submit"
+            disabled={isSubmitting}
+          />
         </form>
       </div>
     </>
