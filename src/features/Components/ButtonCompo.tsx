@@ -4,7 +4,7 @@ interface ButtonProps {
   text: string;
   icon?: React.ReactNode;
   variant?: "solid" | "trashparent" | "primary" | "danger-t" | "black-t";
-  size?: "sm" | "md" | "lg";
+  size?: "sm" | "md" | "lg" | "full" | "form_side_btn";
   iconPosition?: "left" | "right"; 
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   id?: string;

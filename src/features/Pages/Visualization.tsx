@@ -3,12 +3,11 @@ import "./VizualizationPages.css";
 import Draggable from "react-draggable";
 
 import Header from "../Components/header";
-import VisualizationCard from "../Components/VisualizationCard";
+// import VisualizationCard from "../Components/VisualizationCard";
 
 import Cursor from "../../assets/images/map/Cursor.svg";
 import Hand from "../../assets/images/map/Hand.svg";
-import Calendar from "../../assets/images/map/CalendarDots.svg";
-import MapIcon from "../../assets/images/map/MapPin.svg";
+// import Calendar from "../../assets/images/map/CalendarDots.svg";
 
 import Keyboard from "../../assets/images/map/Keyboard.svg";
 import Info from "../../assets/images/visualization/Info.svg";
@@ -17,6 +16,7 @@ import ZoomIn from "../../assets/images/map/MagnifyingGlassPlus.svg";
 
 import MapPin from "../../assets/images/map/MapPin.svg";
 import BTCAddressModel from "../Components/BTCAddressModel";
+import CustomCalendar from "../Components/Calender";
 
 interface NodeType {
   id: string;
@@ -87,24 +87,31 @@ const Visualization: React.FC = () => {
     }));
   };
 
-  const [open, setOpen] = useState(false);
+const [open, setOpen] = useState(false);
+const [isCalendarOpen, setIsCalendarOpen] = useState(false);
 
   return (
     <>
       <Header variant="colored" />
 
-      <div className="viz-card-wrapper">
+      {/* <div className="viz-card-wrapper">
         <VisualizationCard />
-      </div>
+      </div> */}
 
       <div className="viz-container">
 
         {/* Controls */}
-        <div className="viz-controls">
+        <div className="viz-shift-control">
           <img src={Cursor} onClick={() => setMode("cursor")} className={`${mode === "cursor" ? "activeControl" : ""} `} />
           <img src={Hand} onClick={() => setMode("pan")} className={`${mode === "pan" ? "activeControl" : ""}`} />
-          <img src={Calendar} />
-          <img src={MapIcon} />
+              <div>
+                  <button onClick={() => setIsCalendarOpen(true)}>Open Calendar</button>
+
+                  <CustomCalendar
+                    open={isCalendarOpen}
+                    setOpen={setIsCalendarOpen}
+                  />
+              </div>
         </div>
 
         {/* MAP */}

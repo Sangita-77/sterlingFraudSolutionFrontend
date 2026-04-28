@@ -34,7 +34,7 @@ const CardSlider: React.FC<SliderProps> = ({ items }) => {
       {/* Slider */}
       <div className="slider" ref={sliderRef}>
         <div className="slider-track">
-          {items.map((item, index, image) => (
+          {items.map((item, index) => (
             <SlideCard
               key={index}
               image={item.image}

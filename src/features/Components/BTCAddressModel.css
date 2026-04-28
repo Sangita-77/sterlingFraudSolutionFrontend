@@ -1,15 +1,13 @@
-
 .BTCModelOverlay {
     position: fixed;
-    top: 100px;
-    left: 0;
+    top: 140px;
+    left: -20px;
     width: 100%;
-    height: 90%;
+    height: 85%;
     z-index: 9999;
     display: flex;
     align-items: flex-start;
     justify-content: flex-end;
-    padding: 20px;
 }
 
 /* Modal box */
