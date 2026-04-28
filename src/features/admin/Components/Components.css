@@ -21,7 +21,7 @@
 .sidebar.open { left: 0; }
 .sidebar h2 { padding: 20px; text-align: center; }
 .sidebar ul { list-style: none; padding: 0; margin: 0; }
-.sidebar ul a { color: #fff; text-decoration: none; display: flex; padding: 18px; font: 400 17px 'var(--font-main)'; font-family: var(--font-main); align-items: center;}
+.sidebar ul a, .sidebar ul button { color: #fff; text-decoration: none; display: flex; padding: 18px; font: 400 17px 'var(--font-main)'; font-family: var(--font-main); align-items: center; width: 100%; background: transparent; border: none; cursor: pointer; text-align: left;}
 .sidebar li a:hover {box-shadow: inset 3px -1px 25px 3px #0066ff3b ;}
 .sidebar a.active {box-shadow: inset 42px -19px 34px -14px #0066ffba, inset 3px -1px 5px 0px #ffffff9c, inset 9px -4px 12px -7px #ffffff, -263px 3px 81px 31px #ffffff73, -106px 3px 100px 10px #1000ff;}
 /* Close button */

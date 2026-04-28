@@ -8,6 +8,8 @@ interface ButtonProps {
   iconPosition?: "left" | "right"; 
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   id?: string;
+  type?: "button" | "submit" | "reset";
+  disabled?: boolean;
 }
 
 const Buttons: React.FC<ButtonProps> = ({
@@ -17,9 +19,16 @@ const Buttons: React.FC<ButtonProps> = ({
   variant = "trashparent",
   size = "md",
   iconPosition = "left",
+  type = "button",
+  disabled = false,
 }) => {
   return (
-    <button className={`compoBtn ${variant} ${size}`} onClick={onClick}>
+    <button
+      className={`compoBtn ${variant} ${size}`}
+      onClick={onClick}
+      type={type}
+      disabled={disabled}
+    >
       <span>
         {iconPosition === "left" && icon}
         {text}

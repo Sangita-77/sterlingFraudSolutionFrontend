@@ -1,5 +1,4 @@
 import { useTranslation } from 'react-i18next';
-import { useLanguage } from '../contexts/LanguageContext';
 
 interface TranslationHelperProps {
   text: string;

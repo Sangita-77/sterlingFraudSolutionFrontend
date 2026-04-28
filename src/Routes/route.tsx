@@ -18,4 +18,12 @@ VIZUALIZATION: "/visualization/new/id:jkhmgkj",
   SETTINGS: "/admin/settings",
   LOGOUT: "/admin",
 
+  AGENT_DASHBOARD: "/agent",
+  AGENT_REPORTS: "/agent/reports",
+  AGENT_SETTINGS: "/agent/settings",
+
+  CUSTOMER_DASHBOARD: "/customer",
+  CUSTOMER_REPORTS: "/customer/reports",
+  CUSTOMER_SETTINGS: "/customer/settings",
+
 };

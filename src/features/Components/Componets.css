@@ -314,3 +314,29 @@
     border: 1px solid #939292;
     border-radius: 4px;
 }
+
+.authModal .registerSuccess {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 220px;
+}
+
+.authModal .registerSuccessCard {
+    width: 100%;
+    text-align: center;
+}
+
+.authModal .registerSuccessCard h3 {
+    font-size: 28px;
+    color: #000000;
+    margin-bottom: 14px;
+}
+
+.authModal .registerSuccessCard p {
+    font-size: 16px;
+    color: #6B7280;
+    max-width: 380px;
+    margin: 0 auto 24px;
+    line-height: 1.6;
+}

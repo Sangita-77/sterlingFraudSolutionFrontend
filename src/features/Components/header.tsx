@@ -1,16 +1,23 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./IndexComponents.css";
 import Logo from "../../assets/LogoW.webp";
 import Button from "../Components/ButtonCompo";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { routes } from "../../Routes/route";
 import AuthenticationModel from "./AuthenticationModels";
 import RegisterForm from "./authentication-form/RegisterForm";
 import LoginForm from "./authentication-form/LoginForm";
 import ForgetPasswordForm from "./authentication-form/ForgetPaswordForm";
 import SendCode from "./authentication-form/SendCode";
+import RegisterSuccess from "./authentication-form/RegisterSuccess";
 import LanguageSwitcher from "./LanguageSwitcher";
 import { useTranslation } from 'react-i18next';
+import {
+  getAuthUser,
+  getAuthorizedLandingRoute,
+  logoutUser,
+  subscribeToAuthChanges,
+} from "../../api/authService";
 
 
 
@@ -20,14 +27,51 @@ type HeaderProps = {
 
 
 const Header: React.FC<HeaderProps> = ({ variant }) => {
-
+  const navigate = useNavigate();
   const { t } = useTranslation();
 
   const [isRegisterModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState<boolean>(false);
   const [isForgetPasswordModelOpen, setIsForgetPasswordModelOpen] = useState(false);
   const [isSendCodeModelOpen, setIsSendCodeModelOpen] = useState(false);
-  
+  const [isRegisterSuccessOpen, setIsRegisterSuccessOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(Boolean(getAuthUser()));
+
+  useEffect(() => {
+    const syncAuthState = () => {
+      setIsLoggedIn(Boolean(getAuthUser()));
+    };
+
+    const unsubscribe = subscribeToAuthChanges(syncAuthState);
+    window.addEventListener("storage", syncAuthState);
+
+    return () => {
+      unsubscribe();
+      window.removeEventListener("storage", syncAuthState);
+    };
+  }, []);
+
+  const handleDashboardClick = () => {
+    const nextRoute = getAuthorizedLandingRoute(getAuthUser());
+    if (nextRoute) {
+      navigate(nextRoute);
+    }
+  };
+
+  const handleLogout = async () => {
+    await logoutUser(true);
+    navigate(routes.VERIFYCHAIN);
+  };
+
+  const handleRegisterSuccess = () => {
+    setIsRegisterSuccessOpen(true);
+  };
+
+  const handleSuccessLogin = () => {
+    setIsRegisterSuccessOpen(false);
+    setIsLoginModalOpen(true);
+  };
+
   return (
     <>
       <header className={`header ${variant}`} >
@@ -43,8 +87,17 @@ const Header: React.FC<HeaderProps> = ({ variant }) => {
           {/* Navigation */}
           <nav className="ButtonRight">
             <LanguageSwitcher />
-            <Button text={t('common.login')} variant="solid" size="md" onClick={() => setIsLoginModalOpen(true)} />
-            <Button text={t('common.signUp')} variant="trashparent" size="md" onClick={() => setIsModalOpen(true)} />
+            {isLoggedIn ? (
+              <>
+                <Button text="Dashboard" variant="solid" size="md" onClick={handleDashboardClick} />
+                <Button text="Logout" variant="trashparent" size="md" onClick={handleLogout} />
+              </>
+            ) : (
+              <>
+                <Button text={t('common.login')} variant="solid" size="md" onClick={() => setIsLoginModalOpen(true)} />
+                <Button text={t('common.signUp')} variant="trashparent" size="md" onClick={() => setIsModalOpen(true)} />
+              </>
+            )}
           </nav>
         </div>
       </header>
@@ -59,9 +112,25 @@ const Header: React.FC<HeaderProps> = ({ variant }) => {
         titleSize="register-title"
         imageSize="register-left-image"
         spaceInput="register-space"
-        formComponents={<RegisterForm onClose={() => setIsModalOpen(false)} clickLogin={() => setIsLoginModalOpen(true)} />}
+        formComponents={
+          <RegisterForm
+            onClose={() => setIsModalOpen(false)}
+            clickLogin={() => setIsLoginModalOpen(true)}
+            onSuccess={handleRegisterSuccess}
+          />
+        }
 
         
+      />
+      <AuthenticationModel
+        isOpen={isRegisterSuccessOpen}
+        onClose={() => setIsRegisterSuccessOpen(false)}
+        title="Success"
+        size="login"
+        titleSize="login-title"
+        imageSize="login-left-image"
+        spaceInput="login-space"
+        formComponents={<RegisterSuccess onLogin={handleSuccessLogin} />}
       />
       {/* Login Model */}
       <AuthenticationModel

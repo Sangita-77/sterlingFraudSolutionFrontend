@@ -16,6 +16,16 @@ import PermissionsRoles from "./features/admin/DashBoards/PermissionsRoles";
 import Reports from "./features/admin/DashBoards/Reports"; 
 import Settings from "./features/admin/DashBoards/Settings"; 
 import Visualization from "./features/Pages/Visualization";
+import ProtectedRoleRoute from "./Routes/ProtectedRoleRoute";
+import AgentDashboardLayOut from "./features/agent/Layout/AgentDashboardLayOut";
+import AgentMainDashboard from "./features/agent/DashBoards/AgentMainDashboard";
+import AgentReports from "./features/agent/DashBoards/AgentReports";
+import AgentSettings from "./features/agent/DashBoards/AgentSettings";
+import CustomerDashboardLayOut from "./features/customer/Layout/CustomerDashboardLayOut";
+import CustomerMainDashboard from "./features/customer/DashBoards/CustomerMainDashboard";
+import CustomerReports from "./features/customer/DashBoards/CustomerReports";
+import CustomerSettings from "./features/customer/DashBoards/CustomerSettings";
+import { routes } from "./Routes/route";
 
 
 function App() {
@@ -37,21 +47,36 @@ function App() {
           {/* User End */}
 
           {/* Super-Admin Start */}
-          <Route path="/admin" element={<DashboardLayout/>}>
-          <Route index element={<MainDashboard/>} />
-          <Route path="/admin/agents" element={<Agents/>} />
-          <Route path="/admin/customers" element={<Customers/>} />
-          <Route path="/admin/investigations" element={<Investigations/>} />
-          <Route path="/admin/insurance" element={<Insurance/>} />
-          <Route path="/admin/withdrawal-requests" element={<WithdrawalRequests/>} />
-          <Route path="/admin/consultation-requests" element={<ConsultationRequests/>} />
-          <Route path="/admin/communication" element={<Communication/>} />
-          <Route path="/admin/permissions" element={<PermissionsRoles/>} />
-          <Route path="/admin/reports" element={<Reports/>} />
-          <Route path="/admin/settings" element={<Settings/>} />
-          {/* Super-Admin Start */}
-
-        </Route>
+          <Route element={<ProtectedRoleRoute routeType="admin" />}>
+            <Route path={routes.DASHBOARD} element={<DashboardLayout/>}>
+              <Route index element={<MainDashboard/>} />
+              <Route path={routes.AGENTS} element={<Agents/>} />
+              <Route path={routes.CUSTOMERS} element={<Customers/>} />
+              <Route path={routes.INVESTIGATIONS} element={<Investigations/>} />
+              <Route path={routes.INSURANCE} element={<Insurance/>} />
+              <Route path={routes.WITHDRAWALREQUESTS} element={<WithdrawalRequests/>} />
+              <Route path={routes.CONSULTATIONREQUESTS} element={<ConsultationRequests/>} />
+              <Route path={routes.COMUNICATION} element={<Communication/>} />
+              <Route path={routes.PERMISSIONS} element={<PermissionsRoles/>} />
+              <Route path={routes.REPORTS} element={<Reports/>} />
+              <Route path={routes.SETTINGS} element={<Settings/>} />
+              {/* Super-Admin Start */}
+            </Route>
+          </Route>
+          <Route element={<ProtectedRoleRoute routeType="agent" />}>
+            <Route path={routes.AGENT_DASHBOARD} element={<AgentDashboardLayOut />}>
+              <Route index element={<AgentMainDashboard />} />
+              <Route path={routes.AGENT_REPORTS} element={<AgentReports />} />
+              <Route path={routes.AGENT_SETTINGS} element={<AgentSettings />} />
+            </Route>
+          </Route>
+          <Route element={<ProtectedRoleRoute routeType="customer" />}>
+            <Route path={routes.CUSTOMER_DASHBOARD} element={<CustomerDashboardLayOut />}>
+              <Route index element={<CustomerMainDashboard />} />
+              <Route path={routes.CUSTOMER_REPORTS} element={<CustomerReports />} />
+              <Route path={routes.CUSTOMER_SETTINGS} element={<CustomerSettings />} />
+            </Route>
+          </Route>
       </Routes>
   );
 }
