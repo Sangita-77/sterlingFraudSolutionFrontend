@@ -24,13 +24,10 @@ type HeaderProps = {
   variant?: "transparent" | "colored";
 };
 
-<<<<<<< HEAD
 const Header: React.FC<HeaderProps> = ({ variant }: any) => {
-=======
 const Header: React.FC<HeaderProps> = ({ variant }) => {
   const [activeModal, setActiveModal] = useState<string | null>(null);
   const { t } = useTranslation();
->>>>>>> 4e6051c3a2a207a1b6c57886664634423361b3d4
 
   const [isRegisterModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState<boolean>(false);
