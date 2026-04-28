@@ -147,31 +147,39 @@ const handleRangeSelect = (day: number, type: string) => {
                     toDate &&
                     cellDate > fromDate &&
                     cellDate < toDate;
+                    
+                const isFuture = cellDate > today;
 
                 return (
                     <div
-                    key={i}
-                    style={{
-                    ...styles.day,
-                    background:
-                        isStart || isEnd
-                        ? "#4CAF50"
-                        : isInRange
-                        ? "#A5D6A7"
-                        : isToday
-                        ? "#2196F3"   
-                        : "#eee",
+                      key={i}
+                      style={{
+                        ...styles.day,
+                        background:
+                          isStart || isEnd
+                            ? "#4CAF50"
+                            : isInRange
+                            ? "#A5D6A7"
+                            : isToday
+                            ? "#2196F3"
+                            : "#eee",
 
-                    color:
-                        isStart || isEnd
-                        ? "#fff"
-                        : item.type === "prev" || item.type === "next"
-                        ? "#aaa"
-                        : "#000",
-                    }}
-                    onClick={() => handleRangeSelect(item.day, item.type)}
+                        color:
+                          isStart || isEnd
+                            ? "#fff"
+                            : item.type === "prev" || item.type === "next"
+                            ? "#aaa"
+                            : isFuture
+                            ? "#ccc"
+                            : "#000",
+                            opacity: isFuture ? 0.5 : 1,
+                      }}
+                      onClick={() => {
+                        if (isFuture) return;
+                        handleRangeSelect(item.day, item.type);
+                      }}
                     >
-                    {item.day}
+                      {item.day}
                     </div>
                 );
                 })}

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "../Componets.css";
+import "../IndexComponents.css";
 import Buttons from '../ButtonCompo';
 
 

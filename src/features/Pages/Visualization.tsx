@@ -7,7 +7,7 @@ import Header from "../Components/header";
 
 import Cursor from "../../assets/images/map/Cursor.svg";
 import Hand from "../../assets/images/map/Hand.svg";
-// import Calendar from "../../assets/images/map/CalendarDots.svg";
+import Calendar from "../../assets/images/map/CalendarDots.svg";
 
 import Keyboard from "../../assets/images/map/Keyboard.svg";
 import Info from "../../assets/images/visualization/Info.svg";
@@ -105,8 +105,9 @@ const [isCalendarOpen, setIsCalendarOpen] = useState(false);
           <img src={Cursor} onClick={() => setMode("cursor")} className={`${mode === "cursor" ? "activeControl" : ""} `} />
           <img src={Hand} onClick={() => setMode("pan")} className={`${mode === "pan" ? "activeControl" : ""}`} />
               <div>
-                  <button onClick={() => setIsCalendarOpen(true)}>Open Calendar</button>
-
+              <button onClick={() => setIsCalendarOpen(true)}>
+                <img src={Calendar}/>
+              </button>
                   <CustomCalendar
                     open={isCalendarOpen}
                     setOpen={setIsCalendarOpen}

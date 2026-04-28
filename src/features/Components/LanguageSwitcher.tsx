@@ -2,7 +2,7 @@ import React from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { useTranslation } from 'react-i18next';
 import type { SupportedLanguage } from '../../api/languageService';
-import './LanguageSwitcher.css';
+import './IndexComponents.css';
 
 const LanguageSwitcher: React.FC = () => {
   const { currentLanguage, setLanguage, detectedLanguage } = useLanguage();
@@ -22,9 +22,6 @@ const LanguageSwitcher: React.FC = () => {
 
   return (
     <div className="language-switcher">
-      <label htmlFor="language-select" className="language-label">
-        {t('common.selectLanguage')}
-      </label>
       <select
         id="language-select"
         value={currentLanguage}

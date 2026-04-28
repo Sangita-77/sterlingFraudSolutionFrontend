@@ -1,5 +1,5 @@
-import React, { useRef } from 'react'
-import Buttons from '../ButtonCompo'
+import React, { useRef } from 'react';
+import Buttons from '../ButtonCompo';
 
 type Props = {
     onClose: () => void

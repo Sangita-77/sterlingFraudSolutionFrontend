@@ -1,5 +1,5 @@
 import React from "react";
-import "./Componets.css";
+import "./IndexComponents.css";
 import leftImage from "../../assets/images/authentication-left-image.svg";
 import X from "../../assets/images/X.svg"
 

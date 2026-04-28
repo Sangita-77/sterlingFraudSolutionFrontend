@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../Componets.css";
+import "../IndexComponents.css";
 import Buttons from "../ButtonCompo";
 
 type FormData = {

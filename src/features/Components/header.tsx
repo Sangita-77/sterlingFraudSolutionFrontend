@@ -42,9 +42,9 @@ const Header: React.FC<HeaderProps> = ({ variant }) => {
 
           {/* Navigation */}
           <nav className="ButtonRight">
-            <LanguageSwitcher />
             <Button text={t('common.login')} variant="solid" size="md" onClick={() => setIsLoginModalOpen(true)} />
             <Button text={t('common.signUp')} variant="trashparent" size="md" onClick={() => setIsModalOpen(true)} />
+            <LanguageSwitcher />
           </nav>
         </div>
       </header>

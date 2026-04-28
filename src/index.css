@@ -32,7 +32,6 @@ main .container{width: 90%; margin: 0 auto;}
 /* SignUp Modal */
 .signup.FormWarp{display: flex;}
 .signup.FormWarp .signupBackground{background: linear-gradient(15deg, #1A0B60, #2A36A5, #2618A9); padding: 65px 35px;}
-
 /* Hero Banner End*/
 
 /* Our Solution Start */
