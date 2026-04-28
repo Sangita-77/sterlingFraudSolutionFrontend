@@ -1,20 +1,36 @@
 import "./IndexComponents.css";
+import { useTranslation } from 'react-i18next';
 import Logo from "../../assets/LogoW.webp";
 import Button from "../Components/ButtonCompo";
 import { NavLink } from "react-router-dom";
 import { routes } from "../../Routes/route";
+<<<<<<< HEAD
 import AuthenticationModel from "./AuthenticationModels";
 import RegisterForm from "./authentication-form/RegisterForm";
 import LoginForm from "./authentication-form/LoginForm";
 import { useState } from "react";
 import ForgetPasswordForm from "./authentication-form/ForgetPaswordForm";
 import SendCode from "./authentication-form/SendCode";
+=======
+import Modal from "./Modal";
+import {Heading4 , Paragraph} from "./Headings";  
+import RegisterForm from "./RegisterForm";
+import RegImage from "../../assets/images/RegImage.webp";
+import LanguageSwitcher from "./LanguageSwitcher";
+
+>>>>>>> 4e6051c3a2a207a1b6c57886664634423361b3d4
 
 type HeaderProps = {
   variant?: "transparent" | "colored";
 };
 
+<<<<<<< HEAD
 const Header: React.FC<HeaderProps> = ({ variant }: any) => {
+=======
+const Header: React.FC<HeaderProps> = ({ variant }) => {
+  const [activeModal, setActiveModal] = useState<string | null>(null);
+  const { t } = useTranslation();
+>>>>>>> 4e6051c3a2a207a1b6c57886664634423361b3d4
 
   const [isRegisterModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState<boolean>(false);
@@ -35,8 +51,18 @@ const Header: React.FC<HeaderProps> = ({ variant }: any) => {
 
           {/* Navigation */}
           <nav className="ButtonRight">
+<<<<<<< HEAD
             <Button text="Login" variant="solid" size="md" onClick={() => setIsLoginModalOpen(true)} />
             <Button text="Sign Up" variant="trashparent" size="md" onClick={() => setIsModalOpen(true)} />
+=======
+            <LanguageSwitcher />
+            <Button
+              onClick={() => setActiveModal("login")} text={t('common.login')} variant="solid"
+            />
+            <Button
+              onClick={() => setActiveModal("signup")} text={t('common.signUp')} variant="trashparent"
+            />
+>>>>>>> 4e6051c3a2a207a1b6c57886664634423361b3d4
           </nav>
         </div>
       </header>

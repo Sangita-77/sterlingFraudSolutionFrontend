@@ -1,0 +1,50 @@
+{
+  "common": {
+    "language": "Lingua",
+    "selectLanguage": "Seleziona lingua",
+    "english": "English",
+    "french": "Français",
+    "german": "Deutsch",
+    "italian": "Italiano",
+    "login": "Accedi",
+    "signUp": "Registrati",
+    "ourSolution": "La nostra soluzione",
+    "aboutText": "Sterling Fraud Solution è uno strumento di analisi blockchain gratuito e facile da usare per i team di conformità e gli investigatori",
+    "mitigateAmlRisk": "Mitigare il rischio AML",
+    "exploreBlockchainData": "Esplora indirizzi",
+    "detectIllicitActivity": "Esplora attività illecite",
+    "addressRiskInfo": "Comprendi i potenziali rischi associati a un indirizzo per evitare di effettuare transazioni con esso",
+    "discoverAddressOwner": "Scopri chi possiede un indirizzo. Registrati gratuitamente per identificare fino a 15 proprietari di indirizzi al giorno",
+    "investigateAddress": "Analizza la cronologia delle transazioni di un indirizzo per determinare se è collegato a attori malevoli o entità sanzionate"
+  },
+  "hero": {
+    "titleLine1": "Accedere e verificare on-chain",
+    "titleLine2": "dati con Sterling Fraud Solution",
+    "subtitle": "Gestire il rischio di criminalità finanziaria. Esplorare indirizzi BTC. Rilevare attività illecite"
+  },
+  "nav": {
+    "home": "Home",
+    "dashboard": "Dashboard",
+    "agents": "Agenti",
+    "customers": "Clienti",
+    "investigations": "Indagini",
+    "insurance": "Assicurazione",
+    "withdrawalRequests": "Richieste di prelievo",
+    "consultationRequests": "Richieste di consultazione",
+    "communication": "Comunicazione",
+    "permissions": "Autorizzazioni e ruoli",
+    "reports": "Rapporti",
+    "settings": "Impostazioni",
+    "visualization": "Visualizzazione"
+  },
+  "messages": {
+    "welcome": "Benvenuto in Sterling Fraud Solutions",
+    "selectYourLanguage": "Seleziona la tua lingua preferita",
+    "languageDetected": "Lingua rilevata automaticamente in base alla tua posizione"
+  },
+  "dashboard": {
+    "totalAgents": "Totale Agenti",
+    "totalUsers": "Totale Utenti",
+    "assignedCases": "Casi Assegnati"
+  }
+}

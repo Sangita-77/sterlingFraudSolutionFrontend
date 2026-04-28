@@ -10,11 +10,15 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "i18next": "^26.0.8",
+    "i18next-browser-languagedetector": "^8.2.1",
+    "i18next-http-backend": "^3.0.6",
     "lucide-animated": "^1.0.0",
     "motion": "^12.38.0",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "react-draggable": "^4.5.0",
+    "react-i18next": "^17.0.4",
     "react-router-dom": "^7.13.1"
   },
   "devDependencies": {

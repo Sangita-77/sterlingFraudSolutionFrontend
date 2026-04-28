@@ -1,0 +1,50 @@
+{
+  "common": {
+    "language": "Sprache",
+    "selectLanguage": "Sprache wählen",
+    "english": "English",
+    "french": "Français",
+    "german": "Deutsch",
+    "italian": "Italiano",
+    "login": "Anmelden",
+    "signUp": "Registrieren",
+    "ourSolution": "Unsere Lösung",
+    "aboutText": "Sterling Fraud Solution ist ein kostenloses und benutzerfreundliches Blockchain-Analyse-Tool für Compliance-Teams und Ermittler",
+    "mitigateAmlRisk": "AML-Risiken mindern",
+    "exploreBlockchainData": "Adressen erkunden",
+    "detectIllicitActivity": "Illegale Aktivitäten erkunden",
+    "addressRiskInfo": "Verstehen Sie die potenziellen Risiken einer Adresse, um Transaktionen mit ihr zu vermeiden",
+    "discoverAddressOwner": "Finden Sie heraus, wem eine Adresse gehört. Registrieren Sie sich kostenlos, um täglich bis zu 15 Adressinhaber zu identifizieren",
+    "investigateAddress": "Untersuchen Sie die Transaktionshistorie einer Adresse, um festzustellen, ob sie mit kriminellen Akteuren oder sanktionierten Einheiten verbunden ist"
+  },
+  "hero": {
+    "titleLine1": "Zugriff und Überprüfung auf der Kette",
+    "titleLine2": "Daten mit Sterling Fraud Solution",
+    "subtitle": "Finanzkriminalitätsrisiko verwalten. BTC-Adressen erkunden. Illegale Aktivitäten erkennen"
+  },
+  "nav": {
+    "home": "Startseite",
+    "dashboard": "Armaturenbrett",
+    "agents": "Agenten",
+    "customers": "Kunden",
+    "investigations": "Ermittlungen",
+    "insurance": "Versicherung",
+    "withdrawalRequests": "Auszahlungsanforderungen",
+    "consultationRequests": "Konsultationsanforderungen",
+    "communication": "Kommunikation",
+    "permissions": "Berechtigungen und Rollen",
+    "reports": "Berichte",
+    "settings": "Einstellungen",
+    "visualization": "Visualisierung"
+  },
+  "messages": {
+    "welcome": "Willkommen bei Sterling Fraud Solutions",
+    "selectYourLanguage": "Wählen Sie Ihre bevorzugte Sprache",
+    "languageDetected": "Sprache automatisch basierend auf Ihrem Standort erkannt"
+  },
+  "dashboard": {
+    "totalAgents": "Gesamtanzahl Agenten",
+    "totalUsers": "Gesamtanzahl Benutzer",
+    "assignedCases": "Zugewiesene Fälle"
+  }
+}

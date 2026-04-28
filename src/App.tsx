@@ -1,4 +1,7 @@
+import { useEffect } from 'react';
 import {Routes, Route } from "react-router-dom";
+import i18next from 'i18next';
+import { useLanguage } from './contexts/LanguageContext';
 import Index from "./features/index";
 import DashboardLayout from "./features/admin/Layout/DashboardLayout";
 import MainDashboard from "./features/admin/DashBoards/MainDashboard";
@@ -16,6 +19,13 @@ import Visualization from "./features/Pages/Visualization";
 
 
 function App() {
+  const { currentLanguage } = useLanguage();
+
+  // Update i18n language when currentLanguage changes
+  useEffect(() => {
+    i18next.changeLanguage(currentLanguage);
+  }, [currentLanguage]);
+
   return (
       <Routes>
          {/* Index Start */}
