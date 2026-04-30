@@ -1,12 +1,24 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import Buttons from '../ButtonCompo';
+import { BASE_URL } from '../../../api/config';
 
 type Props = {
     onClose: () => void
+    email: string
+    onSuccess: () => void
 }
 
-const SendCode = ({ onClose }: Props) => {
+type VerifyOtpApiResponse = {
+    success: boolean;
+    message?: string;
+    userId?: string;
+}
+
+const SendCode = ({ onClose, email, onSuccess }: Props) => {
     const inputs = useRef<(HTMLInputElement | null)[]>([])
+    const [error, setError] = useState("")
+    const [isSubmitting, setIsSubmitting] = useState(false)
+    const [isResending, setIsResending] = useState(false)
 
     const handleChange = (
         e: React.ChangeEvent<HTMLInputElement>,
@@ -16,6 +28,8 @@ const SendCode = ({ onClose }: Props) => {
 
         // Allow only numbers
         if (!/^[0-9]?$/.test(value)) return
+
+        setError("")
 
         if (value && index < 5) {
             inputs.current[index + 1]?.focus()
@@ -32,16 +46,82 @@ const SendCode = ({ onClose }: Props) => {
     }
 
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
 
         const code = inputs.current
             .map((input) => input?.value || '')
             .join('')
-        console.log('Entered Code:', code)
 
-        onClose()
+        if (code.length !== 6) {
+            setError("Please enter the 6 digit code.")
+            return
+        }
 
+        if (!email) {
+            setError("Email is missing. Please request a new code.")
+            return
+        }
+
+        setIsSubmitting(true)
+        setError("")
+
+        try {
+            const response = await fetch(`${BASE_URL}/verify-otp`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    email,
+                    code,
+                }),
+            })
+
+            const result: VerifyOtpApiResponse = await response.json()
+
+            if (!response.ok || !result.success) {
+                setError(result.message || "Invalid code. Please try again.")
+                return
+            }
+
+            onClose()
+            onSuccess()
+        } catch (error) {
+            console.error("Verify OTP error:", error)
+            setError("Something went wrong while verifying the code.")
+        } finally {
+            setIsSubmitting(false)
+        }
+
+    }
+
+    const handleResend = async () => {
+        if (!email || isResending) return
+
+        setIsResending(true)
+        setError("")
+
+        try {
+            const response = await fetch(`${BASE_URL}/send-code`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ email }),
+            })
+
+            const result: VerifyOtpApiResponse = await response.json()
+
+            if (!response.ok || !result.success) {
+                setError(result.message || "Unable to resend verification code.")
+            }
+        } catch (error) {
+            console.error("Resend code error:", error)
+            setError("Something went wrong while resending the code.")
+        } finally {
+            setIsResending(false)
+        }
     }
 
     return (
@@ -62,18 +142,28 @@ const SendCode = ({ onClose }: Props) => {
                                 onChange={(e) => handleChange(e, i)}
                                 onKeyDown={(e) => handleKeyDown(e, i)}
                                 className="sendCodeBox"
+                                disabled={isSubmitting}
                             />
                         ))}
                     </div>
+                    {error && <p className="error">{error}</p>}
 
-                    <Buttons text="VERIFY" variant="primary" size="full" />
+                    <Buttons
+                        text={isSubmitting ? "VERIFYING..." : "VERIFY"}
+                        variant="primary"
+                        size="full"
+                        type="submit"
+                        disabled={isSubmitting}
+                    />
                 </form>
 
                 <div className="needHelp">
                     <span className="link-sendCode dontReceiveCode">
                         Didn't receive the code?
                     </span>
-                    <span className="link-sendCode">Resend</span>
+                    <span className="link-sendCode" onClick={handleResend}>
+                        {isResending ? "Resending..." : "Resend"}
+                    </span>
                 </div>
             </div>
         </>

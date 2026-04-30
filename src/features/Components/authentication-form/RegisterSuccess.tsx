@@ -4,17 +4,20 @@ import Buttons from "../ButtonCompo";
 
 type RegisterSuccessProps = {
   onLogin: () => void;
+  title?: string;
+  message?: string;
 };
 
-const RegisterSuccess: React.FC<RegisterSuccessProps> = ({ onLogin }) => {
+const RegisterSuccess: React.FC<RegisterSuccessProps> = ({
+  onLogin,
+  title = "Registration Successful",
+  message = "Your account has been created successfully. Please login with your credentials to continue.",
+}) => {
   return (
     <div className="registerSuccess">
       <div className="registerSuccessCard">
-        <h3>Registration Successful</h3>
-        <p>
-          Your account has been created successfully. Please login with your
-          credentials to continue.
-        </p>
+        <h3>{title}</h3>
+        <p>{message}</p>
         <Buttons
           text="LOGIN NOW"
           variant="primary"

@@ -9,6 +9,7 @@ import RegisterForm from "./authentication-form/RegisterForm";
 import LoginForm from "./authentication-form/LoginForm";
 import ForgetPasswordForm from "./authentication-form/ForgetPaswordForm";
 import SendCode from "./authentication-form/SendCode";
+import ResetPasswordForm from "./authentication-form/ResetPasswordForm";
 import RegisterSuccess from "./authentication-form/RegisterSuccess";
 import LanguageSwitcher from "./LanguageSwitcher";
 import { useTranslation } from 'react-i18next';
@@ -34,7 +35,14 @@ const Header: React.FC<HeaderProps> = ({ variant }) => {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState<boolean>(false);
   const [isForgetPasswordModelOpen, setIsForgetPasswordModelOpen] = useState(false);
   const [isSendCodeModelOpen, setIsSendCodeModelOpen] = useState(false);
+  const [isResetPasswordModelOpen, setIsResetPasswordModelOpen] = useState(false);
   const [isRegisterSuccessOpen, setIsRegisterSuccessOpen] = useState(false);
+  const [forgotPasswordEmail, setForgotPasswordEmail] = useState("");
+  const [successContent, setSuccessContent] = useState({
+    title: "Registration Successful",
+    message:
+      "Your account has been created successfully. Please login with your credentials to continue.",
+  });
   const [isLoggedIn, setIsLoggedIn] = useState(Boolean(getAuthUser()));
 
   useEffect(() => {
@@ -64,12 +72,36 @@ const Header: React.FC<HeaderProps> = ({ variant }) => {
   };
 
   const handleRegisterSuccess = () => {
+    setSuccessContent({
+      title: "Registration Successful",
+      message:
+        "Your account has been created successfully. Please login with your credentials to continue.",
+    });
     setIsRegisterSuccessOpen(true);
   };
 
   const handleSuccessLogin = () => {
     setIsRegisterSuccessOpen(false);
     setIsLoginModalOpen(true);
+  };
+
+  const handleSendCodeOpen = (email: string) => {
+    setForgotPasswordEmail(email);
+    setIsSendCodeModelOpen(true);
+  };
+
+  const handleOtpVerified = () => {
+    setIsResetPasswordModelOpen(true);
+  };
+
+  const handleResetPasswordSuccess = () => {
+    setForgotPasswordEmail("");
+    setSuccessContent({
+      title: "Password Reset Successful",
+      message:
+        "Password reset successfully. Please login with your new credentials.",
+    });
+    setIsRegisterSuccessOpen(true);
   };
 
   return (
@@ -130,7 +162,13 @@ const Header: React.FC<HeaderProps> = ({ variant }) => {
         titleSize="login-title"
         imageSize="login-left-image"
         spaceInput="login-space"
-        formComponents={<RegisterSuccess onLogin={handleSuccessLogin} />}
+        formComponents={
+          <RegisterSuccess
+            onLogin={handleSuccessLogin}
+            title={successContent.title}
+            message={successContent.message}
+          />
+        }
       />
       {/* Login Model */}
       <AuthenticationModel
@@ -154,7 +192,7 @@ const Header: React.FC<HeaderProps> = ({ variant }) => {
         titleSize="forgetPassword-title"
         imageSize="forgetPassword-left-image"
         spaceInput="forgetPassword-space"
-        formComponents={<ForgetPasswordForm onClose={() => setIsForgetPasswordModelOpen(false)} openSendCode={() => setIsSendCodeModelOpen(true)} />}
+        formComponents={<ForgetPasswordForm onClose={() => setIsForgetPasswordModelOpen(false)} openSendCode={handleSendCodeOpen} />}
       />
 
       {/* Send Code Model */}
@@ -168,7 +206,32 @@ const Header: React.FC<HeaderProps> = ({ variant }) => {
         imageSize="sendCode-left-image"
         spaceInput="sendCode-space"
         formSize="sendCode-form"
-        formComponents={<SendCode onClose={() => setIsSendCodeModelOpen(false)} />}
+        formComponents={
+          <SendCode
+            onClose={() => setIsSendCodeModelOpen(false)}
+            email={forgotPasswordEmail}
+            onSuccess={handleOtpVerified}
+          />
+        }
+      />
+
+      {/* Reset Password Model */}
+
+      <AuthenticationModel
+        isOpen={isResetPasswordModelOpen}
+        onClose={() => setIsResetPasswordModelOpen(false)}
+        title="Reset Password"
+        size="login"
+        titleSize="login-title"
+        imageSize="login-left-image"
+        spaceInput="login-space"
+        formComponents={
+          <ResetPasswordForm
+            onClose={() => setIsResetPasswordModelOpen(false)}
+            email={forgotPasswordEmail}
+            onSuccess={handleResetPasswordSuccess}
+          />
+        }
       />
     </>
   );

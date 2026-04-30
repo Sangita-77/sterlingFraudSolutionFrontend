@@ -1,6 +1,7 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import "../IndexComponents.css";
 import Buttons from '../ButtonCompo';
+import { BASE_URL } from "../../../api/config";
 
 
 
@@ -11,7 +12,13 @@ type FormErrors = Partial<Record<keyof FormData, string>>;
 
 type ForgetPasswordFormProps = {
   onClose: () => void;
-  openSendCode: () => void
+  openSendCode: (email: string) => void
+};
+
+type SendCodeApiResponse = {
+    success: boolean;
+    message?: string;
+    expiresIn?: number;
 };
 
 
@@ -22,11 +29,14 @@ const ForgetPasswordForm = ({ onClose , openSendCode }: ForgetPasswordFormProps)
     });
 
     const [errors, setErrors] = useState<FormErrors>({});
+    const [submitError, setSubmitError] = useState("");
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
-    const handleChange = (e: any) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
         validate(name as keyof FormData, value);
+        setSubmitError("");
     };
 
     const validate = (name: keyof FormData, value: string) => {
@@ -59,14 +69,38 @@ const ForgetPasswordForm = ({ onClose , openSendCode }: ForgetPasswordFormProps)
     };
 
 
-    const handleSubmit = (e: any) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        // validateAllFields
         if(validateAllFields())return
-        console.log("Form Data:", formData);
-        onClose()
-        openSendCode()
-        
+
+        setIsSubmitting(true);
+        setSubmitError("");
+
+        try {
+            const email = formData.email.trim();
+            const response = await fetch(`${BASE_URL}/send-code`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ email }),
+            });
+
+            const result: SendCodeApiResponse = await response.json();
+
+            if (!response.ok || !result.success) {
+                setSubmitError(result.message || "Unable to send verification code.");
+                return;
+            }
+
+            onClose()
+            openSendCode(email)
+        } catch (error) {
+            console.error("Send code error:", error);
+            setSubmitError("Something went wrong while sending the code.");
+        } finally {
+            setIsSubmitting(false);
+        }
 
     };
 
@@ -90,9 +124,16 @@ const ForgetPasswordForm = ({ onClose , openSendCode }: ForgetPasswordFormProps)
                         {errors.email && <p className="error">{errors.email}</p>}
 
                     </div>
+                    {submitError && <p className="error">{submitError}</p>}
                     <br />
 
-                    <Buttons text="SEND CODE" variant="primary" size='full' />
+                    <Buttons
+                        text={isSubmitting ? "SENDING..." : "SEND CODE"}
+                        variant="primary"
+                        size='full'
+                        type="submit"
+                        disabled={isSubmitting}
+                    />
                 </form>
                 <div className="needHelp">
                     <a href="mailto:info@sterlingfraudsolution.com" className='link-login'>Need Help ?</a>
