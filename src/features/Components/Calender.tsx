@@ -5,6 +5,7 @@ type Props = {
   setOpen: (val: boolean) => void;
 };
 
+
 const CustomCalendar = ({ open, setOpen}: Props) => {
    const today = new Date();
    today.setHours(0, 0, 0, 0);
@@ -52,6 +53,16 @@ const nextDays = Array.from({ length: nextDaysCount }, (_, i) => ({
   type: "next",
 }));
 
+const months = [
+  "January","February","March","April","May","June",
+  "July","August","September","October","November","December"
+];
+
+const handleMonthChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const newMonth = Number(e.target.value);
+  setCurrentDate(new Date(year, newMonth, 1));
+};
+
 // Final 42 cells
 const daysArray = [...prevDays, ...currentDays, ...nextDays];
 
@@ -98,12 +109,17 @@ const handleRangeSelect = (day: number, type: string) => {
             {/* Header */}
             <div style={styles.header}>
               <button onClick={() => changeMonth(-1)}>◀</button>
-              <span>
-                {currentDate.toLocaleString("default", {
-                  month: "long",
-                })}{" "}
-                {year}
-              </span>
+                <div style={{ display: "flex", gap: "5px", alignItems: "center" }}>
+                  <select value={month} onChange={handleMonthChange}>
+                    {months.map((m, index) => (
+                      <option key={m} value={index}>
+                        {m}
+                      </option>
+                    ))}
+                  </select>
+
+                  <span>{year}</span>
+                </div>
               <button
                 onClick={() => changeMonth(1)}
                 disabled={isCurrentMonth}

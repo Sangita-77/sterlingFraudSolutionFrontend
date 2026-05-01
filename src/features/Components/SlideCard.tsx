@@ -7,10 +7,10 @@ interface CardProps {
 
 const Card: React.FC<CardProps> = ({ title, description, image}) => {
   return (
-    <div className="card">
+    <div className="Slidercard">
       <img src={image} alt={title} className="card-img" />
-      <h3 className="card-title">{title}</h3>
       <p className="card-desc">{description}</p>
+      <h4 className="card-title">{title}</h4>
     </div>
   );
 };

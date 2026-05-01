@@ -58,9 +58,9 @@ const secondImages: ImageItem[] = [
 
 
 const slides = [
-  { image: PolitieLogo, title: "Card 1", description: "“Having worked with Crystal for the last few months using their blockchain analysis program, we can say that the collaboration has been flawless so far. In part, due to the use of their software, we have been able to largely eliminate our backlog of files relating to the abuse of cryptocurrencies.”" },
-  { image: PolitieLogo, title: "Card 2", description: "“Having worked with Crystal for the last few months using their blockchain analysis program, we can say that the collaboration has been flawless so far. In part, due to the use of their software, we have been able to largely eliminate our backlog of files relating to the abuse of cryptocurrencies.”" },
-  { image: PolitieLogo, title: "Card 3", description: "“Having worked with Crystal for the last few months using their blockchain analysis program, we can say that the collaboration has been flawless so far. In part, due to the use of their software, we have been able to largely eliminate our backlog of files relating to the abuse of cryptocurrencies.”" },
+  { image: PolitieLogo, title: "Gunter Meinen", description: "“Having worked with Crystal for the last few months using their blockchain analysis program, we can say that the collaboration has been flawless so far. In part, due to the use of their software, we have been able to largely eliminate our backlog of files relating to the abuse of cryptocurrencies.”" },
+  { image: PolitieLogo, title: "Gunter Meinen", description: "“Having worked with Crystal for the last few months using their blockchain analysis program, we can say that the collaboration has been flawless so far. In part, due to the use of their software, we have been able to largely eliminate our backlog of files relating to the abuse of cryptocurrencies.”" },
+  { image: PolitieLogo, title: "Gunter Meinen", description: "“Having worked with Crystal for the last few months using their blockchain analysis program, we can say that the collaboration has been flawless so far. In part, due to the use of their software, we have been able to largely eliminate our backlog of files relating to the abuse of cryptocurrencies.”" },
 ];
 
 
@@ -180,6 +180,7 @@ const App: React.FC = () => {
         {/* Trusted worldwide Start */}      
         <section className="Trusted_worldwide">
             <div className="container">
+              <Heading3 text="Trusted worldwide by financial institutions, crypto businesses and investigators to check and prevent risk related to financial crime and sanctions"/>
                 <CardSlider items={slides} />
             </div>
         </section>

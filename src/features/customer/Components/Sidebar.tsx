@@ -33,7 +33,7 @@ const Sidebar: React.FC<SidebarProps> = ({ open, toggle }) => {
 
   const menuItems = [
     { path: routes.CUSTOMER_DASHBOARD, label: t("nav.dashboard"), icon: DashboardIcon, end: true },
-    { path: routes.CUSTOMER_REPORTS, label: t("nav.reports"), icon: Reports },
+    { path: routes.ASSINGED_CASES, label: t("nav.reports"), icon: Reports },
     { path: routes.CUSTOMER_SETTINGS, label: t("nav.settings"), icon: Settings },
   ];
 

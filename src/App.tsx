@@ -17,10 +17,12 @@ import Reports from "./features/admin/DashBoards/Reports";
 import Settings from "./features/admin/DashBoards/Settings"; 
 import Visualization from "./features/Pages/Visualization";
 import ProtectedRoleRoute from "./Routes/ProtectedRoleRoute";
+
 import AgentDashboardLayOut from "./features/agent/Layout/AgentDashboardLayOut";
 import AgentMainDashboard from "./features/agent/DashBoards/AgentMainDashboard";
 import AgentReports from "./features/agent/DashBoards/AgentReports";
 import AgentSettings from "./features/agent/DashBoards/AgentSettings";
+
 import CustomerDashboardLayOut from "./features/customer/Layout/CustomerDashboardLayOut";
 import CustomerMainDashboard from "./features/customer/DashBoards/CustomerMainDashboard";
 import CustomerReports from "./features/customer/DashBoards/CustomerReports";
@@ -70,13 +72,17 @@ function App() {
               <Route path={routes.AGENT_SETTINGS} element={<AgentSettings />} />
             </Route>
           </Route>
+
           <Route element={<ProtectedRoleRoute routeType="customer" />}>
             <Route path={routes.CUSTOMER_DASHBOARD} element={<CustomerDashboardLayOut />}>
               <Route index element={<CustomerMainDashboard />} />
-              <Route path={routes.CUSTOMER_REPORTS} element={<CustomerReports />} />
+              <Route path={routes.ASSINGED_CASES} element={<CustomerReports />} />
+              <Route path={routes.CUSTOMER_SETTINGS} element={<CustomerSettings />} />
+              <Route path={routes.CUSTOMER_SETTINGS} element={<CustomerSettings />} />
               <Route path={routes.CUSTOMER_SETTINGS} element={<CustomerSettings />} />
             </Route>
           </Route>
+
       </Routes>
   );
 }

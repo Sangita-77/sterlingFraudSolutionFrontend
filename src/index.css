@@ -66,6 +66,11 @@ main .container{width: 90%; margin: 0 auto;}
 .Our_trusted_members h5{padding-bottom: 40px;}
 /* Our Partner End */
 
+/* Trusted_worldwide start */
+.Trusted_worldwide{padding: 30px 0px 50px;}
+.Trusted_worldwide h3.H3Headings{ text-align: center; color: var(--purple-text); padding-bottom: 50px;}
+/* Trusted_worldwide End */
+
 /* Footer Start */
 footer{background: #34209A;}
 footer .container{width: 90%; margin: 0 auto;}

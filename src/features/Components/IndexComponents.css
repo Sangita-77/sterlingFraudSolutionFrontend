@@ -130,14 +130,18 @@ border-radius: var(--button-border-radius); border: 1px solid #ccc; outline: non
 
 /* SlideCard Start */
 .slider-wrapper { position: relative; width: 100%; }
-.slider { overflow: hidden; }
-.slider-track {display: flex; gap: 1.6%; transition: transform 0.3s ease; padding: 20px 3% 20px 0px;}
+.slider-wrapper .slider { overflow: hidden; }
+.slider-wrapper .slider-track {display: flex; gap: 1.6%; transition: transform 0.3s ease; padding: 20px 3% 20px 0px;}
 /* Each card width (like owl items) */
-.slider-track > * { min-width: 33.33%; flex: 0 0 auto;  background: linear-gradient(15deg, #1A0B60, #2A36A5, #2618A9); border-radius: 12px; padding: 30px;}
+.slider-wrapper .slider-track > * { width: 33.33%; flex: 0 0 auto;  background: linear-gradient(15deg, #1A0B60, #2A36A5, #2618A9); border-radius: 12px; padding: 30px;}
 /* Navigation buttons */
-.nav-btn { position: absolute; top: 50%; transform: translateY(-50%); background: #000; color: #fff; border: none; padding: 10px 14px; cursor: pointer; z-index: 2; border-radius: 50%; }
-.nav-btn.left { left: -50px; } 
-.nav-btn.right { right: -50px; }
+.slider-wrapper  .nav-btn { position: absolute; top: 50%; transform: translateY(-50%); color: var(--dark-text); border: none; cursor: pointer; z-index: 2; border-radius: 50%; font-size: 40px; background: transparent; padding: 0px 18px 5px;}
+.slider-wrapper  .nav-btn:hover{background: var(--purple-text); color: var(--whiteColor); transition: 0.5s;}
+.slider-wrapper .nav-btn.left { left: -50px; } 
+.slider-wrapper .nav-btn.right { right: -50px; }
+/* Cards */
+.slider-wrapper .Slidercard h4{color: var(--whiteColor); font: 500 24px/34px var(--font-main);}
+.slider-wrapper .Slidercard p{color: var(--whiteColor); font: 300 16px/29px var(--font-main); padding: 20px 0;}
 /* SlideCard End */
 
 
