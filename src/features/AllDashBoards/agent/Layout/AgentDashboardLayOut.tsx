@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
-import Sidebar from "../Components/Sidebar";
+import Sidebar from "../../GlobalComponents/Sidebar";
 import Navbar from "../Components/Navbar";
-import "../../admin/DashBoards/Dashboard.css";
+import "../../admin/Pages/Dashboard.css";
 
-const CustomerDashboardLayOut: React.FC = () => {
+const AgentDashboardLayOut: React.FC = () => {
   const [open, setOpen] = useState(false);
   const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 768);
 
@@ -22,20 +22,22 @@ const CustomerDashboardLayOut: React.FC = () => {
   }, []);
 
   return (
-    <div className="dashboard">
-      <Sidebar
+    <div className="dashboard {}">
+     
+      <Sidebar 
         open={isDesktop ? true : open}
         toggle={() => !isDesktop && setOpen(!open)}
       />
 
       <div className={`main ${isDesktop ? "desktop" : ""}`}>
-        <Navbar toggle={() => !isDesktop && setOpen(!open)} />
+        <Navbar toggle={() => !isDesktop && setOpen(!open)}/>
         <div className="content">
           <Outlet />
         </div>
       </div>
+
     </div>
   );
 };
 
-export default CustomerDashboardLayOut;
+export default AgentDashboardLayOut;

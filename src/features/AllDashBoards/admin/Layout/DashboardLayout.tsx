@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import Sidebar from "../Components/Sidebar";
-import Navbar from "../Components/Navbar";
+import Sidebar from "../../GlobalComponents/Sidebar";
+import Navbar from "../../GlobalComponents/Navbar";
 import { Outlet } from "react-router-dom";
 
-import "../DashBoards/Dashboard.css";
+import "../Pages/Dashboard.css";
 
 const DashboardLayOut: React.FC = () => {
   const [open, setOpen] = useState(false);

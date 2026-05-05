@@ -151,6 +151,7 @@ export const getAuthorizedLandingRoute = (
   return null;
 };
 
+
 export const logoutUser = async (logoutAll = true): Promise<boolean> => {
   const session = getAuthSession();
   const user = getAuthUser();
@@ -280,4 +281,14 @@ export const fetchWithAuth = async (
   });
 
   return response;
+};
+
+
+export const getUserRole = (user: AuthUser | null): string => {
+  if (!user) return "Guest";
+  if (canAccessAdmin(user)) return "admin";
+  if (canAccessAgent(user)) return "agent";
+  if (canAccessCustomer(user)) return "customer";
+
+  return "Unknown";
 };

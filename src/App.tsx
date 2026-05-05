@@ -3,30 +3,30 @@ import {Routes, Route } from "react-router-dom";
 import i18next from 'i18next';
 import { useLanguage } from './contexts/LanguageContext';
 import Index from "./features/index";
-import DashboardLayout from "./features/admin/Layout/DashboardLayout";
-import MainDashboard from "./features/admin/DashBoards/MainDashboard";
-import Agents from "./features/admin/DashBoards/Agents";
-import Customers from "./features/admin/DashBoards/Customers";
-import Investigations from "./features/admin/DashBoards/Investigations";
-import Insurance from "./features/admin/DashBoards/Insurance";
-import WithdrawalRequests from "./features/admin/DashBoards/WithdrawalRequests";
-import ConsultationRequests from "./features/admin/DashBoards/ConsultationRequests";
-import Communication from "./features/admin/DashBoards/Communication";
-import PermissionsRoles from "./features/admin/DashBoards/PermissionsRoles";
-import Reports from "./features/admin/DashBoards/Reports"; 
-import Settings from "./features/admin/DashBoards/Settings"; 
+import DashboardLayout from "./features/AllDashBoards/admin/Layout/DashboardLayout";
+import MainDashboard from "./features/AllDashBoards/admin/Pages/MainDashboard";
+import Agents from "./features/AllDashBoards/admin/Pages/Agents";
+import Customers from "./features/AllDashBoards/admin/Pages/Customers";
+import Investigations from "./features/AllDashBoards/admin/Pages/Investigations";
+import Insurance from "./features/AllDashBoards/admin/Pages/Insurance";
+import WithdrawalRequests from "./features/AllDashBoards/admin/Pages/WithdrawalRequests";
+import ConsultationRequests from "./features/AllDashBoards/admin/Pages/ConsultationRequests";
+import Communication from "./features/AllDashBoards/admin/Pages/Communication";
+import PermissionsRoles from "./features/AllDashBoards/admin/Pages/PermissionsRoles";
+import Reports from "./features/AllDashBoards/admin/Pages/Reports"; 
+import Settings from "./features/AllDashBoards/admin/Pages/Settings"; 
 import Visualization from "./features/Pages/Visualization";
 import ProtectedRoleRoute from "./Routes/ProtectedRoleRoute";
 
-import AgentDashboardLayOut from "./features/agent/Layout/AgentDashboardLayOut";
-import AgentMainDashboard from "./features/agent/DashBoards/AgentMainDashboard";
-import AgentReports from "./features/agent/DashBoards/AgentReports";
-import AgentSettings from "./features/agent/DashBoards/AgentSettings";
+import AgentDashboardLayOut from "./features/AllDashBoards/agent/Layout/AgentDashboardLayOut";
+import AgentMainDashboard from "./features/AllDashBoards/agent/DashBoards/AgentMainDashboard";
+import AgentReports from "./features/AllDashBoards/agent/DashBoards/AgentReports";
+import AgentSettings from "./features/AllDashBoards/agent/DashBoards/AgentSettings";
 
-import CustomerDashboardLayOut from "./features/customer/Layout/CustomerDashboardLayOut";
-import CustomerMainDashboard from "./features/customer/DashBoards/CustomerMainDashboard";
-import CustomerReports from "./features/customer/DashBoards/CustomerReports";
-import CustomerSettings from "./features/customer/DashBoards/CustomerSettings";
+import CustomerDashboardLayOut from "./features/AllDashBoards/customer/Layout/CustomerDashboardLayOut";
+import CustomerMainDashboard from "./features/AllDashBoards/customer/Pages/CustomerMainDashboard";
+import CustomerReports from "./features/AllDashBoards/customer/Pages/CustomerReports";
+import CustomerSettings from "./features/AllDashBoards/customer/Pages/CustomerSettings";
 import { routes } from "./Routes/route";
 
 
@@ -46,7 +46,7 @@ function App() {
          {/* Index End */}
           
           {/* User Start */}
-          {/* User End */}
+          {/* User End */}  
 
           {/* Super-Admin Start */}
           <Route element={<ProtectedRoleRoute routeType="admin" />}>

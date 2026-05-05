@@ -1,9 +1,11 @@
 import React, { useState } from "react";
-import "../../admin/Components/Components.css";
-import Search from "../../../assets/images/Search.svg";
-import Bell from "../../../assets/images/Bell.svg";
-import Admin from "../../../assets/images/Admin.webp";
-import hamburger from "../../../assets/images/hamburger.svg";
+import "./GlobalComponents.css";
+import Search from "../assets/images/Search.svg";
+import Bell from "../assets/images/Bell.svg";
+import Admin from "../assets/images/Admin.webp";
+import hamburger from "../assets/images/hamburger.svg";
+import Toggle from "./Toggle"
+
 
 interface NavbarProps {
   toggle: () => void;
@@ -14,10 +16,9 @@ const Navbar: React.FC<NavbarProps> = ({ toggle }) => {
 
   return (
     <div className="navbar">
+      {/* LEFT SIDE */}
       <div className="nav-left">
-        <span className="menu-toggle" onClick={toggle}>
-          <img src={hamburger} className="menu_icon" />
-        </span>
+        <span className="menu-toggle" onClick={toggle}><img src={hamburger} className="menu_icon" /></span>
 
         <div className="search-box">
           <img src={Search} className="search" />
@@ -25,24 +26,25 @@ const Navbar: React.FC<NavbarProps> = ({ toggle }) => {
         </div>
       </div>
 
+      {/* RIGHT SIDE */}
       <div className="nav-right">
+        <Toggle/>
+        {/* Notification */}
         <div className="notification">
-          <img
-            src={Bell}
-            className="search"
-            onClick={() => setShowNotifications(!showNotifications)}
-          />
+          <img src={Bell} className="search"  onClick={() => setShowNotifications(!showNotifications)} />
 
           {showNotifications && (
             <div className="notification-dropdown">
               <p>No new notifications</p>
+              {/* You can map notifications here */}
             </div>
           )}
         </div>
 
+        {/* Admin Profile */}
         <div className="admin-profile">
-          <img src={Admin} alt="customer" />
-          <span>Customer</span>
+          <img src={Admin} alt="admin" />
+          <span>Admin</span>
         </div>
       </div>
     </div>

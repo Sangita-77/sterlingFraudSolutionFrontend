@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import "../../admin/Components/Components.css";
-import Search from "../../../assets/images/Search.svg";
-import Bell from "../../../assets/images/Bell.svg";
-import Admin from "../../../assets/images/Admin.webp";
-import hamburger from "../../../assets/images/hamburger.svg";
+import "../../GlobalComponents/GlobalComponents.css";
+import Search from "../../assets/images/Search.svg";
+import Bell from "../../assets/images/Bell.svg";
+import Admin from "../../assets/images/Admin.webp";
+import hamburger from "../../assets/images/hamburger.svg";
 
 interface NavbarProps {
   toggle: () => void;
