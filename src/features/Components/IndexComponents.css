@@ -196,6 +196,8 @@ border-radius: var(--button-border-radius); border: 1px solid #ccc; outline: non
 .authModal .disclamer-reg { color: #000000; font-size: 18px; } 
 .authModal .disclamer-login { color: #9CA3AF; font-size: 16px;  }
 .authModal .disclamer-forget, .authModal .disclamer-sendCode {color: #9CA3AF; }
+.registerSuccess .registerSuccessCard p{padding-bottom: 45px;}
+.registerSuccess .registerSuccessCard h3{padding-bottom: 12px;}
 /* LOGIN HELP */
 .authModal .needHelp { display: flex; justify-content: space-between; margin: 10px 0; } 
 .authModal .sendCodeInputContainer { display: flex; gap: 10px; align-items: center; justify-content: space-between; margin: 18px 0px 18px 0px ; }

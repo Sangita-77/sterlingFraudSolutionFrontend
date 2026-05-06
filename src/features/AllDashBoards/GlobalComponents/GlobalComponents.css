@@ -13,6 +13,7 @@
   --overlay-bg: rgba(0, 0, 0, 0.5);
   --border-color: #2a2d5a;
   --danger-color: #e53935;
+  --grey-text: #A3AED0;
 }
 
 [data-theme="light"] {
@@ -31,6 +32,7 @@
 /* Headings And paragraphs Start */
 h1.PageTitle{color: var(--whiteColor); font: bold 24px/34px var(--font-main); letter-spacing: 2px;}
 p.PageDescription{color: var(--whiteColor); font: 400 16px/26px var(--font-main);}
+.gradientBox{background: linear-gradient(120deg, #222466, #1d1f48); padding: 30px 50px; margin: 50px 30px; border-radius: 10px;}
 /* Headings And paragraphs End */
 
 
@@ -127,6 +129,23 @@ p.PageDescription{color: var(--whiteColor); font: 400 16px/26px var(--font-main)
 .GlobalModalBox .confirmBtn:hover { opacity: 0.9; }
 .GlobalModalBox .modalBox { animation: modalFade 0.25s ease; }
 
+/* Profile Form Satrt */
+/* Form */
+.DashBoardForms {flex-wrap: wrap;}
+.DashBoardForms input{width: 100%; background: #383976; border: solid 1px #585ad1; border-radius: 10px; padding: 17px;}
+.DashBoardForms input::placeholder{color: var(--grey-text); font: 400 16px/26px var(--font-main);}
+.DashBoardForms label{ width: 100%; display: block; font: 400 16px/26px var(--font-main); color: var(--whiteColor);}
+.DashBoardForms .Submit{flex: 0 0 100%; width: 100%;}
+.DashBoardForms .half{flex: 0 0 50%; width: 50%; padding: 12px 8px;}
+.DashBoardForms .full{flex: 0 0 100%; width: 100%; padding: 12px 8px;} 
+.DashBoardForms button{margin: 8px;}
+/* Profile */
+.profileWrap .ProfilePhoto{width: 12%;}
+.profileWrap .ProfileForm{width: 88%;}
+.profileWrap .ProfilePhoto img{border-radius: 50%;}
+.profileWrap .ProfilePhoto h3{text-align: center; color: var(--whiteColor); text-transform: capitalize;}
+.profileWrap .ProfileForm .DashBoardForms{padding: 20px 40px;}
+/* Profile Form End */
 
 
 
@@ -143,6 +162,8 @@ p.PageDescription{color: var(--whiteColor); font: 400 16px/26px var(--font-main)
 
 /* Show only on mobile */
 @media (max-width: 768px) {
+.DashBoardForms .half{flex: 0 0 100%; width: 100%;}
+
 .sidebar .LogoWrap .closeButton{display: block; padding: 10px;}
 .sidebar .LogoWrap .CompanyLogo img{width: 100%;}
 .sidebar .CompanyLogo { padding: 12px; }

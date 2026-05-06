@@ -84,3 +84,8 @@ footer .container .footerWrap  .socialMedia:hover{transition: .5s; opacity: 0.7;
 footer .container .footerWrap {font: 400 18px/28px var(--font-main);}
 /* Footer End */
 
+@media (max-width: 768px) {
+/* Global Css start */
+.d-flex{display: block;}
+/* Global Css End */
+}
