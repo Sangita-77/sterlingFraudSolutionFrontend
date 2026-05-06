@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "../IndexComponents.css";
 import Buttons from "../ButtonCompo";
+import PasswordInput from "../PasswordInput";
 import { BASE_URL } from "../../../api/config";
 
 type Props = {
@@ -133,8 +134,7 @@ const ResetPasswordForm = ({ email, onClose, onSuccess }: Props) => {
         <form onSubmit={handleSubmit}>
           <div className="full-width">
             <label>New Password*</label>
-            <input
-              type="password"
+            <PasswordInput
               name="newPassword"
               value={formData.newPassword}
               onChange={handleChange}
@@ -145,8 +145,7 @@ const ResetPasswordForm = ({ email, onClose, onSuccess }: Props) => {
 
           <div className="full-width">
             <label>Confirm Password*</label>
-            <input
-              type="password"
+            <PasswordInput
               name="confirmPassword"
               value={formData.confirmPassword}
               onChange={handleChange}

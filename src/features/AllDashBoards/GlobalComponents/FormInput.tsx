@@ -1,4 +1,5 @@
 import React from "react";
+import PasswordInput from "../../Components/PasswordInput";
 
 interface FormInputProps {
   label: string;
@@ -43,6 +44,13 @@ const FormInput: React.FC<FormInputProps> = ({
             </label>
           ))}
         </div>
+      ) : type === "password" ? (
+        <PasswordInput
+          name={name}
+          value={value}
+          placeholder={placehoder}
+          onChange={onChange}
+        />
       ) : (
         <input
           type={type}

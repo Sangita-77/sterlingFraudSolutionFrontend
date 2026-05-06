@@ -2,6 +2,7 @@
 import "../IndexComponents.css";
 import React, { useEffect, useState } from "react";
 import Buttons from "../ButtonCompo";
+import PasswordInput from "../PasswordInput";
 import { BASE_URL } from "../../../api/config";
 import { detectLanguageByIP } from "../../../api/languageService";
 
@@ -51,24 +52,6 @@ type RegisterApiResponse = {
       };
 };
 
-const EyeIcon = ({ isVisible }: { isVisible: boolean }) => (
-  <svg
-    width="18"
-    height="18"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    aria-hidden="true"
-  >
-    <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z" />
-    <circle cx="12" cy="12" r="3" />
-    {isVisible && <path d="M3 3l18 18" />}
-  </svg>
-);
-
 const RegisterForm = ({onClose, clickLogin, onSuccess}: formProps) => {
   const [formData, setFormData] = useState<FormData>({
     fullName: "",
@@ -90,8 +73,6 @@ const RegisterForm = ({onClose, clickLogin, onSuccess}: formProps) => {
   const [submitError, setSubmitError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isDetectingCountry, setIsDetectingCountry] = useState(true);
-  const [showPassword, setShowPassword] = useState(false);
-  const [showRepeatPassword, setShowRepeatPassword] = useState(false);
 
   useEffect(() => {
     const setDetectedCountry = async () => {
@@ -387,73 +368,23 @@ const RegisterForm = ({onClose, clickLogin, onSuccess}: formProps) => {
           <div className="row">
             <div>
               <label>Password*</label>
-              <div style={{ position: "relative" }}>
-                <input
-                  type={showPassword ? "text" : "password"}
-                  name="password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  placeholder="************"
-                  style={{ paddingRight: "42px" }}
-                />
-                <button
-                  type="button"
-                  aria-label={showPassword ? "Hide password" : "Show password"}
-                  onClick={() => setShowPassword((prev) => !prev)}
-                  style={{
-                    position: "absolute",
-                    right: "10px",
-                    top: "50%",
-                    transform: "translateY(-50%)",
-                    border: "none",
-                    background: "transparent",
-                    color: "#635C5C",
-                    cursor: "pointer",
-                    display: "flex",
-                    alignItems: "center",
-                    padding: 0,
-                  }}
-                >
-                  <EyeIcon isVisible={showPassword} />
-                </button>
-              </div>
+              <PasswordInput
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                placeholder="************"
+              />
               {errors.password && <p className="error">{errors.password}</p>}
             </div>
 
             <div>
               <label>Repeat Password*</label>
-              <div style={{ position: "relative" }}>
-                <input
-                  type={showRepeatPassword ? "text" : "password"}
-                  name="repeatPassword"
-                  value={formData.repeatPassword}
-                  onChange={handleChange}
-                  placeholder="************"
-                  style={{ paddingRight: "42px" }}
-                />
-                <button
-                  type="button"
-                  aria-label={
-                    showRepeatPassword ? "Hide repeat password" : "Show repeat password"
-                  }
-                  onClick={() => setShowRepeatPassword((prev) => !prev)}
-                  style={{
-                    position: "absolute",
-                    right: "10px",
-                    top: "50%",
-                    transform: "translateY(-50%)",
-                    border: "none",
-                    background: "transparent",
-                    color: "#635C5C",
-                    cursor: "pointer",
-                    display: "flex",
-                    alignItems: "center",
-                    padding: 0,
-                  }}
-                >
-                  <EyeIcon isVisible={showRepeatPassword} />
-                </button>
-              </div>
+              <PasswordInput
+                name="repeatPassword"
+                value={formData.repeatPassword}
+                onChange={handleChange}
+                placeholder="************"
+              />
               {errors.repeatPassword && (
                 <p className="error">{errors.repeatPassword}</p>
               )}
