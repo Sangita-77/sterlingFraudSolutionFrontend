@@ -11,6 +11,11 @@ type FormData = {
   phone: string;
   country: string;
   activity: string;
+  gender: string;
+  address: string;
+  city: string;
+  state: string;
+  zip: string;
   email: string;
   password: string;
   repeatPassword: string;
@@ -46,6 +51,24 @@ type RegisterApiResponse = {
       };
 };
 
+const EyeIcon = ({ isVisible }: { isVisible: boolean }) => (
+  <svg
+    width="18"
+    height="18"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+  >
+    <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z" />
+    <circle cx="12" cy="12" r="3" />
+    {isVisible && <path d="M3 3l18 18" />}
+  </svg>
+);
+
 const RegisterForm = ({onClose, clickLogin, onSuccess}: formProps) => {
   const [formData, setFormData] = useState<FormData>({
     fullName: "",
@@ -53,6 +76,11 @@ const RegisterForm = ({onClose, clickLogin, onSuccess}: formProps) => {
     phone: "",
     country: "",
     activity: "",
+    gender: "",
+    address: "",
+    city: "",
+    state: "",
+    zip: "",
     email: "",
     password: "",
     repeatPassword: "",
@@ -62,6 +90,8 @@ const RegisterForm = ({onClose, clickLogin, onSuccess}: formProps) => {
   const [submitError, setSubmitError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isDetectingCountry, setIsDetectingCountry] = useState(true);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showRepeatPassword, setShowRepeatPassword] = useState(false);
 
   useEffect(() => {
     const setDetectedCountry = async () => {
@@ -85,8 +115,17 @@ const RegisterForm = ({onClose, clickLogin, onSuccess}: formProps) => {
 
   const validate = (name: keyof FormData, value: string) => {
     let error = "";
+    const requiredFields: Array<keyof FormData> = [
+      "fullName",
+      "country",
+      "activity",
+      "gender",
+      "email",
+      "password",
+      "repeatPassword",
+    ];
 
-    if (!value.trim()) {
+    if (requiredFields.includes(name) && !value.trim()) {
       error = "This field is required";
     } else {
       switch (name) {
@@ -130,6 +169,7 @@ const RegisterForm = ({onClose, clickLogin, onSuccess}: formProps) => {
       "fullName",
       "country",
       "activity",
+      "gender",
       "email",
       "password",
       "repeatPassword",
@@ -168,10 +208,16 @@ const RegisterForm = ({onClose, clickLogin, onSuccess}: formProps) => {
         email: formData.email.trim(),
         password: formData.password,
         activity: formData.activity.trim(),
+        gender: formData.gender,
         status: 1,
         country: formData.country.trim(),
-        companyName: formData.companyName.trim() || undefined,
+        detectedCountry: formData.country.trim(),
+        company_name: formData.companyName.trim() || undefined,
         phone: formData.phone.trim() || undefined,
+        address: formData.address.trim() || undefined,
+        city: formData.city.trim() || undefined,
+        state: formData.state.trim() || undefined,
+        zip: formData.zip.trim() || undefined,
         flag: 2,
       };
 
@@ -220,13 +266,35 @@ const RegisterForm = ({onClose, clickLogin, onSuccess}: formProps) => {
           <div className="full-width">
             <label>Gender*</label>
             <div className="gender_feild d-flex">
-              <input type="radio" id="male" name="gender" value="male" required/>
-              <label>Male</label>
-              <input type="radio" id="female" name="gender" value="female" required/>
-              <label>Female</label>
-              <input type="radio" id="others" name="gender" value="others" required/>
-              <label>Others</label>
+              <input
+                type="radio"
+                id="male"
+                name="gender"
+                value="male"
+                checked={formData.gender === "male"}
+                onChange={handleChange}
+              />
+              <label htmlFor="male">Male</label>
+              <input
+                type="radio"
+                id="female"
+                name="gender"
+                value="female"
+                checked={formData.gender === "female"}
+                onChange={handleChange}
+              />
+              <label htmlFor="female">Female</label>
+              <input
+                type="radio"
+                id="other"
+                name="gender"
+                value="other"
+                checked={formData.gender === "other"}
+                onChange={handleChange}
+              />
+              <label htmlFor="other">Other</label>
             </div>
+            {errors.gender && <p className="error">{errors.gender}</p>}
             
             <label>Full Name*</label>
             <input
@@ -319,26 +387,73 @@ const RegisterForm = ({onClose, clickLogin, onSuccess}: formProps) => {
           <div className="row">
             <div>
               <label>Password*</label>
-              <input
-                type="password"
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-                placeholder="************"
-
-              />
+              <div style={{ position: "relative" }}>
+                <input
+                  type={showPassword ? "text" : "password"}
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  placeholder="************"
+                  style={{ paddingRight: "42px" }}
+                />
+                <button
+                  type="button"
+                  aria-label={showPassword ? "Hide password" : "Show password"}
+                  onClick={() => setShowPassword((prev) => !prev)}
+                  style={{
+                    position: "absolute",
+                    right: "10px",
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                    border: "none",
+                    background: "transparent",
+                    color: "#635C5C",
+                    cursor: "pointer",
+                    display: "flex",
+                    alignItems: "center",
+                    padding: 0,
+                  }}
+                >
+                  <EyeIcon isVisible={showPassword} />
+                </button>
+              </div>
               {errors.password && <p className="error">{errors.password}</p>}
             </div>
 
             <div>
               <label>Repeat Password*</label>
-              <input
-                type="password"
-                name="repeatPassword"
-                value={formData.repeatPassword}
-                onChange={handleChange}
-                placeholder="************"
-              />
+              <div style={{ position: "relative" }}>
+                <input
+                  type={showRepeatPassword ? "text" : "password"}
+                  name="repeatPassword"
+                  value={formData.repeatPassword}
+                  onChange={handleChange}
+                  placeholder="************"
+                  style={{ paddingRight: "42px" }}
+                />
+                <button
+                  type="button"
+                  aria-label={
+                    showRepeatPassword ? "Hide repeat password" : "Show repeat password"
+                  }
+                  onClick={() => setShowRepeatPassword((prev) => !prev)}
+                  style={{
+                    position: "absolute",
+                    right: "10px",
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                    border: "none",
+                    background: "transparent",
+                    color: "#635C5C",
+                    cursor: "pointer",
+                    display: "flex",
+                    alignItems: "center",
+                    padding: 0,
+                  }}
+                >
+                  <EyeIcon isVisible={showRepeatPassword} />
+                </button>
+              </div>
               {errors.repeatPassword && (
                 <p className="error">{errors.repeatPassword}</p>
               )}
