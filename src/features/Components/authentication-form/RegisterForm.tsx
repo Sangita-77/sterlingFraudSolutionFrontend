@@ -219,12 +219,14 @@ const RegisterForm = ({onClose, clickLogin, onSuccess}: formProps) => {
           {/* Full Name */}
           <div className="full-width">
             <label>Gender*</label>
+            <div className="gender_feild d-flex">
               <input type="radio" id="male" name="gender" value="male" required/>
               <label>Male</label>
               <input type="radio" id="female" name="gender" value="female" required/>
               <label>Female</label>
               <input type="radio" id="others" name="gender" value="others" required/>
               <label>Others</label>
+            </div>
             
             <label>Full Name*</label>
             <input

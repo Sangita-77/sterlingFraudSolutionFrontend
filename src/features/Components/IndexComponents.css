@@ -185,17 +185,22 @@ border-radius: var(--button-border-radius); border: 1px solid #ccc; outline: non
 /* .authModal .register-space label { margin: 24px 0px 8px 0px; font-weight: 500; }     */
 .authModal input, .authModal select { width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #939292; outline: none; font-size: 14px; font-family: var(--font-main);  }
 .authModal .login-form label , .authModal .forgetPassword-form label  { margin: 12px 0px 12px 0px; font-size: 16px; font-family: var(--font-main); }
+.authModal input[type="radio"]{width: auto;}
 .authModal input:hover, .authModal select:hover { border-color: var(--fontColor); }
 .authModal .error { color: rgb(236, 77, 77); font-size: 12px; font-family: var(--font-main); }
 .authModal .link { color: #1682E7; cursor: pointer; text-decoration: none; font-family: var(--font-main); }
 .authModal .link-login, .authModal .link-forget, .authModal .link-sendCode { color: #1682E7; cursor: pointer; text-decoration: none; size: 14px; font-family: var(--font-main); }
-.dontReceiveCode { color: #9CA3AF !important; font-size: 14px; }
+.dontReceiveCode { color: #9CA3AF; font-size: 14px; }
 .authModal .disclamer { color: #939292; font-size: 16px; font-family: var(--font-main); }
 .authModal .disclamer-reg { color: #000000; font-size: 18px; } 
 .authModal .disclamer-login { color: #9CA3AF; font-size: 16px;  }
 .authModal .disclamer-forget, .authModal .disclamer-sendCode {color: #9CA3AF; }
 .registerSuccess .registerSuccessCard p{padding-bottom: 45px;}
 .registerSuccess .registerSuccessCard h3{padding-bottom: 12px;}
+/* Radio feild */
+.authModal .gender_feild label{margin: 0;}
+.authModal .gender_feild{padding-top: 20px;}
+.authModal .gender_feild p{width: 100%;}
 /* LOGIN HELP */
 .authModal .needHelp { display: flex; justify-content: space-between; margin: 10px 0; } 
 .authModal .sendCodeInputContainer { display: flex; gap: 10px; align-items: center; justify-content: space-between; margin: 18px 0px 18px 0px ; }
