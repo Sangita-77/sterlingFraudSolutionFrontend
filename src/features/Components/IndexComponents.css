@@ -198,9 +198,9 @@ border-radius: var(--button-border-radius); border: 1px solid #ccc; outline: non
 .registerSuccess .registerSuccessCard p{padding-bottom: 45px;}
 .registerSuccess .registerSuccessCard h3{padding-bottom: 12px;}
 /* Radio feild */
-.authModal .gender_feild label{margin: 0;}
-.authModal .gender_feild{padding-top: 20px;}
+.authModal .gender_feild label{margin: 0; margin-right: 18px;}
 .authModal .gender_feild p{width: 100%;}
+.authModal .gender_feild{gap: 5px;}
 /* LOGIN HELP */
 .authModal .needHelp { display: flex; justify-content: space-between; margin: 10px 0; } 
 .authModal .sendCodeInputContainer { display: flex; gap: 10px; align-items: center; justify-content: space-between; margin: 18px 0px 18px 0px ; }
