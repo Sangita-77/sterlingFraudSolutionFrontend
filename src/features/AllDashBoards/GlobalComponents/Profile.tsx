@@ -50,7 +50,7 @@ const fields: FieldConfig[] = [
 
   return (
     <div className="profileWrap">
-        <div className="ProfileForm">  
+        <div className="ProfileForm gradientBox">  
           <div className="RoleWrap d-flex">
             <h3>{role}</h3>
             <GlobalButtons text="Reset Password"/>
