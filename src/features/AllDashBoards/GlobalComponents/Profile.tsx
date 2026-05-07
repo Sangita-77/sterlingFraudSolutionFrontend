@@ -221,6 +221,7 @@ const Profile: React.FC = () => {
         zipcode: getStringValue(data.zipcode),
       }));
       setProfileSuccess(result.message || "Profile updated successfully.");
+      window.location.reload(); // Reload to reflect changes in ProfileAvatar and other components using auth data
     } catch (error) {
       console.error("Profile update error:", error);
       setProfileError("Something went wrong while updating profile details.");
