@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { BASE_URL } from "../../../api/config";
+import { Link } from "react-router-dom";
+import { routes } from "../../../Routes/route";
 import {
   fetchWithAuth,
   getAuthSession,
@@ -110,21 +112,23 @@ const ProfileAvatar: React.FC<ProfileAvatarProps> = ({ label }) => {
 
   return (
     <div className="admin-profile">
-      {imageUrl && !imageFailed ? (
-        <img
-          src={imageUrl}
-          alt={name}
-          className="navbar-profile-img"
-          crossOrigin="anonymous"
-          referrerPolicy="no-referrer"
-          onError={() => setImageFailed(true)}
-        />
-      ) : (
-        <div className="navbar-profile-initial" aria-label={name}>
-          {initial}
-        </div>
-      )}
-      <span>{label}</span>
+      <Link to={routes.CUSTOMER_SETTINGS} className="admin-profile" style={{ textDecoration: "none" }}>
+        {imageUrl && !imageFailed ? (
+          <img
+            src={imageUrl}
+            alt={name}
+            className="navbar-profile-img"
+            crossOrigin="anonymous"
+            referrerPolicy="no-referrer"
+            onError={() => setImageFailed(true)}
+          />
+        ) : (
+          <div className="navbar-profile-initial" aria-label={name}>
+            {initial}
+          </div>
+        )}
+        <span>{name?.trim().split(" ")[0] || label}</span>
+      </Link>
     </div>
   );
 };
