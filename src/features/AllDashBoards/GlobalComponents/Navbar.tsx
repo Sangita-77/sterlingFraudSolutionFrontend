@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import "./GlobalComponents.css";
 import Search from "../assets/images/Search.svg";
 import Bell from "../assets/images/Bell.svg";
-import Admin from "../assets/images/Admin.webp";
 import hamburger from "../assets/images/hamburger.svg";
 import Toggle from "./Toggle"
 import LanguageSwitcher from "../../Components/LanguageSwitcher";
+import ProfileAvatar from "./ProfileAvatar";
 
 
 interface NavbarProps {
@@ -43,11 +43,7 @@ const Navbar: React.FC<NavbarProps> = ({ toggle }) => {
           )}
         </div>
 
-        {/* Admin Profile */}
-        <div className="admin-profile">
-          <img src={Admin} alt="admin" />
-          <span>Admin</span>
-        </div>
+        <ProfileAvatar label="Admin" />
       </div>
     </div>
   );

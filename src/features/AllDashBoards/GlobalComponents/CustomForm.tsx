@@ -21,11 +21,12 @@ interface CustomFormProps {
   formId?: string;
   SubmitText?: string;
   initialValues?: Record<string, string>;
+  isSubmitting?: boolean;
 }
 
 const emptyInitialValues: Record<string, string> = {};
 
-const CustomForm: React.FC<CustomFormProps> = ({ fields, onSubmit, SubmitText, variant, formId = "customForm", initialValues}) => {
+const CustomForm: React.FC<CustomFormProps> = ({ fields, onSubmit, SubmitText, variant, formId = "customForm", initialValues, isSubmitting = false}) => {
   const resolvedInitialValues = initialValues ?? emptyInitialValues;
   const initialState = useMemo(() => fields.reduce((acc, field) => {
     acc[field.name] = "";
@@ -125,6 +126,8 @@ const getStringValue = (name: string): string => {
         name={field.name}
         value={getStringValue(field.name)}
         onChange={handleChange}
+        preview={preview}
+        profileInitial={getStringValue("firstname") || getStringValue("name") || "U"}
         error={errors[field.name]}
         options={field.options}
         editable={isEditable(field.name)}
@@ -148,13 +151,13 @@ const getStringValue = (name: string): string => {
         preview={preview}
         error={errors[field.name]}
         options={field.options}
-        editable={isEditable(field.name)}
+        editable={field.type === "radio" ? true : isEditable(field.name)}
         onEdit={() => handleEditToggle(field.name)}
         required={field.required}
       />
     ))}
   </div>
-  <div className="submit-button"><button type="submit">{SubmitText}</button></div>
+  <div className="submit-button"><button type="submit" disabled={isSubmitting}>{SubmitText}</button></div>
 
 </form>
 </div>

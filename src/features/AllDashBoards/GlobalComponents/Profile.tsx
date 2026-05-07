@@ -1,12 +1,16 @@
 import React, { useEffect, useMemo, useState } from "react";
 import CustomForm from "./CustomForm";
 import type { FieldConfig, FormValue } from "./CustomForm";
-import mAvtar from "../assets/images/mAvtar.webp";
 import { BASE_URL } from "../../../api/config";
-import { fetchWithAuth, getAuthSession, getUserRole, getAuthUser } from "../../../api/authService";
+import { fetchWithAuth, getAuthSession, getUserRole, getAuthUser, saveAuthUser } from "../../../api/authService";
 import GlobalButtons from "../GlobalComponents/GlobalButtons";
+import ForgetPasswordForm from "../../Components/authentication-form/ForgetPaswordForm";
+import "../../Components/IndexComponents.css";
 
 type UserDetails = {
+  profileImage?: {
+    url?: string;
+  };
   _id?: string;
   name?: string;
   email?: string;
@@ -23,6 +27,10 @@ type UserDetails = {
   updatedAt?: string;
   lastLoginAt?: string;
   lastLogoutAt?: string;
+  address?: string;
+  city?: string;
+  state?: string;
+  zipcode?: string;
 };
 
 type UserDataResponse = {
@@ -33,37 +41,63 @@ type UserDataResponse = {
   };
 };
 
+type UpdateUserResponse = {
+  success: boolean;
+  message?: string;
+  user?: {
+    user?: UserDetails;
+  };
+};
+
+const getProfileImageUrl = (url?: string) => {
+  if (!url) return "";
+
+  if (/^https?:\/\//i.test(url)) {
+    return url;
+  }
+
+  return `${BASE_URL.replace(/\/api$/, "")}${url}`;
+};
+
 const Profile: React.FC = () => {
   const user = getAuthUser();
   const session = getAuthSession();
   const role = getUserRole(user);
   const [profileData, setProfileData] = useState<Record<string, string>>({});
-  const [isLoading, setIsLoading] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
   const [profileError, setProfileError] = useState("");
+  const [profileSuccess, setProfileSuccess] = useState("");
 
-const fields: FieldConfig[] = useMemo(() => [
-  {label: "", type: "file", name: "profileImage", placeholder: "", width:"full", defaultImage:mAvtar},
-   {
-    label: "Gender",
-    type: "radio",
-    name: "gender",
-    placeholder: "",
-    width: "full",
-    options: [
-      { label: "Male", value: "male" },
-      { label: "Female", value: "female" },
-      { label: "Others", value: "others" },
-    ],
-  },
-  { label: "Full Name", type: "text", name: "firstname", placeholder: "John Doe", width: "full"},
-  { label: "Phone Number", type: "tel", name: "phonenumber", placeholder: "+1-234-3456-567" },
-  { label: "Mail ID", type: "email", name: "email", placeholder: "john@example.com" },
-  { label: "Address", type: "text", name: "address", placeholder: "Enter address", width: "full" },
-  { label: "City", type: "text", name: "city", placeholder: "Enter city" },
-  { label: "State / province/ Region", type: "text", name: "state", placeholder: "Enter state/province/region" },
-  { label: "Postal / Zip Code", type: "number", name: "zipcode", placeholder: "Enter postal/zip code" },
-  { label: "Country", type: "text", name: "country", placeholder: "United States"},
-], []);
+   const [openForgetModal, setOpenForgetModal] = useState(false);
+
+  const handleOpenSendCode = (email: string) => {
+    console.log(email);
+  };
+
+  const fields: FieldConfig[] = useMemo(() => [
+    {label: "", type: "file", name: "profileImage", placeholder: "", width:"full"},
+    {
+      label: "Gender",
+      type: "radio",
+      name: "gender",
+      placeholder: "",
+      width: "full",
+      options: [
+        { label: "Male", value: "male" },
+        { label: "Female", value: "female" },
+        { label: "Others", value: "other" },
+      ],
+    },
+    { label: "Full Name", type: "text", name: "firstname", placeholder: "John Doe", width: "full"},
+    { label: "Phone Number", type: "tel", name: "phonenumber", placeholder: "+1-234-3456-567" },
+    { label: "Mail ID", type: "email", name: "email", placeholder: "john@example.com" },
+    { label: "Address", type: "text", name: "address", placeholder: "Enter address", width: "full" },
+    { label: "City", type: "text", name: "city", placeholder: "Enter city" },
+    { label: "State / province/ Region", type: "text", name: "state", placeholder: "Enter state/province/region" },
+    { label: "Postal / Zip Code", type: "number", name: "zipcode", placeholder: "Enter postal/zip code" },
+    { label: "Country", type: "text", name: "country", placeholder: "United States"},
+  ], []);
 
   useEffect(() => {
     const userId = user?.id || session?.userId;
@@ -74,7 +108,7 @@ const fields: FieldConfig[] = useMemo(() => [
     }
 
     const fetchUserDetails = async () => {
-      setIsLoading(true);
+      // setIsLoading(true);
       setProfileError("");
 
       try {
@@ -95,21 +129,22 @@ const fields: FieldConfig[] = useMemo(() => [
         }
 
         setProfileData({
+          profileImage: getProfileImageUrl(details.profileImage?.url),
           gender: details.gender || "",
           firstname: details.name || "",
           phonenumber: details.phone || "",
           email: details.email || "",
-          address: "",
-          city: "",
-          state: "",
-          zipcode: "",
+          address: details.address || "",
+          city: details.city || "",
+          state: details.state || "",
+          zipcode: details.zipcode || "",
           country: details.detectedCountry || "",
         });
       } catch (error) {
         console.error("Profile details error:", error);
         setProfileError("Something went wrong while loading profile details.");
       } finally {
-        setIsLoading(false);
+        // setIsLoading(false);
       }
     };
 
@@ -117,22 +152,118 @@ const fields: FieldConfig[] = useMemo(() => [
   }, [session?.userId, user?.id]);
 
 
-  const handleSubmit = (data: Record<string, FormValue>) => {
-    console.log("Profile Data:", data);
+  const getStringValue = (value: FormValue | undefined): string => {
+    return typeof value === "string" ? value : "";
+  };
+
+  const handleSubmit = async (data: Record<string, FormValue>) => {
+    const userId = user?.id || session?.userId;
+
+    if (!userId) {
+      setProfileError("User id not found. Please login again.");
+      return;
+    }
+
+    setIsSaving(true);
+    setProfileError("");
+    setProfileSuccess("");
+
+    try {
+      const payload = new FormData();
+      payload.append("userId", userId);
+      payload.append("name", getStringValue(data.firstname));
+      payload.append("phone", getStringValue(data.phonenumber));
+      payload.append("gender", getStringValue(data.gender));
+      payload.append("address", getStringValue(data.address));
+      payload.append("city", getStringValue(data.city));
+      payload.append("state", getStringValue(data.state));
+      payload.append("zip", getStringValue(data.zipcode));
+
+      if (data.profileImage instanceof File) {
+        payload.append("profileImage", data.profileImage);
+      }
+
+      const response = await fetchWithAuth(`${BASE_URL}/update-user`, {
+        method: "PUT",
+        body: payload,
+      });
+
+      const result: UpdateUserResponse = await response.json();
+
+      if (!response.ok || !result.success) {
+        setProfileError(result.message || "Unable to update profile details.");
+        return;
+      }
+
+      const updatedName = getStringValue(data.firstname);
+      const updatedProfileImageUrl =
+        getProfileImageUrl(result.user?.user?.profileImage?.url) ||
+        profileData.profileImage ||
+        "";
+
+      if (user && updatedName) {
+        saveAuthUser({
+          ...user,
+          name: updatedName,
+          profileImageUrl: updatedProfileImageUrl,
+        });
+      }
+
+      setProfileData((prev) => ({
+        ...prev,
+        profileImage: updatedProfileImageUrl || prev.profileImage || "",
+        gender: getStringValue(data.gender),
+        firstname: updatedName,
+        phonenumber: getStringValue(data.phonenumber),
+        address: getStringValue(data.address),
+        city: getStringValue(data.city),
+        state: getStringValue(data.state),
+        zipcode: getStringValue(data.zipcode),
+      }));
+      setProfileSuccess(result.message || "Profile updated successfully.");
+    } catch (error) {
+      console.error("Profile update error:", error);
+      setProfileError("Something went wrong while updating profile details.");
+    } finally {
+      setIsSaving(false);
+    }
   };
 
   return (
+    <>
     <div className="profileWrap">
         <div className="ProfileForm gradientBox">  
           <div className="RoleWrap d-flex">
             <h3>{role}</h3>
-            <GlobalButtons text="Reset Password"/>
+            <GlobalButtons text="Reset Password" />
+            {/* <GlobalButtons text="Reset Password" onClick={() => setOpenForgetModal(true)}/> */}
+                    {/* MODAL */}
+                    {openForgetModal && (
+                      <div className="modalOverlay">
+                        <div className="modalContent">
+
+                          <button
+                            className="closeBtn"
+                            onClick={() => setOpenForgetModal(false)}
+                          >
+                            X
+                          </button>
+
+                          <ForgetPasswordForm
+                            onClose={() => setOpenForgetModal(false)}
+                            openSendCode={handleOpenSendCode}
+                          />
+                        </div>
+                      </div>
+                    )}
           </div>
-          {isLoading && <p className="profile-message">Loading profile details...</p>}
+          {/* {isLoading && <p className="profile-message">Loading profile details...</p>} */}
           {profileError && <p className="error">{profileError}</p>}
-          <CustomForm fields={fields} initialValues={profileData} onSubmit={handleSubmit} SubmitText="Save Changes" variant="view"/>
+          {profileSuccess && <p className="profile-message">{profileSuccess}</p>}
+          <CustomForm fields={fields} initialValues={profileData} onSubmit={handleSubmit} SubmitText={isSaving ? "Saving..." : "Save Changes"} isSubmitting={isSaving} variant="view"/>
         </div>
     </div>
+    </>
   );
 };
 

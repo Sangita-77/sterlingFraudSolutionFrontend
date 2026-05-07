@@ -16,6 +16,7 @@ export type AuthUser = {
   email: string;
   flag?: number;
   status?: number;
+  profileImageUrl?: string;
 };
 
 type RefreshTokenResponse = {

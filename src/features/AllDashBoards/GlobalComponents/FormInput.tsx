@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import PencilEdit from "../assets/images/PencilEdit.svg";
 import PasswordInput from "../../Components/PasswordInput";
 
@@ -18,6 +18,7 @@ interface FormInputProps {
   required?: boolean;
   DefaultProfile?: string;
   preview?: string;
+  profileInitial?: string;
 }
 
 const FormInput: React.FC<FormInputProps> = ({
@@ -35,41 +36,62 @@ const FormInput: React.FC<FormInputProps> = ({
   preview,
   required= false,
   DefaultProfile,
+  profileInitial = "U",
 }) => {
 const fileInputRef = useRef<HTMLInputElement>(null);
+const [imageFailed, setImageFailed] = useState(false);
+const imageSrc = preview || value || DefaultProfile || "";
+
+useEffect(() => {
+  setImageFailed(false);
+}, [imageSrc]);
+
 const handleUploadClick = () => {
 fileInputRef.current?.click();
 
 };
+
+const renderProfileUpload = () => (
+  <div className="profile-upload">
+    {imageSrc && !imageFailed ? (
+      <img
+        src={imageSrc}
+        alt="profile"
+        className="profile-img"
+        crossOrigin="anonymous"
+        referrerPolicy="no-referrer"
+        onError={() => setImageFailed(true)}
+      />
+    ) : (
+      <div className="profile-initial" aria-label="profile">
+        {profileInitial.slice(0, 1).toUpperCase()}
+      </div>
+    )}
+    <button
+      type="button"
+      onClick={() => {
+        handleUploadClick();
+        onEdit?.();
+      }}
+      className="edit-btn"
+    >
+      <img src={PencilEdit} alt="edit" />
+    </button>
+
+    <input
+      ref={fileInputRef}
+      type="file"
+      name={name}
+      accept="image/*"
+      onChange={onChange}
+      style={{ display: "none" }}
+    />
+  </div>
+);
+
   return ( 
   type === "file" ? (
-   <div className="profile-upload">
-          <img
-              src={preview || value || DefaultProfile}
-              alt="profile"
-              className="profile-img"
-            />
-              <button
-                type="button"
-                onClick={() => {
-                  handleUploadClick();
-                  onEdit?.();  
-                }}
-                className="edit-btn"
-              >
-                <img src={PencilEdit} alt="edit" />
-              </button>
-
-            {/* Hidden file input */}
-            <input
-              ref={fileInputRef}
-              type="file"
-              name={name}
-              accept="image/*"
-              onChange={onChange}
-              style={{ display: "none" }}
-            />
-        </div>
+   renderProfileUpload()
     ) :
     <div className={width}>
       {label && (
@@ -104,33 +126,7 @@ fileInputRef.current?.click();
           onChange={onChange}
         />
       ) : type === "file" ? (
-        <div className="profile-upload">
-            <img
-              src={preview || value || DefaultProfile}
-              alt="profile"
-              className="profile-img"
-            />
-              <button
-                type="button"
-                onClick={() => {
-                  handleUploadClick();
-                  onEdit?.();  
-                }}
-                className="edit-btn"
-              >
-                <img src={PencilEdit} alt="edit" />
-              </button>
-
-            {/* Hidden file input */}
-            <input
-              ref={fileInputRef}
-              type="file"
-              name={name}
-              accept="image/*"
-              onChange={onChange}
-              style={{ display: "none" }}
-            />
-        </div>
+        renderProfileUpload()
         ) :  (
           <div className="input-wrapper">
             <input
