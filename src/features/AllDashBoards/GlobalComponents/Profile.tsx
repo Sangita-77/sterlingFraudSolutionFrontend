@@ -3,7 +3,7 @@ import CustomForm from "./CustomForm";
 import type { FieldConfig, FormValue } from "./CustomForm";
 import mAvtar from "../assets/images/mAvtar.webp";
 import { BASE_URL } from "../../../api/config";
-import { fetchWithAuth, getAuthSession, getUserRole, getAuthUser } from "../../../api/authService";
+import { fetchWithAuth, getAuthSession, getUserRole, getAuthUser, saveAuthUser } from "../../../api/authService";
 import GlobalButtons from "../GlobalComponents/GlobalButtons";
 
 type UserDetails = {
@@ -23,6 +23,10 @@ type UserDetails = {
   updatedAt?: string;
   lastLoginAt?: string;
   lastLogoutAt?: string;
+  address?: string;
+  city?: string;
+  state?: string;
+  zipcode?: string;
 };
 
 type UserDataResponse = {
@@ -33,13 +37,21 @@ type UserDataResponse = {
   };
 };
 
+type UpdateUserResponse = {
+  success: boolean;
+  message?: string;
+  user?: UserDetails;
+};
+
 const Profile: React.FC = () => {
   const user = getAuthUser();
   const session = getAuthSession();
   const role = getUserRole(user);
   const [profileData, setProfileData] = useState<Record<string, string>>({});
   const [isLoading, setIsLoading] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
   const [profileError, setProfileError] = useState("");
+  const [profileSuccess, setProfileSuccess] = useState("");
 
 const fields: FieldConfig[] = useMemo(() => [
   {label: "", type: "file", name: "profileImage", placeholder: "", width:"full", defaultImage:mAvtar},
@@ -52,7 +64,7 @@ const fields: FieldConfig[] = useMemo(() => [
     options: [
       { label: "Male", value: "male" },
       { label: "Female", value: "female" },
-      { label: "Others", value: "others" },
+      { label: "Others", value: "other" },
     ],
   },
   { label: "Full Name", type: "text", name: "firstname", placeholder: "John Doe", width: "full"},
@@ -99,10 +111,10 @@ const fields: FieldConfig[] = useMemo(() => [
           firstname: details.name || "",
           phonenumber: details.phone || "",
           email: details.email || "",
-          address: "",
-          city: "",
-          state: "",
-          zipcode: "",
+          address: details.address || "",
+          city: details.city || "",
+          state: details.state || "",
+          zipcode: details.zipcode || "",
           country: details.detectedCountry || "",
         });
       } catch (error) {
@@ -117,8 +129,75 @@ const fields: FieldConfig[] = useMemo(() => [
   }, [session?.userId, user?.id]);
 
 
-  const handleSubmit = (data: Record<string, FormValue>) => {
-    console.log("Profile Data:", data);
+  const getStringValue = (value: FormValue | undefined): string => {
+    return typeof value === "string" ? value : "";
+  };
+
+  const handleSubmit = async (data: Record<string, FormValue>) => {
+    const userId = user?.id || session?.userId;
+
+    if (!userId) {
+      setProfileError("User id not found. Please login again.");
+      return;
+    }
+
+    setIsSaving(true);
+    setProfileError("");
+    setProfileSuccess("");
+
+    try {
+      const payload = new FormData();
+      payload.append("userId", userId);
+      payload.append("name", getStringValue(data.firstname));
+      payload.append("phone", getStringValue(data.phonenumber));
+      payload.append("gender", getStringValue(data.gender));
+      payload.append("address", getStringValue(data.address));
+      payload.append("city", getStringValue(data.city));
+      payload.append("state", getStringValue(data.state));
+      payload.append("zip", getStringValue(data.zipcode));
+
+      if (data.profileImage instanceof File) {
+        payload.append("profileImageFile", data.profileImage);
+      }
+
+      const response = await fetchWithAuth(`${BASE_URL}/update-user`, {
+        method: "PUT",
+        body: payload,
+      });
+
+      const result: UpdateUserResponse = await response.json();
+
+      if (!response.ok || !result.success) {
+        setProfileError(result.message || "Unable to update profile details.");
+        return;
+      }
+
+      const updatedName = getStringValue(data.firstname);
+
+      if (user && updatedName) {
+        saveAuthUser({
+          ...user,
+          name: updatedName,
+        });
+      }
+
+      setProfileData((prev) => ({
+        ...prev,
+        gender: getStringValue(data.gender),
+        firstname: updatedName,
+        phonenumber: getStringValue(data.phonenumber),
+        address: getStringValue(data.address),
+        city: getStringValue(data.city),
+        state: getStringValue(data.state),
+        zipcode: getStringValue(data.zipcode),
+      }));
+      setProfileSuccess(result.message || "Profile updated successfully.");
+    } catch (error) {
+      console.error("Profile update error:", error);
+      setProfileError("Something went wrong while updating profile details.");
+    } finally {
+      setIsSaving(false);
+    }
   };
 
   return (
@@ -130,7 +209,8 @@ const fields: FieldConfig[] = useMemo(() => [
           </div>
           {isLoading && <p className="profile-message">Loading profile details...</p>}
           {profileError && <p className="error">{profileError}</p>}
-          <CustomForm fields={fields} initialValues={profileData} onSubmit={handleSubmit} SubmitText="Save Changes" variant="view"/>
+          {profileSuccess && <p className="profile-message">{profileSuccess}</p>}
+          <CustomForm fields={fields} initialValues={profileData} onSubmit={handleSubmit} SubmitText={isSaving ? "Saving..." : "Save Changes"} isSubmitting={isSaving} variant="view"/>
         </div>
     </div>
   );

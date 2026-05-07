@@ -21,11 +21,12 @@ interface CustomFormProps {
   formId?: string;
   SubmitText?: string;
   initialValues?: Record<string, string>;
+  isSubmitting?: boolean;
 }
 
 const emptyInitialValues: Record<string, string> = {};
 
-const CustomForm: React.FC<CustomFormProps> = ({ fields, onSubmit, SubmitText, variant, formId = "customForm", initialValues}) => {
+const CustomForm: React.FC<CustomFormProps> = ({ fields, onSubmit, SubmitText, variant, formId = "customForm", initialValues, isSubmitting = false}) => {
   const resolvedInitialValues = initialValues ?? emptyInitialValues;
   const initialState = useMemo(() => fields.reduce((acc, field) => {
     acc[field.name] = "";
@@ -154,7 +155,7 @@ const getStringValue = (name: string): string => {
       />
     ))}
   </div>
-  <div className="submit-button"><button type="submit">{SubmitText}</button></div>
+  <div className="submit-button"><button type="submit" disabled={isSubmitting}>{SubmitText}</button></div>
 
 </form>
 </div>
