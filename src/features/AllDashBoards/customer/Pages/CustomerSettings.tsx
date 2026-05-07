@@ -9,9 +9,7 @@ const CustomerSettings: React.FC = () => {
     <div className="CustomerSettings">
       <Heading1 text="Settings" />
       <Paragraph text="Manage system Preference and configuration" />
-        <div className="gradientBox">
             <Profile/>
-        </div>
     </div>
   );
 };

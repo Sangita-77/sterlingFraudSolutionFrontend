@@ -40,8 +40,6 @@ const Sidebar: React.FC<SidebarProps> = ({ open, toggle }) => {
   const handleClick = () => {
     setTimeout(toggle, 100);
   };
-
-
 const menuItems = [
 
 // Super Admin Start

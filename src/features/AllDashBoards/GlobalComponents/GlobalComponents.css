@@ -11,6 +11,7 @@
   --fontColor: #9AA2B0;
   --purple-text: #A5B4FC;
   --sky-blueColor: #4CBCFB;
+  --button-background: #264589;
 
   --overlay-bg: rgba(0, 0, 0, 0.5);
   --border-color: #2a2d5a;
@@ -154,13 +155,21 @@ p.PageDescription{color: var(--whiteColor); font: 400 16px/26px var(--font-main)
 .DashBoardForms .input-wrapper{position: relative;}
 .DashBoardForms .input-wrapper button.edit-btn{background: transparent; border: none; position: absolute; right: 10px; top: 10px;}
 
-
+/* Profile page */
+.ProfileForm .profile-fields-wrapper{width: 18%;}
+.ProfileForm .normal-fields-wrapper{width: 82%;  display: flex; flex-wrap: wrap;}
+.profileWrap .RoleWrap h3{width: 12%; text-align: center; color: var(--whiteColor); text-transform: capitalize;}
+.ProfileForm .submit-button{text-align: right; width: 100%;}
+.ProfileForm .profile-upload img.profile-img{border-radius: 50%; width: 136px; height: 136px; object-fit: cover;}
+.ProfileForm .profile-upload{position: relative;}
+.ProfileForm .profile-upload button.edit-btn{position: absolute; left: 90px; bottom: 0; background: #383976; border: solid 1px #585ad1; border-radius: 50%; width: 40px; height: 40px;}
+.ProfileForm .submit-button button{background: var(--button-background); border: ;}
 
 /* Profile */
 /* .profileWrap .ProfilePhoto{width: 12%;}
 .profileWrap .ProfileForm{width: 88%;}
 .profileWrap .ProfilePhoto img{border-radius: 50%;}
-.profileWrap .ProfilePhoto h3{text-align: center; color: var(--whiteColor); text-transform: capitalize;}
+.profileWrap .ProfilePhoto h3{}
 .profileWrap .ProfileForm .DashBoardForms{padding: 20px 40px;} */
 
 /* Profile Form End */

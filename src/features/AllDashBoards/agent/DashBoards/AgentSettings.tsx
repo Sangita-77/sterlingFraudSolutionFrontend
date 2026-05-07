@@ -1,7 +1,17 @@
 import React from "react";
+import { Heading1, Paragraph } from "../../GlobalComponents/HeadingPara";
+import Profile from "../../GlobalComponents/Profile";
+
 
 const AgentSettings: React.FC = () => {
-  return <h2>Agent Settings</h2>;
+
+  return (
+    <div className="CustomerSettings">
+      <Heading1 text="Settings" />
+      <Paragraph text="Manage system Preference and configuration" />
+            <Profile/>
+    </div>
+  );
 };
 
-export default AgentSettings;
+export default AgentSettings; 

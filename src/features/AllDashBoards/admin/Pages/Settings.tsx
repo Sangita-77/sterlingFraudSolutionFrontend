@@ -1,2 +1,17 @@
-const Settings = () => <h2>Settings Page</h2>;
-export default Settings;
+import React from "react";
+import { Heading1, Paragraph } from "../../GlobalComponents/HeadingPara";
+import Profile from "../../GlobalComponents/Profile";
+
+
+const AdminSettings: React.FC = () => {
+
+  return (
+    <div className="CustomerSettings">
+      <Heading1 text="Settings" />
+      <Paragraph text="Manage system Preference and configuration" />
+            <Profile/>
+    </div>
+  );
+};
+
+export default AdminSettings; 
