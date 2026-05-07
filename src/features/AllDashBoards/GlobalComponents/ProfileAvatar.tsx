@@ -22,6 +22,7 @@ type UserDetailsResponse = {
       profileImage?: {
         url?: string;
       };
+      flag?: number;
     };
   };
 };
@@ -40,6 +41,7 @@ const ProfileAvatar: React.FC<ProfileAvatarProps> = ({ label }) => {
   const [name, setName] = useState(getAuthUser()?.name || label);
   const [imageUrl, setImageUrl] = useState(getAuthUser()?.profileImageUrl || "");
   const [imageFailed, setImageFailed] = useState(false);
+  const [flag, setFlag] = useState(getAuthUser()?.flag || "");
 
   useEffect(() => {
     const syncFromAuth = () => {
@@ -47,6 +49,7 @@ const ProfileAvatar: React.FC<ProfileAvatarProps> = ({ label }) => {
       setName(authUser?.name || label);
       setImageUrl(authUser?.profileImageUrl || "");
       setImageFailed(false);
+      setFlag(authUser?.flag || "");
     };
 
     const loadProfileImage = async () => {
@@ -71,6 +74,8 @@ const ProfileAvatar: React.FC<ProfileAvatarProps> = ({ label }) => {
         const result: UserDetailsResponse = await response.json();
         const details = result.user?.user;
 
+        console.log("ProfileAvatar user details response:::::::::::::::::::::::::::", details);
+
         if (!response.ok || !result.success || !details) {
           syncFromAuth();
           return;
@@ -78,16 +83,19 @@ const ProfileAvatar: React.FC<ProfileAvatarProps> = ({ label }) => {
 
         const nextImageUrl = getProfileImageUrl(details.profileImage?.url);
         const nextName = details.name || authUser?.name || label;
+        const flag = details.flag || 0;
 
         setName(nextName);
         setImageUrl(nextImageUrl);
         setImageFailed(false);
+        setFlag(flag);
 
         if (authUser) {
           saveAuthUser({
             ...authUser,
             name: nextName,
             profileImageUrl: nextImageUrl,
+            flag: flag,
           });
         }
       } catch (error) {
@@ -110,9 +118,16 @@ const ProfileAvatar: React.FC<ProfileAvatarProps> = ({ label }) => {
 
   const initial = (name || label || "U").slice(0, 1).toUpperCase();
 
+  const settingsRoute =
+  flag === 2
+    ? routes.CUSTOMER_SETTINGS
+    : flag === 1
+    ? routes.AGENT_SETTINGS
+    : routes.SETTINGS;
+
   return (
     <div className="admin-profile">
-      <Link to={routes.CUSTOMER_SETTINGS} className="admin-profile" style={{ textDecoration: "none" }}>
+      <Link to={settingsRoute} className="admin-profile" style={{ textDecoration: "none" }}>
         {imageUrl && !imageFailed ? (
           <img
             src={imageUrl}
