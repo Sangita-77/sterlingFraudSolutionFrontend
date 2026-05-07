@@ -1,10 +1,6 @@
-<<<<<<< HEAD
 import React, { useRef } from "react";
 import PencilEdit from "../assets/images/PencilEdit.svg";
-=======
-import React from "react";
 import PasswordInput from "../../Components/PasswordInput";
->>>>>>> 72ec7edc5ea9737a7e33fafac171103857b3ee48
 
 interface FormInputProps {
   label: string;
@@ -74,30 +70,12 @@ fileInputRef.current?.click();
               style={{ display: "none" }}
             />
         </div>
-<<<<<<< HEAD
     ) :
     <div className={width}>
       {label && (
         <label>
           {label} {required && <span className="required">*</span>}
         </label>
-=======
-      ) : type === "password" ? (
-        <PasswordInput
-          name={name}
-          value={value}
-          placeholder={placehoder}
-          onChange={onChange}
-        />
-      ) : (
-        <input
-          type={type}
-          name={name}
-          value={value}
-          placeholder={placehoder}
-          onChange={onChange}
-        />
->>>>>>> 72ec7edc5ea9737a7e33fafac171103857b3ee48
       )}
       {/* RADIO */}
         {type === "radio" && options ? (
@@ -118,7 +96,14 @@ fileInputRef.current?.click();
               </label>
             ))}
           </div>
-        ) : type === "file" ? (
+        ) : type === "password" ? (
+        <PasswordInput
+          name={name}
+          value={value}
+          placeholder={placeholder}
+          onChange={onChange}
+        />
+      ) : type === "file" ? (
         <div className="profile-upload">
             <img
               src={preview || value || DefaultProfile}
