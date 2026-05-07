@@ -4,6 +4,7 @@ import Search from "../../assets/images/Search.svg";
 import Bell from "../../assets/images/Bell.svg";
 import Admin from "../../assets/images/Admin.webp";
 import hamburger from "../../assets/images/hamburger.svg";
+import LanguageSwitcher from "../../../Components/LanguageSwitcher";
 
 interface NavbarProps {
   toggle: () => void;
@@ -26,6 +27,7 @@ const Navbar: React.FC<NavbarProps> = ({ toggle }) => {
       </div>
 
       <div className="nav-right">
+        <LanguageSwitcher />
         <div className="notification">
           <img
             src={Bell}
