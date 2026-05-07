@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import FormInput from "./FormInput";
 
 export interface FieldConfig {
@@ -12,23 +12,37 @@ export interface FieldConfig {
   defaultImage?: string;
 }
 
+export type FormValue = string | File;
+
 interface CustomFormProps {
   fields: FieldConfig[];
-  onSubmit: (data: Record<string, string>) => void;
+  onSubmit: (data: Record<string, FormValue>) => void;
   variant?: "view" | "edit";
   formId?: string;
   SubmitText?: string;
+  initialValues?: Record<string, string>;
 }
 
-const CustomForm: React.FC<CustomFormProps> = ({ fields, onSubmit, SubmitText, variant, formId = "customForm"}) => {
-  const initialState = fields.reduce((acc, field) => {
+const emptyInitialValues: Record<string, string> = {};
+
+const CustomForm: React.FC<CustomFormProps> = ({ fields, onSubmit, SubmitText, variant, formId = "customForm", initialValues}) => {
+  const resolvedInitialValues = initialValues ?? emptyInitialValues;
+  const initialState = useMemo(() => fields.reduce((acc, field) => {
     acc[field.name] = "";
     return acc;
-  }, {} as Record<string, string>);
+  }, {} as Record<string, FormValue>), [fields]);
+
   const [editableFields, setEditableFields] = useState<Record<string, boolean>>({});
-  const [formData, setFormData] = useState<Record<string, any>>(initialState);
+  const [formData, setFormData] = useState<Record<string, FormValue>>(initialState);
   const [errors, setErrors] = useState<Record<string, string>>({});
 const [preview, setPreview] = useState<string>("");
+
+useEffect(() => {
+  setFormData({
+    ...initialState,
+    ...resolvedInitialValues,
+  });
+}, [initialState, resolvedInitialValues]);
 
 const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
   const { name, files, value } = e.target;
@@ -38,7 +52,7 @@ const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 
     setFormData((prev) => ({
       ...prev,
-      [name]: file, // store file
+      [name]: file,
     }));
 
     setPreview(URL.createObjectURL(file)); // 👈 instant preview
@@ -89,6 +103,11 @@ const isEditable = (name: string) => {
   return editableFields[name];
 };
 
+const getStringValue = (name: string): string => {
+  const value = formData[name];
+  return typeof value === "string" ? value : "";
+};
+
 
   return (
 <div className="">    
@@ -104,7 +123,7 @@ const isEditable = (name: string) => {
         label={field.label}
         type={field.type}
         name={field.name}
-        value={formData[field.name]}
+        value={getStringValue(field.name)}
         onChange={handleChange}
         error={errors[field.name]}
         options={field.options}
@@ -124,7 +143,7 @@ const isEditable = (name: string) => {
         label={field.label}
         type={field.type}
         name={field.name}
-        value={isEditable(field.name) ? formData[field.name] : ""}
+        value={getStringValue(field.name)}
         onChange={handleChange}
         preview={preview}
         error={errors[field.name]}

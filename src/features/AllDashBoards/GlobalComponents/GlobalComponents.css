@@ -134,7 +134,8 @@ p.PageDescription{color: var(--whiteColor); font: 400 16px/26px var(--font-main)
 /* Profile Form Satrt */
 /* Form */
 .DashBoardForms {flex-wrap: wrap;}
-.DashBoardForms input{width: 100%; background: #383976; border: solid 1px #585ad1; border-radius: 10px; padding: 17px;}
+.DashBoardForms input{width: 100%; background: #383976; border: solid 1px #585ad1; border-radius: 10px; padding: 17px; color: var(--grey-text); opacity: 1;}
+.DashBoardForms input:disabled{color: var(--grey-text); opacity: 1; -webkit-text-fill-color: var(--grey-text);}
 .DashBoardForms input::placeholder{color: var(--grey-text); font: 400 16px/26px var(--font-main);}
 .DashBoardForms label{ width: 100%; display: block; font: 400 16px/26px var(--font-main); color: var(--whiteColor);}
 .DashBoardForms .Submit{flex: 0 0 100%; width: 100%;}
