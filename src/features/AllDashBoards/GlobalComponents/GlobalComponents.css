@@ -163,7 +163,7 @@ p.PageDescription{color: var(--whiteColor); font: 400 16px/26px var(--font-main)
 .ProfileForm .profile-upload img.profile-img{border-radius: 50%; width: 136px; height: 136px; object-fit: cover;}
 .ProfileForm .profile-upload{position: relative;}
 .ProfileForm .profile-upload button.edit-btn{position: absolute; left: 90px; bottom: 0; background: #383976; border: solid 1px #585ad1; border-radius: 50%; width: 40px; height: 40px;}
-.ProfileForm .submit-button button{background: var(--button-background); border: ;}
+.ProfileForm .submit-button button{background: var(--button-background); border: 50;}
 
 /* Profile */
 /* .profileWrap .ProfilePhoto{width: 12%;}
