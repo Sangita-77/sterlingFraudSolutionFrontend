@@ -59,7 +59,7 @@ p.PageDescription{color: var(--whiteColor); font: 400 16px/26px var(--font-main)
 
 /* Navbar Start */
 .navbar { height: 90px; background: var(--secondary-color); display: flex; justify-content: space-between; align-items: center; padding: 0 20px; box-shadow: 0 2px 30px rgb(0 0 0 / 55%)/*, inset 0px 0px 0px 0px #4338ca */; background: linear-gradient(120deg, #141534, #1a1d42);} 
-.nav-right{display: flex; justify-content: space-evenly; width: 240px; align-items: center;}
+.nav-right{display: flex; justify-content: flex-end; width: 380px; align-items: center; gap: 14px;}
 .menu-toggle { font-size: 20px; cursor: pointer; }
 /*Search*/
 .search-box { display: flex; align-items: center; background: linear-gradient(120deg, #222466, #1d1f48); padding: 8px 10px; border-radius: 13px; transition: all 0.3s ease; border: 1px solid #33397e; height: 35px;}
