@@ -127,6 +127,7 @@ const getStringValue = (name: string): string => {
         value={getStringValue(field.name)}
         onChange={handleChange}
         preview={preview}
+        profileInitial={getStringValue("firstname") || getStringValue("name") || "U"}
         error={errors[field.name]}
         options={field.options}
         editable={isEditable(field.name)}

@@ -1,12 +1,14 @@
 import React, { useEffect, useMemo, useState } from "react";
 import CustomForm from "./CustomForm";
 import type { FieldConfig, FormValue } from "./CustomForm";
-import mAvtar from "../assets/images/mAvtar.webp";
 import { BASE_URL } from "../../../api/config";
 import { fetchWithAuth, getAuthSession, getUserRole, getAuthUser, saveAuthUser } from "../../../api/authService";
 import GlobalButtons from "../GlobalComponents/GlobalButtons";
 
 type UserDetails = {
+  profileImage?: {
+    url?: string;
+  };
   _id?: string;
   name?: string;
   email?: string;
@@ -40,7 +42,19 @@ type UserDataResponse = {
 type UpdateUserResponse = {
   success: boolean;
   message?: string;
-  user?: UserDetails;
+  user?: {
+    user?: UserDetails;
+  };
+};
+
+const getProfileImageUrl = (url?: string) => {
+  if (!url) return "";
+
+  if (/^https?:\/\//i.test(url)) {
+    return url;
+  }
+
+  return `${BASE_URL.replace(/\/api$/, "")}${url}`;
 };
 
 const Profile: React.FC = () => {
@@ -54,7 +68,7 @@ const Profile: React.FC = () => {
   const [profileSuccess, setProfileSuccess] = useState("");
 
 const fields: FieldConfig[] = useMemo(() => [
-  {label: "", type: "file", name: "profileImage", placeholder: "", width:"full", defaultImage:mAvtar},
+  {label: "", type: "file", name: "profileImage", placeholder: "", width:"full"},
    {
     label: "Gender",
     type: "radio",
@@ -107,6 +121,7 @@ const fields: FieldConfig[] = useMemo(() => [
         }
 
         setProfileData({
+          profileImage: getProfileImageUrl(details.profileImage?.url),
           gender: details.gender || "",
           firstname: details.name || "",
           phonenumber: details.phone || "",
@@ -157,7 +172,7 @@ const fields: FieldConfig[] = useMemo(() => [
       payload.append("zip", getStringValue(data.zipcode));
 
       if (data.profileImage instanceof File) {
-        payload.append("profileImageFile", data.profileImage);
+        payload.append("profileImage", data.profileImage);
       }
 
       const response = await fetchWithAuth(`${BASE_URL}/update-user`, {
@@ -183,6 +198,10 @@ const fields: FieldConfig[] = useMemo(() => [
 
       setProfileData((prev) => ({
         ...prev,
+        profileImage:
+          getProfileImageUrl(result.user?.user?.profileImage?.url) ||
+          prev.profileImage ||
+          "",
         gender: getStringValue(data.gender),
         firstname: updatedName,
         phonenumber: getStringValue(data.phonenumber),

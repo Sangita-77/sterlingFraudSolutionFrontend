@@ -162,6 +162,7 @@ p.PageDescription{color: var(--whiteColor); font: 400 16px/26px var(--font-main)
 .profileWrap .RoleWrap h3{width: 12%; text-align: center; color: var(--whiteColor); text-transform: capitalize;}
 .ProfileForm .submit-button{text-align: right; width: 100%;}
 .ProfileForm .profile-upload img.profile-img{border-radius: 50%; width: 136px; height: 136px; object-fit: cover;}
+.ProfileForm .profile-upload .profile-initial{width: 136px; height: 136px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: #383976; border: solid 1px #585ad1; color: var(--whiteColor); font: 600 48px/1 var(--font-main);}
 .ProfileForm .profile-upload{position: relative;}
 .ProfileForm .profile-upload button.edit-btn{position: absolute; left: 90px; bottom: 0; background: #383976; border: solid 1px #585ad1; border-radius: 50%; width: 40px; height: 40px;}
 .ProfileForm .submit-button button{background: var(--button-background); border: 50;}
