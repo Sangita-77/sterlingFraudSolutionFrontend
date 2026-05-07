@@ -9,6 +9,8 @@
   --secondary-color: #151639;
   --whiteColor: #fff;
   --fontColor: #9AA2B0;
+  --purple-text: #A5B4FC;
+  --sky-blueColor: #4CBCFB;
 
   --overlay-bg: rgba(0, 0, 0, 0.5);
   --border-color: #2a2d5a;
@@ -133,19 +135,34 @@ p.PageDescription{color: var(--whiteColor); font: 400 16px/26px var(--font-main)
 /* Form */
 .DashBoardForms {flex-wrap: wrap;}
 .DashBoardForms input{width: 100%; background: #383976; border: solid 1px #585ad1; border-radius: 10px; padding: 17px;}
-.DashBoardForms input[type="radio"]{width: auto;}
 .DashBoardForms input::placeholder{color: var(--grey-text); font: 400 16px/26px var(--font-main);}
 .DashBoardForms label{ width: 100%; display: block; font: 400 16px/26px var(--font-main); color: var(--whiteColor);}
 .DashBoardForms .Submit{flex: 0 0 100%; width: 100%;}
 .DashBoardForms .half{flex: 0 0 50%; width: 50%; padding: 12px 8px;}
 .DashBoardForms .full{flex: 0 0 100%; width: 100%; padding: 12px 8px;} 
 .DashBoardForms button{margin: 8px;}
+/* radio option */
+.DashBoardForms .radioOptions{width: 360px;}
+.DashBoardForms .radioOptions label{color: var(--purple-text); font-size: 18px;}
+.DashBoardForms .radio-container {align-items: center; position: relative; padding-left: 28px; cursor: pointer;} 
+/* Hide default radio */
+.DashBoardForms input[type="radio"] {position: absolute; opacity: 0; cursor: pointer; } 
+.DashBoardForms .checkmark {position: absolute; left: 0; top: 2px; height: 24px; width: 24px; background-color: transparent; border-radius: 50%; border: 4px solid var(--sky-blueColor); }
+.DashBoardForms .radio-container:hover .checkmark{ background-color: #ddd; }
+.DashBoardForms input:checked ~ .checkmark{background-color: var(--whiteColor); border-color: #4CAF50; }
+/* Edit Button Pencil */
+.DashBoardForms .input-wrapper{position: relative;}
+.DashBoardForms .input-wrapper button.edit-btn{background: transparent; border: none; position: absolute; right: 10px; top: 10px;}
+
+
+
 /* Profile */
-.profileWrap .ProfilePhoto{width: 12%;}
+/* .profileWrap .ProfilePhoto{width: 12%;}
 .profileWrap .ProfileForm{width: 88%;}
 .profileWrap .ProfilePhoto img{border-radius: 50%;}
 .profileWrap .ProfilePhoto h3{text-align: center; color: var(--whiteColor); text-transform: capitalize;}
-.profileWrap .ProfileForm .DashBoardForms{padding: 20px 40px;}
+.profileWrap .ProfileForm .DashBoardForms{padding: 20px 40px;} */
+
 /* Profile Form End */
 
 

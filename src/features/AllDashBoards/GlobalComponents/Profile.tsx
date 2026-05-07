@@ -9,6 +9,7 @@ const Profile: React.FC = () => {
   const role = getUserRole(user);
 
 const fields: FieldConfig[] = [
+  {label: "", type: "file", name: "profileImage", placeholder: "", width:"full", defaultImage:mAvtar},
    {
     label: "Gender",
     type: "radio",
@@ -18,9 +19,10 @@ const fields: FieldConfig[] = [
     options: [
       { label: "Male", value: "male" },
       { label: "Female", value: "female" },
+      { label: "Others", value: "others" },
     ],
   },
-  { label: "Full Name", type: "text", name: "firstname", placeholder: "John Doe", width: "full" },
+  { label: "Full Name", type: "text", name: "firstname", placeholder: "John Doe", width: "full"},
   { label: "Phone Number", type: "tel", name: "phonenumber", placeholder: "+1-234-3456-567" },
   { label: "Mail ID", type: "email", name: "email", placeholder: "john@example.com" },
   { label: "Address", type: "text", name: "address", placeholder: "142 Palm Avenue", width: "full" },
@@ -32,10 +34,10 @@ const fields: FieldConfig[] = [
 
 
   const handleSubmit = (data: Record<string, string>) => {
-    if (data.password !== data.confirmPassword) {
-      alert("Passwords do not match");
-      return;
-    }
+    // if (data.password !== data.confirmPassword) {
+    //   alert("Passwords do not match");
+    //   return;
+    // }
 
     // Remove confirmPassword before API call
     const { confirmPassword, ...payload } = data;
@@ -46,13 +48,10 @@ const fields: FieldConfig[] = [
   };
 
   return (
-    <div className="profileWrap d-flex">
-        <div className="ProfilePhoto">
-          <img src={mAvtar} alt="Profile Picture" />
-          <h3>{role}</h3>
-        </div>
+    <div className="profileWrap">
         <div className="ProfileForm">  
-          <CustomForm fields={fields} onSubmit={handleSubmit} />
+          <h3>{role}</h3>
+          <CustomForm  fields={fields} onSubmit={handleSubmit} SubmitText="Save Changes" variant="view"/>
         </div>
     </div>
   );

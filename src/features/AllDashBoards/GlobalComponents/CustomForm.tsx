@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import FormInput from "./FormInput";
+import { div } from "motion/react-client";
 
 export interface FieldConfig {
   label: string;
@@ -8,44 +9,69 @@ export interface FieldConfig {
   placeholder: string;
   width?: "full" | "half";
   options?: { label: string; value: string }[]; 
+  required?: boolean;
+  defaultImage?: string;
 }
 
 interface CustomFormProps {
   fields: FieldConfig[];
   onSubmit: (data: Record<string, string>) => void;
+  variant?: "view" | "edit";
+  formId?: string;
+  SubmitText?: string;
 }
 
-const CustomForm: React.FC<CustomFormProps> = ({ fields, onSubmit }) => {
+const CustomForm: React.FC<CustomFormProps> = ({ fields, onSubmit, SubmitText, variant, formId = "customForm"}) => {
   const initialState = fields.reduce((acc, field) => {
     acc[field.name] = "";
     return acc;
   }, {} as Record<string, string>);
-
-  const [formData, setFormData] = useState<Record<string, string>>(initialState);
+  const [editableFields, setEditableFields] = useState<Record<string, boolean>>({});
+  const [formData, setFormData] = useState<Record<string, any>>(initialState);
   const [errors, setErrors] = useState<Record<string, string>>({});
+const [preview, setPreview] = useState<string>("");
 
 const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  const { name, value, type, checked } = e.target;
+  const { name, files, value } = e.target;
 
-  setFormData((prev) => ({
+  if (files && files[0]) {
+    const file = files[0];
+
+    setFormData((prev) => ({
+      ...prev,
+      [name]: file, // store file
+    }));
+
+    setPreview(URL.createObjectURL(file)); // 👈 instant preview
+  } else {
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  }
+};
+
+const handleEditToggle = (name: string) => {
+  setEditableFields((prev) => ({
     ...prev,
-    [name]: type === "checkbox" ? (checked ? "true" : "") : value,
+    [name]: !prev[name],
   }));
 };
 
+const validate = () => {
+  let newErrors: Record<string, string> = {};
 
-  const validate = () => {
-    let newErrors: Record<string, string> = {};
+  fields.forEach((field) => {
+    const isRequired = field.required ?? false;
 
-    fields.forEach((field) => {
-      if (!formData[field.name]) {
-        newErrors[field.name] = `${field.label} is required`;
-      }
-    });
+    if (isRequired && !formData[field.name]) {
+      newErrors[field.name] = `${field.label} is required`;
+    }
+  });
 
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
+  setErrors(newErrors);
+  return Object.keys(newErrors).length === 0;
+};
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -55,26 +81,65 @@ const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     }
   };
 
+
+const profileFeild = fields.filter((field) => field.type === "file");
+const normalFields = fields.filter((field) => field.type !== "file");
+
+const isEditable = (name: string) => {
+  if (variant === "edit") return true;
+  return editableFields[name];
+};
+
+
   return (
-    <form onSubmit={handleSubmit} className="DashBoardForms d-flex">
-      {fields.map((field) => (
-       <FormInput
-          width={field.width}
-          key={field.name}
-          placehoder={field.placeholder}
-          label={field.label}
-          type={field.type}
-          name={field.name}
-          value={formData[field.name]}
-          onChange={handleChange}
-          error={errors[field.name]}
-          options={field.options}
-        />
-      ))}
+<div className="">    
+<form id={formId} onSubmit={handleSubmit} className="DashBoardForms d-flex">
 
-      <button className="Submit" type="submit">Submit</button>
+  <div className="profile-fields-wrapper">
+    {profileFeild.map((field) => (
+      <FormInput
+        key={field.name}
+        DefaultProfile={field.defaultImage}
+        width={field.width}
+        placeholder={field.placeholder}
+        label={field.label}
+        type={field.type}
+        name={field.name}
+        value={formData[field.name]}
+        onChange={handleChange}
+        error={errors[field.name]}
+        options={field.options}
+        editable={isEditable(field.name)}
+        onEdit={() => handleEditToggle(field.name)}
+        required={field.required}
+      />
+    ))}
+  </div>
+    <div className="normal-fields-wrapper">
+    {normalFields.map((field) => (
+      <FormInput
+        key={field.name}
+        DefaultProfile={field.defaultImage}
+        width={field.width}
+        placeholder={field.placeholder}
+        label={field.label}
+        type={field.type}
+        name={field.name}
+        value={isEditable(field.name) ? formData[field.name] : ""}
+        onChange={handleChange}
+        preview={preview}
+        error={errors[field.name]}
+        options={field.options}
+        editable={isEditable(field.name)}
+        onEdit={() => handleEditToggle(field.name)}
+        required={field.required}
+      />
+    ))}
+  </div>
+  <div className="submit-button"><button type="submit">{SubmitText}</button></div>
 
-    </form>
+</form>
+</div>
   );
 };
 
