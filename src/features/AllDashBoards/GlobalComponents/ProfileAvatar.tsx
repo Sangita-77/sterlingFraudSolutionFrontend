@@ -74,7 +74,7 @@ const ProfileAvatar: React.FC<ProfileAvatarProps> = ({ label }) => {
         const result: UserDetailsResponse = await response.json();
         const details = result.user?.user;
 
-        console.log("ProfileAvatar user details response:::::::::::::::::::::::::::", details);
+        // console.log("ProfileAvatar user details response:::::::::::::::::::::::::::", details);
 
         if (!response.ok || !result.success || !details) {
           syncFromAuth();

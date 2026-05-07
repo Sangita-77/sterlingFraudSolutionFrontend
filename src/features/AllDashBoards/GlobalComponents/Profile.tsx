@@ -4,6 +4,8 @@ import type { FieldConfig, FormValue } from "./CustomForm";
 import { BASE_URL } from "../../../api/config";
 import { fetchWithAuth, getAuthSession, getUserRole, getAuthUser, saveAuthUser } from "../../../api/authService";
 import GlobalButtons from "../GlobalComponents/GlobalButtons";
+import ForgetPasswordForm from "../../Components/authentication-form/ForgetPaswordForm";
+import "../../Components/IndexComponents.css";
 
 type UserDetails = {
   profileImage?: {
@@ -62,34 +64,40 @@ const Profile: React.FC = () => {
   const session = getAuthSession();
   const role = getUserRole(user);
   const [profileData, setProfileData] = useState<Record<string, string>>({});
-  const [isLoading, setIsLoading] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [profileError, setProfileError] = useState("");
   const [profileSuccess, setProfileSuccess] = useState("");
 
-const fields: FieldConfig[] = useMemo(() => [
-  {label: "", type: "file", name: "profileImage", placeholder: "", width:"full"},
-   {
-    label: "Gender",
-    type: "radio",
-    name: "gender",
-    placeholder: "",
-    width: "full",
-    options: [
-      { label: "Male", value: "male" },
-      { label: "Female", value: "female" },
-      { label: "Others", value: "other" },
-    ],
-  },
-  { label: "Full Name", type: "text", name: "firstname", placeholder: "John Doe", width: "full"},
-  { label: "Phone Number", type: "tel", name: "phonenumber", placeholder: "+1-234-3456-567" },
-  { label: "Mail ID", type: "email", name: "email", placeholder: "john@example.com" },
-  { label: "Address", type: "text", name: "address", placeholder: "Enter address", width: "full" },
-  { label: "City", type: "text", name: "city", placeholder: "Enter city" },
-  { label: "State / province/ Region", type: "text", name: "state", placeholder: "Enter state/province/region" },
-  { label: "Postal / Zip Code", type: "number", name: "zipcode", placeholder: "Enter postal/zip code" },
-  { label: "Country", type: "text", name: "country", placeholder: "United States"},
-], []);
+   const [openForgetModal, setOpenForgetModal] = useState(false);
+
+  const handleOpenSendCode = (email: string) => {
+    console.log(email);
+  };
+
+  const fields: FieldConfig[] = useMemo(() => [
+    {label: "", type: "file", name: "profileImage", placeholder: "", width:"full"},
+    {
+      label: "Gender",
+      type: "radio",
+      name: "gender",
+      placeholder: "",
+      width: "full",
+      options: [
+        { label: "Male", value: "male" },
+        { label: "Female", value: "female" },
+        { label: "Others", value: "other" },
+      ],
+    },
+    { label: "Full Name", type: "text", name: "firstname", placeholder: "John Doe", width: "full"},
+    { label: "Phone Number", type: "tel", name: "phonenumber", placeholder: "+1-234-3456-567" },
+    { label: "Mail ID", type: "email", name: "email", placeholder: "john@example.com" },
+    { label: "Address", type: "text", name: "address", placeholder: "Enter address", width: "full" },
+    { label: "City", type: "text", name: "city", placeholder: "Enter city" },
+    { label: "State / province/ Region", type: "text", name: "state", placeholder: "Enter state/province/region" },
+    { label: "Postal / Zip Code", type: "number", name: "zipcode", placeholder: "Enter postal/zip code" },
+    { label: "Country", type: "text", name: "country", placeholder: "United States"},
+  ], []);
 
   useEffect(() => {
     const userId = user?.id || session?.userId;
@@ -100,7 +108,7 @@ const fields: FieldConfig[] = useMemo(() => [
     }
 
     const fetchUserDetails = async () => {
-      setIsLoading(true);
+      // setIsLoading(true);
       setProfileError("");
 
       try {
@@ -136,7 +144,7 @@ const fields: FieldConfig[] = useMemo(() => [
         console.error("Profile details error:", error);
         setProfileError("Something went wrong while loading profile details.");
       } finally {
-        setIsLoading(false);
+        // setIsLoading(false);
       }
     };
 
@@ -222,18 +230,40 @@ const fields: FieldConfig[] = useMemo(() => [
   };
 
   return (
+    <>
     <div className="profileWrap">
         <div className="ProfileForm gradientBox">  
           <div className="RoleWrap d-flex">
             <h3>{role}</h3>
-            <GlobalButtons text="Reset Password"/>
+            <GlobalButtons text="Reset Password" />
+            {/* <GlobalButtons text="Reset Password" onClick={() => setOpenForgetModal(true)}/> */}
+                    {/* MODAL */}
+                    {openForgetModal && (
+                      <div className="modalOverlay">
+                        <div className="modalContent">
+
+                          <button
+                            className="closeBtn"
+                            onClick={() => setOpenForgetModal(false)}
+                          >
+                            X
+                          </button>
+
+                          <ForgetPasswordForm
+                            onClose={() => setOpenForgetModal(false)}
+                            openSendCode={handleOpenSendCode}
+                          />
+                        </div>
+                      </div>
+                    )}
           </div>
-          {isLoading && <p className="profile-message">Loading profile details...</p>}
+          {/* {isLoading && <p className="profile-message">Loading profile details...</p>} */}
           {profileError && <p className="error">{profileError}</p>}
           {profileSuccess && <p className="profile-message">{profileSuccess}</p>}
           <CustomForm fields={fields} initialValues={profileData} onSubmit={handleSubmit} SubmitText={isSaving ? "Saving..." : "Save Changes"} isSubmitting={isSaving} variant="view"/>
         </div>
     </div>
+    </>
   );
 };
 
