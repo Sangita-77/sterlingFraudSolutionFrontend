@@ -126,6 +126,7 @@ const getStringValue = (name: string): string => {
         name={field.name}
         value={getStringValue(field.name)}
         onChange={handleChange}
+        preview={preview}
         error={errors[field.name]}
         options={field.options}
         editable={isEditable(field.name)}
@@ -149,7 +150,7 @@ const getStringValue = (name: string): string => {
         preview={preview}
         error={errors[field.name]}
         options={field.options}
-        editable={isEditable(field.name)}
+        editable={field.type === "radio" ? true : isEditable(field.name)}
         onEdit={() => handleEditToggle(field.name)}
         required={field.required}
       />
