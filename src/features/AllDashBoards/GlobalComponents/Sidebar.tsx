@@ -21,6 +21,7 @@ import Permissions from "../assets/images/Permissions.svg";
 import Reports from "../assets/images/Reports.svg";
 import Settings from "../assets/images/Settings.svg";
 import Logout from "../assets/images/LogOut.svg";
+import Document from "../assets/images/DocumentIcon.svg";
 
 interface SidebarProps {
   open: boolean;
@@ -64,11 +65,11 @@ const menuItems = [
 
 // Customer  Start
     { path: routes.CUSTOMER_DASHBOARD, label: t("nav.dashboard"), roles: ["customer"], icon: DashboardIcon, end: true },
-    { path: routes.ASSINGED_CASES, label: t("nav.reports"), roles: ["customer"], icon: Reports },
+    { path: routes.CUSTOMER_DOCUMENTS, label: t("nav.documents"), roles: ["customer"], icon: Document },
     { path: routes.CUSTOMER_SETTINGS, label: t("nav.settings"), roles: ["customer"],  icon: Settings },
 // Customer  End
 
-];
+]; 
 
 const confirmLogout = async () => {
   await logoutUser(true);

@@ -19,13 +19,13 @@ import Visualization from "./features/Pages/Visualization";
 import ProtectedRoleRoute from "./Routes/ProtectedRoleRoute";
 
 import AgentDashboardLayOut from "./features/AllDashBoards/agent/Layout/AgentDashboardLayOut";
-import AgentMainDashboard from "./features/AllDashBoards/agent/DashBoards/AgentMainDashboard";
-import AgentReports from "./features/AllDashBoards/agent/DashBoards/AgentReports";
-import AgentSettings from "./features/AllDashBoards/agent/DashBoards/AgentSettings";
+import AgentMainDashboard from "./features/AllDashBoards/agent/Pages/AgentMainDashboard";
+import AgentReports from "./features/AllDashBoards/agent/Pages/AgentReports";
+import AgentSettings from "./features/AllDashBoards/agent/Pages/AgentSettings";
 
 import CustomerDashboardLayOut from "./features/AllDashBoards/customer/Layout/CustomerDashboardLayOut";
 import CustomerMainDashboard from "./features/AllDashBoards/customer/Pages/CustomerMainDashboard";
-import CustomerReports from "./features/AllDashBoards/customer/Pages/CustomerReports";
+import CustomerDocuments from "./features/AllDashBoards/customer/Pages/CustomerDocuments";
 import CustomerSettings from "./features/AllDashBoards/customer/Pages/CustomerSettings";
 import { routes } from "./Routes/route";
 
@@ -76,7 +76,7 @@ function App() {
           <Route element={<ProtectedRoleRoute routeType="customer" />}>
             <Route path={routes.CUSTOMER_DASHBOARD} element={<CustomerDashboardLayOut />}>
               <Route index element={<CustomerMainDashboard />} />
-              <Route path={routes.ASSINGED_CASES} element={<CustomerReports />} />
+              <Route path={routes.CUSTOMER_DOCUMENTS} element={<CustomerDocuments />} />
               <Route path={routes.CUSTOMER_SETTINGS} element={<CustomerSettings />} />
               <Route path={routes.CUSTOMER_SETTINGS} element={<CustomerSettings />} />
               <Route path={routes.CUSTOMER_SETTINGS} element={<CustomerSettings />} />

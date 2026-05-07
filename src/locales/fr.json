@@ -35,7 +35,8 @@
     "permissions": "Permissions et rôles",
     "reports": "Rapports",
     "settings": "Paramètres",
-    "visualization": "Visualisation"
+    "visualization": "Visualisation",
+    "documents": "Documents"
   },
   "messages": {
     "welcome": "Bienvenue dans Sterling Fraud Solutions",

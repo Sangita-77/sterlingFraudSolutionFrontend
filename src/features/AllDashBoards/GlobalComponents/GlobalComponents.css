@@ -12,6 +12,10 @@
   --purple-text: #A5B4FC;
   --sky-blueColor: #4CBCFB;
   --button-background: #264589;
+  --button-border: #3166C4;
+  --Purple-Card: #353476;
+  --Purple-Border: #6366F1;
+  --Green-Color: #56CA9D;
 
   --overlay-bg: rgba(0, 0, 0, 0.5);
   --border-color: #2a2d5a;
@@ -76,50 +80,12 @@ p.PageDescription{color: var(--whiteColor); font: 400 16px/26px var(--font-main)
   transform: scale(1.2); opacity: 0.8; }
 .notification-dropdown { position: absolute; top: 35px; right: 0; width: 240px; background: #ffffff; color: #333; border-radius: 10px; padding: 12px; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); z-index: 100; animation: fadeIn 0.2s ease-in-out; } 
 /* ANIMATION */
-@keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
 .notification-dropdown p { margin: 0; font-size: 14px; color: #555; font-family: var(--font-main);}
 .admin-profile { display: flex; align-items: center; gap: 10px; cursor: pointer; }
 .admin-profile img {border-radius: 50%; object-fit: cover; border: 2px solid #4f46e5; transition: transform 0.2s ease; }
 .admin-profile img:hover { transform: scale(1.1); }
 .admin-profile span { font-size: 14px; font-weight: 500; color: #fff; } 
 /* Navbar End*/
-
-/* Table Start */
-/* Container */
-.table-container {margin-top: 30px; background: #ffffff; border-radius: 12px; padding: 20px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06); } 
-/* Header */
-.table-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
-.table-header h3 { font-size: 18px; font-weight: 600; } 
-/* Actions */
-.table-actions { display: flex; gap: 12px; align-items: center; } 
-/* Buttons */
-.btn { padding: 8px 14px; border-radius: 8px; border: none; cursor: pointer; background: #f1f3f5; transition: 0.2s; }
-.btn:hover { background: #e2e6ea; }
-.btn.primary { background: #4f46e5; color: white; } 
-.btn.primary:hover { background: #4338ca; }
-.btn:disabled { opacity: 0.5; cursor: not-allowed; } 
-/* Controls */
-.table-controls { display: flex; align-items: center; gap: 6px; } 
-.table-controls select { padding: 6px; border-radius: 6px; border: 1px solid #ddd; } 
-/* Table Wrapper */
-.table-wrapper { overflow-x: auto; border-radius: 10px; } 
-/* Table */
-.table { width: 100%; border-collapse: collapse; } 
-/* Sticky Header */
-.table thead { background: #f9fafb; position: sticky; top: 0; z-index: 1; } 
-/* Table Cells */
-.table th, .table td { padding: 12px 14px; text-align: left; } 
-/* Checkbox column */
-.checkbox-col { width: 40px; text-align: center; } 
-/* Row styles */
-.table tbody tr { border-top: 1px solid #eee; transition: 0.2s; } .table tbody tr:nth-child(even) { background: #fafafa; }
-.table tbody tr:hover { background: #f1f5f9; }
-/* Pagination */ 
-.pagination { display: flex; justify-content: space-between; align-items: center; margin-top: 16px; } 
-.page-info { font-size: 14px; }
-.status-active { color: green; font-weight: 500; }
-.status-inactive { color: red; font-weight: 500; } 
-/* Table End */
 
 .GlobalModalBox { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--overlay-bg); display: flex; align-items: center; justify-content: center; z-index: 999; }
 .GlobalModalBox .modalBox { background: var(--secondary-color); color: var(--whiteColor); padding: 20px; border-radius: 12px; width: 300px; text-align: center; border: 1px solid var(--border-color); }
@@ -132,8 +98,8 @@ p.PageDescription{color: var(--whiteColor); font: 400 16px/26px var(--font-main)
 .GlobalModalBox .confirmBtn:hover { opacity: 0.9; }
 .GlobalModalBox .modalBox { animation: modalFade 0.25s ease; }
 
-/* Profile Form Satrt */
-/* Form */
+
+/* DashBoardForms  Start*/
 .DashBoardForms {flex-wrap: wrap;}
 .DashBoardForms input{width: 100%; background: #383976; border: solid 1px #585ad1; border-radius: 10px; padding: 17px; color: var(--grey-text); opacity: 1;}
 .DashBoardForms input:disabled{color: var(--grey-text); opacity: 1; -webkit-text-fill-color: var(--grey-text);}
@@ -155,7 +121,10 @@ p.PageDescription{color: var(--whiteColor); font: 400 16px/26px var(--font-main)
 /* Edit Button Pencil */
 .DashBoardForms .input-wrapper{position: relative;}
 .DashBoardForms .input-wrapper button.edit-btn{background: transparent; border: none; position: absolute; right: 10px; top: 10px;}
+/* DashBoardForms  End*/
 
+
+/* Profile Form Satrt */
 /* Profile page */
 .ProfileForm .profile-fields-wrapper{width: 18%;}
 .ProfileForm .normal-fields-wrapper{width: 82%;  display: flex; flex-wrap: wrap;}
@@ -164,25 +133,46 @@ p.PageDescription{color: var(--whiteColor); font: 400 16px/26px var(--font-main)
 .ProfileForm .profile-upload img.profile-img{border-radius: 50%; width: 136px; height: 136px; object-fit: cover;}
 .ProfileForm .profile-upload{position: relative;}
 .ProfileForm .profile-upload button.edit-btn{position: absolute; left: 90px; bottom: 0; background: #383976; border: solid 1px #585ad1; border-radius: 50%; width: 40px; height: 40px;}
-.ProfileForm .submit-button button{background: var(--button-background); border: 50;}
-
-/* Profile */
-/* .profileWrap .ProfilePhoto{width: 12%;}
-.profileWrap .ProfileForm{width: 88%;}
-.profileWrap .ProfilePhoto img{border-radius: 50%;}
-.profileWrap .ProfilePhoto h3{}
-.profileWrap .ProfileForm .DashBoardForms{padding: 20px 40px;} */
-
+.ProfileForm .submit-button button{background: var(--button-background); border-radius: 8px; padding: 15px 40px; color: var(--grey-text); border: solid 1px var(--button-border); font: 400 16px/26px var(--font-main);}
+.ProfileForm {margin: 40px 50px 100px; position: relative;}
+.ProfileForm  .submit-button{position: absolute; bottom: -100px; right: -7px;}
 /* Profile Form End */
+
+
+/* Tab CSS Start */
+.DashboardsTabs .tabs-header .tab-btn{background: transparent; border: solid 1px var(--border-color); padding: 12px 30px; margin-right: 20px; font: 400 16px var(--font-main); border-radius: 8px; color: var(--whiteColor);}
+.DashboardsTabs .tabs-header{padding: 30px 0 18px;}
+.DashboardsTabs .tabs-header .tab-btn.active{background: var(--border-color);}
+/* Tab CSS End */
+.UpdatedocumentsWarp{display: flex; gap: 60px; justify-content: center; padding-top: 50px;}
+
+.icon-card { border-radius: 16px; padding: 24px; text-align: center; width: 300px; transition: 0.3s ease; }
+.icon-card-content { display: flex; flex-direction: column; align-items: center; gap: 16px; }
+.icon-card-image { width: 70px; height: 70px; object-fit: contain; }
+.icon-card-text {color: var(--whiteColor);}
+.icon-card-button { border: none; padding: 5px 35px; border-radius: 8px; cursor: pointer;transition: 0.3s ease; background: #00000012; font: 400 16px/26px var(--font-main);} 
+/* Purple Variant */
+.icon-card.purple { background: var(--Purple-Card); } 
+.icon-card.purple .icon-card-button { border: solid 1px var(--Purple-Border); color: var(--purple-text);}
+/* Green Variant */
+.icon-card.green {box-shadow: inset 0px 0px 102px #56ca9d4f; background: #56ca9d12; border: solid 1px var(--Green-Color);}
+.icon-card.green .icon-card-button {color: var(--Green-Color); border: solid 1px var(--Green-Color);}
+/* Orange Variant */
+.icon-card.orange { background: #ffedd5; } 
+.icon-card.orange .icon-card-button {color: #fff; }
+
+
 
 
 
 
 /* KeyFrames Start */
+@keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes modalFade { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
 /* KeyFrames End */
-/* Responsive Start From Here */
 
+
+/* Responsive Start From Here */
 /* Desktop: always visible */
 @media (min-width: 768px) {
 .sidebar { left: 0; }

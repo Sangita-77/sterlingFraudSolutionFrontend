@@ -23,7 +23,7 @@ VIZUALIZATION: "/visualization/new/id:jkhmgkj",
   AGENT_SETTINGS: "/agent/settings",
 
   CUSTOMER_DASHBOARD: "/customer",
-  ASSINGED_CASES: "/customer/reports",
+  CUSTOMER_DOCUMENTS: "/customer/documents",
   CUSTOMER_SETTINGS: "/customer/settings",
 
 };
