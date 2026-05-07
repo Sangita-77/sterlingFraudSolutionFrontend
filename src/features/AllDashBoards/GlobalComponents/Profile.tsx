@@ -3,6 +3,7 @@ import CustomForm from "./CustomForm";
 import type { FieldConfig } from "./CustomForm";
 import mAvtar from "../assets/images/mAvtar.webp";
 import { getUserRole, getAuthUser } from "../../../api/authService";
+import GlobalButtons from "../GlobalComponents/GlobalButtons";
 
 const Profile: React.FC = () => {
   const user = getAuthUser();
@@ -50,7 +51,10 @@ const fields: FieldConfig[] = [
   return (
     <div className="profileWrap">
         <div className="ProfileForm">  
-          <h3>{role}</h3>
+          <div className="RoleWrap d-flex">
+            <h3>{role}</h3>
+            <GlobalButtons text="Reset Password"/>
+          </div>
           <CustomForm  fields={fields} onSubmit={handleSubmit} SubmitText="Save Changes" variant="view"/>
         </div>
     </div>
