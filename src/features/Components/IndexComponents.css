@@ -69,7 +69,7 @@ border-radius: var(--button-border-radius); border: 1px solid #ccc; outline: non
 
 
 /* Button Start */
-.compoBtn{font: 500 18px/28px var(--font-main); margin: 0px 10px; border-radius: var(--button-border-radius); border: none; padding: 7px 29px; border: solid 1px var(--whiteColor);}
+.compoBtn{cursor: pointer; font: 500 18px/28px var(--font-main); margin: 0px 10px; border-radius: var(--button-border-radius); border: none; padding: 7px 29px; border: solid 1px var(--whiteColor);}
 .compoBtn:hover{opacity: 0.8; transition: .5s;}
 .compoBtn.solid{background: var(--whiteColor); color: var(--secondary-color);}
 .compoBtn.trashparent{background: transparent; color: var(--whiteColor);}

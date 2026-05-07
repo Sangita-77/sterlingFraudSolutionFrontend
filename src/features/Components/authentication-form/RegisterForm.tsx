@@ -2,6 +2,7 @@
 import "../IndexComponents.css";
 import React, { useEffect, useState } from "react";
 import Buttons from "../ButtonCompo";
+import PasswordInput from "../PasswordInput";
 import { BASE_URL } from "../../../api/config";
 import { detectLanguageByIP } from "../../../api/languageService";
 
@@ -11,6 +12,11 @@ type FormData = {
   phone: string;
   country: string;
   activity: string;
+  gender: string;
+  address: string;
+  city: string;
+  state: string;
+  zip: string;
   email: string;
   password: string;
   repeatPassword: string;
@@ -53,6 +59,11 @@ const RegisterForm = ({onClose, clickLogin, onSuccess}: formProps) => {
     phone: "",
     country: "",
     activity: "",
+    gender: "",
+    address: "",
+    city: "",
+    state: "",
+    zip: "",
     email: "",
     password: "",
     repeatPassword: "",
@@ -85,8 +96,17 @@ const RegisterForm = ({onClose, clickLogin, onSuccess}: formProps) => {
 
   const validate = (name: keyof FormData, value: string) => {
     let error = "";
+    const requiredFields: Array<keyof FormData> = [
+      "fullName",
+      "country",
+      "activity",
+      "gender",
+      "email",
+      "password",
+      "repeatPassword",
+    ];
 
-    if (!value.trim()) {
+    if (requiredFields.includes(name) && !value.trim()) {
       error = "This field is required";
     } else {
       switch (name) {
@@ -130,6 +150,7 @@ const RegisterForm = ({onClose, clickLogin, onSuccess}: formProps) => {
       "fullName",
       "country",
       "activity",
+      "gender",
       "email",
       "password",
       "repeatPassword",
@@ -168,10 +189,16 @@ const RegisterForm = ({onClose, clickLogin, onSuccess}: formProps) => {
         email: formData.email.trim(),
         password: formData.password,
         activity: formData.activity.trim(),
+        gender: formData.gender,
         status: 1,
         country: formData.country.trim(),
-        companyName: formData.companyName.trim() || undefined,
+        detectedCountry: formData.country.trim(),
+        company_name: formData.companyName.trim() || undefined,
         phone: formData.phone.trim() || undefined,
+        address: formData.address.trim() || undefined,
+        city: formData.city.trim() || undefined,
+        state: formData.state.trim() || undefined,
+        zip: formData.zip.trim() || undefined,
         flag: 2,
       };
 
@@ -220,13 +247,35 @@ const RegisterForm = ({onClose, clickLogin, onSuccess}: formProps) => {
           <div className="full-width">
             <label>Gender*</label>
             <div className="gender_feild d-flex">
-              <input type="radio" id="male" name="gender" value="male" required/>
-              <label>Male</label>
-              <input type="radio" id="female" name="gender" value="female" required/>
-              <label>Female</label>
-              <input type="radio" id="others" name="gender" value="others" required/>
-              <label>Others</label>
+              <input
+                type="radio"
+                id="male"
+                name="gender"
+                value="male"
+                checked={formData.gender === "male"}
+                onChange={handleChange}
+              />
+              <label htmlFor="male">Male</label>
+              <input
+                type="radio"
+                id="female"
+                name="gender"
+                value="female"
+                checked={formData.gender === "female"}
+                onChange={handleChange}
+              />
+              <label htmlFor="female">Female</label>
+              <input
+                type="radio"
+                id="other"
+                name="gender"
+                value="other"
+                checked={formData.gender === "other"}
+                onChange={handleChange}
+              />
+              <label htmlFor="other">Other</label>
             </div>
+            {errors.gender && <p className="error">{errors.gender}</p>}
             
             <label>Full Name*</label>
             <input
@@ -319,21 +368,18 @@ const RegisterForm = ({onClose, clickLogin, onSuccess}: formProps) => {
           <div className="row">
             <div>
               <label>Password*</label>
-              <input
-                type="password"
+              <PasswordInput
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
                 placeholder="************"
-
               />
               {errors.password && <p className="error">{errors.password}</p>}
             </div>
 
             <div>
               <label>Repeat Password*</label>
-              <input
-                type="password"
+              <PasswordInput
                 name="repeatPassword"
                 value={formData.repeatPassword}
                 onChange={handleChange}

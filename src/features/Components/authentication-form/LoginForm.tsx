@@ -3,6 +3,7 @@ import "../IndexComponents.css"
 import { useNavigate } from "react-router-dom";
 
 import Buttons from '../ButtonCompo'
+import PasswordInput from "../PasswordInput";
 import { BASE_URL } from "../../../api/config";
 import {
   getAuthorizedLandingRoute,
@@ -191,8 +192,7 @@ const LoginForm = ({ onClose, clickRegister, openForgetPassword }: LoginProps) =
           {/* Password */}
           <div className="full-width">
             <label>Password*</label>
-            <input
-              type="password"
+            <PasswordInput
               name="password"
               value={formData.password}
               onChange={handleChange}
