@@ -82,6 +82,9 @@ p.PageDescription{color: var(--whiteColor); font: 400 16px/26px var(--font-main)
 .admin-profile img {border-radius: 50%; object-fit: cover; border: 2px solid #4f46e5; transition: transform 0.2s ease; }
 .admin-profile img:hover { transform: scale(1.1); }
 .admin-profile span { font-size: 14px; font-weight: 500; color: #fff; } 
+.admin-profile .navbar-profile-img,
+.admin-profile .navbar-profile-initial { width: 42px; height: 42px; flex: 0 0 42px; }
+.admin-profile .navbar-profile-initial { border-radius: 50%; display: flex; align-items: center; justify-content: center; background: #383976; border: 2px solid #4f46e5; color: #fff; font: 600 18px/1 var(--font-main); }
 /* Navbar End*/
 
 /* Table Start */

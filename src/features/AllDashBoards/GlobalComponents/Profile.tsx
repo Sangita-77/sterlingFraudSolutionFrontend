@@ -188,20 +188,22 @@ const fields: FieldConfig[] = useMemo(() => [
       }
 
       const updatedName = getStringValue(data.firstname);
+      const updatedProfileImageUrl =
+        getProfileImageUrl(result.user?.user?.profileImage?.url) ||
+        profileData.profileImage ||
+        "";
 
       if (user && updatedName) {
         saveAuthUser({
           ...user,
           name: updatedName,
+          profileImageUrl: updatedProfileImageUrl,
         });
       }
 
       setProfileData((prev) => ({
         ...prev,
-        profileImage:
-          getProfileImageUrl(result.user?.user?.profileImage?.url) ||
-          prev.profileImage ||
-          "",
+        profileImage: updatedProfileImageUrl || prev.profileImage || "",
         gender: getStringValue(data.gender),
         firstname: updatedName,
         phonenumber: getStringValue(data.phonenumber),

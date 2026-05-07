@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import "../../GlobalComponents/GlobalComponents.css";
 import Search from "../../assets/images/Search.svg";
 import Bell from "../../assets/images/Bell.svg";
-import Admin from "../../assets/images/Admin.webp";
 import hamburger from "../../assets/images/hamburger.svg";
 import LanguageSwitcher from "../../../Components/LanguageSwitcher";
+import ProfileAvatar from "../../GlobalComponents/ProfileAvatar";
 
 interface NavbarProps {
   toggle: () => void;
@@ -42,10 +42,7 @@ const Navbar: React.FC<NavbarProps> = ({ toggle }) => {
           )}
         </div>
 
-        <div className="admin-profile">
-          <img src={Admin} alt="agent" />
-          <span>Agent</span>
-        </div>
+        <ProfileAvatar label="Agent" />
       </div>
     </div>
   );
