@@ -3,6 +3,8 @@ import PencilEdit from "../assets/images/PencilEdit.svg";
 import ModalBox from "./GlobalModal";
 import ForgetPasswordForm from "../../Components/authentication-form/ForgetPaswordForm";
 import "./GlobalComponents.css";
+import SendCode from "../../Components/authentication-form/SendCode";
+import ResetPasswordForm from "../../Components/authentication-form/ResetPasswordForm";
 
 interface FormInputProps {
   label: string;
@@ -47,8 +49,17 @@ const [imageFailed, setImageFailed] = useState(false);
 const imageSrc = preview || value || DefaultProfile || "";
 const [openForgetModal, setOpenForgetModal] = useState(false);
 const handleOpenSendCode = (email: string) => {
-  console.log(email);
+  setResetEmail(email);
+
+  // close forget password modal
+  setOpenForgetModal(false);
+
+  // open verify code modal
+  setOpenSendCodeModal(true);
 };
+const [openSendCodeModal, setOpenSendCodeModal] = useState(false);
+const [resetEmail, setResetEmail] = useState("");
+const [openResetPasswordModal, setOpenResetPasswordModal] = useState(false);
 
 useEffect(() => {
   setImageFailed(false);
@@ -181,7 +192,57 @@ const renderProfileUpload = () => (
           }
           onCancel={() => setOpenForgetModal(false)}
         />
-  )}
+    )}
+
+    {openSendCodeModal && (
+      <ModalBox
+        customeClass="resetPasswordModal"
+        header={<h3>Verify Code</h3>}
+        body={
+          // <SendCode
+          //   email={resetEmail}
+          //   onClose={() => setOpenSendCodeModal(false)}
+          //   onSuccess={() => {
+          //     setOpenSendCodeModal(false);
+          //   }}
+          // />
+
+          <SendCode
+            email={resetEmail}
+            onClose={() => setOpenSendCodeModal(false)}
+            onSuccess={() => {
+              // close otp modal
+              setOpenSendCodeModal(false);
+
+              // open reset password modal
+              setOpenResetPasswordModal(true);
+            }}
+          />
+        }
+        onCancel={() => setOpenSendCodeModal(false)}
+      />
+    )}
+
+    {openResetPasswordModal && (
+      <ModalBox
+        customeClass="resetPasswordModal"
+        header={<h3>Reset Password</h3>}
+        body={
+          <ResetPasswordForm
+            email={resetEmail}
+            onClose={() =>
+              setOpenResetPasswordModal(false)
+            }
+            onSuccess={() => {
+              setOpenResetPasswordModal(false);
+            }}
+          />
+        }
+        onCancel={() =>
+          setOpenResetPasswordModal(false)
+        }
+      />
+    )}
 
 </div>
     

@@ -110,7 +110,7 @@ button{cursor: pointer;}
 .GlobalModalBox .modalBox { animation: modalFade 0.25s ease; position: relative;}
 .GlobalModalBox .modalCloseBtn{position: absolute; right: -15px; top: -15px; border-radius: 50%; border: solid 1px var(--Purple-Border);     font-size: 33px; height: 38px; width: 38px; background: var(--Purple-Card); color: var(--whiteColor);}
 /* ResetPassword Modal Start */
-
+.resetPasswordModal .formContainer{}
 /* GlobalModalBox End*/
 
 /* DashBoardForms  Start*/

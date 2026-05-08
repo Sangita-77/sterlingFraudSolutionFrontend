@@ -45,19 +45,32 @@ const ResetPasswordForm = ({ email, onClose, onSuccess }: Props) => {
     setErrors((prev) => ({ ...prev, [name]: error }));
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const { name, value } = e.target;
-    const nextFormData = { ...formData, [name]: value };
+
+    const nextFormData = {
+      ...formData,
+      [name]: value,
+    };
 
     setFormData(nextFormData);
+
     validate(name as keyof FormData, value);
+
     setSubmitError("");
 
-    if (name === "newPassword" && nextFormData.confirmPassword) {
+    if (
+      name === "newPassword" &&
+      nextFormData.confirmPassword
+    ) {
       setErrors((prev) => ({
         ...prev,
         confirmPassword:
-          nextFormData.confirmPassword === value ? "" : "Passwords do not match",
+          nextFormData.confirmPassword === value
+            ? ""
+            : "Passwords do not match",
       }));
     }
   };
@@ -81,13 +94,13 @@ const ResetPasswordForm = ({ email, onClose, onSuccess }: Props) => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
+  const handleSubmit = async () => {
     if (!validateAllFields()) return;
 
     if (!email) {
-      setSubmitError("Email is missing. Please request a new code.");
+      setSubmitError(
+        "Email is missing. Please request a new code."
+      );
       return;
     }
 
@@ -95,30 +108,44 @@ const ResetPasswordForm = ({ email, onClose, onSuccess }: Props) => {
     setSubmitError("");
 
     try {
-      const response = await fetch(`${BASE_URL}/reset-password`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email,
-          newPassword: formData.newPassword,
-          confirmPassword: formData.confirmPassword,
-        }),
-      });
+      const response = await fetch(
+        `${BASE_URL}/reset-password`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email,
+            newPassword: formData.newPassword,
+            confirmPassword:
+              formData.confirmPassword,
+          }),
+        }
+      );
 
-      const result: ResetPasswordApiResponse = await response.json();
+      const result: ResetPasswordApiResponse =
+        await response.json();
 
       if (!response.ok || !result.success) {
-        setSubmitError(result.message || "Unable to reset password.");
+        setSubmitError(
+          result.message ||
+            "Unable to reset password."
+        );
         return;
       }
 
       onClose();
       onSuccess();
     } catch (error) {
-      console.error("Reset password error:", error);
-      setSubmitError("Something went wrong while resetting your password.");
+      console.error(
+        "Reset password error:",
+        error
+      );
+
+      setSubmitError(
+        "Something went wrong while resetting your password."
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -131,7 +158,8 @@ const ResetPasswordForm = ({ email, onClose, onSuccess }: Props) => {
       </span>
 
       <div className="formContainer login-form">
-        <form onSubmit={handleSubmit}>
+        {/* <form onSubmit={handleSubmit}> */}
+        <div className="resetPasswordFormWrap">
           <div className="full-width">
             <label>New Password*</label>
             <PasswordInput
@@ -159,14 +187,28 @@ const ResetPasswordForm = ({ email, onClose, onSuccess }: Props) => {
           {submitError && <p className="error">{submitError}</p>}
           <br />
 
-          <Buttons
+          {/* <Buttons
             text={isSubmitting ? "RESETTING..." : "RESET PASSWORD"}
             variant="primary"
             size="full"
             type="submit"
             disabled={isSubmitting}
+          /> */}
+
+          <Buttons
+            text={
+              isSubmitting
+                ? "RESETTING..."
+                : "RESET PASSWORD"
+            }
+            variant="primary"
+            size="full"
+            type="button"
+            disabled={isSubmitting}
+            onClick={handleSubmit}
           />
-        </form>
+          </div>
+        {/* </form> */}
       </div>
     </>
   );

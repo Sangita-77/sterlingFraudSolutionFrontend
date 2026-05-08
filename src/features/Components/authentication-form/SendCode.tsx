@@ -46,8 +46,8 @@ const SendCode = ({ onClose, email, onSuccess }: Props) => {
     }
 
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
+    const handleSubmit = async () => {
+        // e.preventDefault()
 
         const code = inputs.current
             .map((input) => input?.value || '')
@@ -131,7 +131,8 @@ const SendCode = ({ onClose, email, onSuccess }: Props) => {
             </span>
 
             <div className="formContainer">
-                <form onSubmit={handleSubmit}>
+                {/* <form onSubmit={handleSubmit}> */}
+                <div>
                     <div className="sendCodeInputContainer">
                         {[...Array(6)].map((_, i) => (
                             <input
@@ -148,14 +149,24 @@ const SendCode = ({ onClose, email, onSuccess }: Props) => {
                     </div>
                     {error && <p className="error">{error}</p>}
 
-                    <Buttons
+                    {/* <Buttons
                         text={isSubmitting ? "VERIFYING..." : "VERIFY"}
                         variant="primary"
                         size="full"
                         type="submit"
                         disabled={isSubmitting}
+                    /> */}
+
+                    <Buttons
+                        text={isSubmitting ? "VERIFYING..." : "VERIFY"}
+                        variant="primary"
+                        size="full"
+                        type="button"
+                        disabled={isSubmitting}
+                        onClick={handleSubmit}
                     />
-                </form>
+                {/* </form> */}
+                </div>
 
                 <div className="needHelp">
                     <span className="link-sendCode dontReceiveCode">

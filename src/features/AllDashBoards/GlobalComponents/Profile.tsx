@@ -3,9 +3,7 @@ import CustomForm from "./CustomForm";
 import type { FieldConfig, FormValue } from "./CustomForm";
 import { BASE_URL } from "../../../api/config";
 import { fetchWithAuth, getAuthSession, getUserRole, getAuthUser, saveAuthUser } from "../../../api/authService";
-import GlobalButtons from "../GlobalComponents/GlobalButtons";
-import ForgetPasswordForm from "../../Components/authentication-form/ForgetPaswordForm";
-import ResetPassword from "./GlobalModal";
+
 
 type UserDetails = {
   profileImage?: {
@@ -69,12 +67,6 @@ const Profile: React.FC = () => {
   const [profileError, setProfileError] = useState("");
   const [profileSuccess, setProfileSuccess] = useState("");
 
-  const [openForgetModal, setOpenForgetModal] = useState(false);
-
-  const handleOpenSendCode = (email: string) => {
-    console.log(email);
-  };
-
   const fields: FieldConfig[] = useMemo(() => [
     {label: "", type: "file", name: "profileImage", placeholder: "", width:"full"},
     {
@@ -97,6 +89,7 @@ const Profile: React.FC = () => {
     { label: "State / province/ Region", type: "text", name: "state", placeholder: "Enter state/province/region" },
     { label: "Postal / Zip Code", type: "number", name: "zipcode", placeholder: "Enter postal/zip code" },
     { label: "Country", type: "text", name: "country", placeholder: "United States"},
+    { label: "Password", type: "password", name: "password", placeholder: "********", width: "full", resetbutton: true},
   ], []);
 
   useEffect(() => {
@@ -237,28 +230,7 @@ const Profile: React.FC = () => {
           <div className="RoleWrap d-flex">
             <h3>{role}</h3>
             <div className="ResetButton">
-              <GlobalButtons text="Reset Password" onClick={() => setOpenForgetModal(true)}/>
-              </div>
-            {/* <GlobalButtons text="Reset Password" onClick={() => setOpenForgetModal(true)}/> */}
-                    {/* MODAL */}
-                    {/* {openForgetModal && (
-                      <div className="modalOverlay">
-                        <div className="modalContent">
-
-                          <button
-                            className="closeBtn"
-                            onClick={() => setOpenForgetModal(false)}
-                          >
-                            X
-                          </button>
-
-                          <ForgetPasswordForm
-                            onClose={() => setOpenForgetModal(false)}
-                            openSendCode={handleOpenSendCode}
-                          />
-                        </div>
-                      </div>
-                    )} */}
+            </div>
           </div>
           {/* {isLoading && <p className="profile-message">Loading profile details...</p>} */}
           {profileError && <p className="error">{profileError}</p>}
@@ -266,21 +238,6 @@ const Profile: React.FC = () => {
           <CustomForm fields={fields} initialValues={profileData} onSubmit={handleSubmit} SubmitText={isSaving ? "Saving..." : "Save Changes"} isSubmitting={isSaving} variant="view" showResetButton/>
         </div>
     </div>
-
-
-{openForgetModal && (
-  <ResetPassword
-    customeClass="resetPasswordModal"
-    header={<h3>Reset Password</h3>}
-    body={
-      <ForgetPasswordForm
-        onClose={() => setOpenForgetModal(false)}
-        openSendCode={handleOpenSendCode}
-      />
-    }
-    onCancel={() => setOpenForgetModal(false)}
-  />
-)}
     </>
   );
   
