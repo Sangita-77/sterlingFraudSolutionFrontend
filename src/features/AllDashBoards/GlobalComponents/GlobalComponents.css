@@ -43,13 +43,24 @@
 
 /* Headings And paragraphs Start */
 h1.PageTitle{color: var(--whiteColor); font: bold 24px/34px var(--font-main); letter-spacing: 2px;}
+h2.PageTitle{color: var(--whiteColor); font: 600 18px/28px var(--font-main); letter-spacing: 2px;}
 p.PageDescription{color: var(--whiteColor); font: 400 16px/26px var(--font-main);}
 .gradientBox{background: linear-gradient(120deg, #222466, #1d1f48); padding: 30px 50px; margin: 50px 30px; border-radius: 10px;}
 button{cursor: pointer;}
+ul.UnorderList li{color: var(--whiteColor); font: 400 14px/24px var(--font-main); margin-left: 20px; opacity: 0.7;}
+ul.UnorderList{padding: 10px 0px;}
+.error{color: var(--Red-Border);}
 /* Headings And paragraphs End */
 
-
-
+/* Loader Start*/
+.loader-wrapper { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; margin-left: 100px; display: flex; justify-content: center; align-items: center; z-index: 9999; }
+.loader { display: inline-grid; width: 70px; aspect-ratio: 1; animation: l6-0 .8s linear infinite; transform: rotate(90deg); }
+.loader:before, .loader:after { content:""; grid-area: 1/1; }
+.loader:before { clip-path: polygon(100% 50%,90.45% 79.39%,65.45% 97.55%,34.55% 97.55%,9.55% 79.39%,0% 50%,9.55% 20.61%,34.55% 2.45%,65.45% 2.45%,90.45% 20.61%,100% 50%,85.6% 24.14%,63.6% 8.15%,36.4% 8.15%,14.4% 24.14%,6% 50%,14.4% 75.86%,36.4% 91.85%,63.6% 91.85%,85.6% 75.86%,94% 50%,85.6% 24.14%); background: var(--button-background); }
+.loader:after { background: var(--Purple-Border); clip-path: polygon(100% 50%,65.45% 97.55%,9.55% 79.39%,9.55% 20.61%,65.45% 2.45%); margin: 23%; translate: -143% 0; transform-origin: right; animation: inherit; animation-name: l6-1; }
+@keyframes l6-0 { 0%{rotate:  18deg} to{rotate: -18deg} }
+@keyframes l6-1 { 0%{rotate: -54deg} to{rotate:  54deg} }
+/* Loader End*/
 
 /* Start Sidebar Start */
 .sidebar .LogoWrap{display: flex; align-items: center;}
@@ -171,10 +182,11 @@ button{cursor: pointer;}
 .UpdatedocumentsWarp{display: flex; gap: 60px; justify-content: center; padding-top: 50px;}
 
 .DocumentUpdate-card { border-radius: 16px; padding: 24px; text-align: center; width: 300px; transition: 0.3s ease; position: relative;}
-.DocumentUpdate-card .icon-card-content { display: flex; flex-direction: column; align-items: center; gap: 16px; }
-.DocumentUpdate-card .icon-card-image { width: 70px; height: 70px; object-fit: contain; }
-.DocumentUpdate-card .icon-card-text {color: var(--whiteColor); font: 400 16px/26px var(--font-main);}
-.DocumentUpdate-card .icon-card-button { border: none; padding: 5px 35px; border-radius: 8px; cursor: pointer;transition: 0.3s ease; background: #00000012; font: 400 16px/26px var(--font-main);} 
+.DocumentUpdate-card .icon-card-content { display: flex; flex-direction: column; align-items: center;}
+.DocumentUpdate-card .icon-card-image { width: 54px; height: 54px; object-fit: contain; margin-bottom: 20px;}
+.DocumentUpdate-card .icon-card-text {color: var(--whiteColor); font: 500 18px/26px var(--font-main);}
+.DocumentUpdate-card .icon-card-text.drop{font-size: 16px;}
+.DocumentUpdate-card .icon-card-button {padding: 5px 35px; border-radius: 8px; cursor: pointer;transition: 0.3s ease; background: #00000012; font: 400 16px/26px var(--font-main); margin: 22px 0 0;} 
 /* Purple Variant */
 .DocumentUpdate-card.purple {box-shadow: inset 0px 0px 102px var(--Purple-Card); border: solid 1px var(--Purple-Border);} 
 .DocumentUpdate-card.purple .icon-card-button { border: solid 1px var(--Purple-Border); color: var(--purple-text); }
@@ -189,8 +201,6 @@ button{cursor: pointer;}
 .DocumentUpdate-card.red .icon-card-button {color: var(--Red-Border); border: solid 1px var(--Red-Border);}
 .DocumentUpdate-card .document-preview-wrap{position: absolute; top: 10px; right: 10px; }
 .DocumentUpdate-card .document-preview-wrap .document-preview-btn{background: transparent; border: 0; color: var(--whiteColor); font: 400 }
-
-
 
 /* Tooltip Start*/
 .tooltip-wrapper { position: relative; display: inline-block; }

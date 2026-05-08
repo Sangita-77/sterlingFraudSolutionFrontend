@@ -5,6 +5,7 @@ import PassportFrontIcon from "../../assets/images/PassportFrontIcon.svg";
 import VarifiedIcon from "../../assets/images/VarifiedIcon.svg";
 import UnderProgress from "../../assets/images/UnderProgress.svg";
 import RejectedIcon from "../../assets/images/RejectedIcon.svg";
+import { Heading2, UnorderedList } from "../../GlobalComponents/HeadingPara";
 
 import { BASE_URL } from "../../../../api/config";
 
@@ -165,6 +166,15 @@ const NationalIdUpdate: React.FC = () => {
 
 
   return (
+    <>   
+     <Heading2 text="To avoid delays when verifying your account please observe below:"/>
+        <UnorderedList
+          items={[
+            "Chosen documents must not be expired.",
+            "Documents should be in good condition and clearly visible.",
+            "Make sure that there is no light glare on the document.",
+          ]}
+          />
     <div className="PassportUpdate UpdatedocumentsWarp">
 
       <DocumentUpdateCard
@@ -228,6 +238,7 @@ const NationalIdUpdate: React.FC = () => {
       />
 
     </div>
+    </>
   );
 };
 

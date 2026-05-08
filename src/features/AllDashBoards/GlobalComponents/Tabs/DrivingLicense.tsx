@@ -5,6 +5,8 @@ import PassportFrontIcon from "../../assets/images/PassportFrontIcon.svg";
 import VarifiedIcon from "../../assets/images/VarifiedIcon.svg";
 import UnderProgress from "../../assets/images/UnderProgress.svg";
 import RejectedIcon from "../../assets/images/RejectedIcon.svg";
+import { Heading2, UnorderedList } from "../../GlobalComponents/HeadingPara";
+import Loader from "../../GlobalComponents/Loaders";
 
 import { BASE_URL } from "../../../../api/config";
 
@@ -164,83 +166,64 @@ const DrivingLicense: React.FC = () => {
     };
 
 
-  return (
-    <div className="DrivingLicense UpdatedocumentsWarp">
+return (
+  <>
+    {loading ? (
+      <Loader />
+    ) : (
+      <>
+        <Heading2 text="To avoid delays when verifying your account please observe below:" />
 
-      <DocumentUpdateCard
-        icon={getIconByStatus(
-          "driving_license_front"
-        )}
-        text="Front side of your Driving License"
-        buttonText={
-          loading ? "Loading..." : "Update"
-        }
-        documentType="driving_license_front"
-        documentId={getDocumentId(
-          "driving_license_front"
-        )}
-        documentUrl={getDocumentUrl(
-          "driving_license_front"
-        )}
-        variant={getVariantByStatus(
-          "driving_license_front"
-        )}
-        status={getDocumentStatus(
-          "driving_license_front"
-        )}
-        onUploadSuccess={fetchDocuments}
-      />
+        <UnorderedList
+          items={[
+            "Chosen documents must not be expired.",
+            "Documents should be in good condition and clearly visible.",
+            "Make sure that there is no light glare on the document.",
+          ]}
+        />
 
-      <DocumentUpdateCard
-        icon={getIconByStatus(
-          "driving_license_back"
-        )}
-        text="Back side of your Driving License"
-        buttonText={
-          loading ? "Loading..." : "Update"
-        }
-        documentType="driving_license_back"
-        documentId={getDocumentId(
-          "driving_license_back"
-        )}
-        documentUrl={getDocumentUrl(
-          "driving_license_back"
-        )}
-        variant={getVariantByStatus(
-          "driving_license_back"
-        )}
-        status={getDocumentStatus(
-          "driving_license_back"
-        )}
-        onUploadSuccess={fetchDocuments}
-      />
+        <div className="DrivingLicense UpdatedocumentsWarp">
+          <DocumentUpdateCard
+            icon={getIconByStatus("driving_license_front")}
+            text="Front side of your Driving License"
+            buttonText="Update"
+            documentType="driving_license_front"
+            documentId={getDocumentId("driving_license_front")}
+            documentUrl={getDocumentUrl("driving_license_front")}
+            variant={getVariantByStatus("driving_license_front")}
+            status={getDocumentStatus("driving_license_front")}
+            onUploadSuccess={fetchDocuments}
+          />
 
-      <DocumentUpdateCard
-        icon={getIconByStatus(
-          "driving_license_selfie"
-        )}
-        text="Selfie with your Driving License"
-        buttonText={
-          loading ? "Loading..." : "Update"
-        }
-        documentType="driving_license_selfie"
-        documentId={getDocumentId(
-          "driving_license_selfie"
-        )}
-        documentUrl={getDocumentUrl(
-          "driving_license_selfie"
-        )}
-        variant={getVariantByStatus(
-          "driving_license_selfie"
-        )}
-        status={getDocumentStatus(
-          "driving_license_selfie"
-        )}
-        onUploadSuccess={fetchDocuments}
-      />
+          <DocumentUpdateCard
+            icon={getIconByStatus("driving_license_back")}
+            text="Back side of your Driving License"
+            buttonText="Update"
+            documentType="driving_license_back"
+            documentId={getDocumentId("driving_license_back")}
+            documentUrl={getDocumentUrl("driving_license_back")}
+            variant={getVariantByStatus("driving_license_back")}
+            status={getDocumentStatus("driving_license_back")}
+            onUploadSuccess={fetchDocuments}
+          />
 
-    </div>
-  );
+          <DocumentUpdateCard
+            icon={getIconByStatus("driving_license_selfie")}
+            text="Selfie with your Driving License"
+            buttonText="Update"
+            documentType="driving_license_selfie"
+            documentId={getDocumentId("driving_license_selfie")}
+            documentUrl={getDocumentUrl("driving_license_selfie")}
+            variant={getVariantByStatus("driving_license_selfie")}
+            status={getDocumentStatus("driving_license_selfie")}
+            onUploadSuccess={fetchDocuments}
+          />
+        </div>
+      </>
+    )}
+  </>
+);
+
 };
 
 export default DrivingLicense;

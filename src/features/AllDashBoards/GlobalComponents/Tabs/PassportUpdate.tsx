@@ -4,6 +4,8 @@ import PassportFrontIcon from "../../assets/images/PassportFrontIcon.svg";
 import RejectedIcon from "../../assets/images/RejectedIcon.svg";
 import UnderProgress from "../../assets/images/UnderProgress.svg";
 import VarifiedIcon from "../../assets/images/VarifiedIcon.svg";
+import { Heading2, UnorderedList } from "../../GlobalComponents/HeadingPara";
+import Loader from "../../GlobalComponents/Loaders";
 
 import { BASE_URL } from "../../../../api/config";
 
@@ -168,6 +170,20 @@ const PassportUpdate: React.FC = () => {
   };
 
   return (
+    <>
+    {loading ? (
+      <Loader />
+    ) : (
+      <>
+    <Heading2 text="To avoid delays when verifying your account please observe below:"/>
+      <UnorderedList
+        items={[
+          "Chosen documents must not be expired.",
+          "Documents should be in good condition and clearly visible.",
+          "Make sure that there is no light glare on the document.",
+        ]}
+    />
+
     <div className="PassportUpdate UpdatedocumentsWarp">
 
     <DocumentUpdateCard
@@ -204,10 +220,12 @@ const PassportUpdate: React.FC = () => {
       variant={getVariantByStatus("passport_selfie")}
       status={getDocumentStatus("passport_selfie")}
       onUploadSuccess={fetchDocuments}
-    />
-
-    </div>
-  );
+          />
+        </div>
+      </>
+    )}
+  </>
+);
 };
 
 export default PassportUpdate;
