@@ -226,15 +226,18 @@ const IconTextButtonCard: React.FC<CardProps> = ({
           </p>
         )}
 
-        {/* <button
-          type="button"
-          className="icon-card-button"
-          onClick={handleButtonClick}
-          disabled={isSaving}
-        >
-          {isSaving ? "Uploading..." : buttonText}
-        </button> */}
-
+      <Tooltip
+        text={
+          status === 0
+            ? "Document verification is under progress. You can upload a new document."
+            : status === 1
+            ? "Document already verified. You can not upload new document."
+            : status === 2
+            ? "Document rejected. Please upload again"
+            : "Upload document"
+        }
+        position="top"
+      >
         <button
           type="button"
           className="icon-card-button"
@@ -245,17 +248,13 @@ const IconTextButtonCard: React.FC<CardProps> = ({
             ? "Uploading..."
             : status === 1
             ? "Verified"
+            : status === 0
+            ? "Under Progress"
             : status === 2
             ? "Rejected"
-            : status === 0 ? "Under Progress" : buttonText}
+            : buttonText}
         </button>
-
-        {/* <input
-          type="file"
-          ref={fileInputRef}
-          style={{ display: "none" }}
-          onChange={handleFileChange}
-        /> */}
+      </Tooltip>
 
         <input
           type="file"
