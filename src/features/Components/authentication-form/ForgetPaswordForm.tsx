@@ -148,10 +148,10 @@ const ForgetPasswordForm = ({ onClose , openSendCode }: ForgetPasswordFormProps)
                         onClick={handleSubmit}
                     />
                 </div>
-                <div className="needHelp">
+                {/* <div className="needHelp">
                     <a href="mailto:info@sterlingfraudsolution.com" className='link-login'>Need Help ?</a>
                     <samp className='link-forget'>Forget Password?</samp>
-                </div>
+                </div> */}
             </div>
 
            

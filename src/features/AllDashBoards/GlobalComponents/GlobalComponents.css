@@ -110,12 +110,17 @@ button{cursor: pointer;}
 .GlobalModalBox .modalBox { animation: modalFade 0.25s ease; position: relative;}
 .GlobalModalBox .modalCloseBtn{position: absolute; right: -15px; top: -15px; border-radius: 50%; border: solid 1px var(--Purple-Border);     font-size: 33px; height: 38px; width: 38px; background: var(--Purple-Card); color: var(--whiteColor);}
 /* ResetPassword Modal Start */
-.resetPasswordModal .formContainer{}
+.resetPasswordModal .formContainer label{text-align: left; padding: 10px 0px;}
+.resetPasswordModal button.compoBtn{margin: 16px 0px; border: solid 1px var(--button-border); background: var(--button-background); }
+.resetPasswordModal .sendCodeInputContainer{display: flex; max-width: 450px; max-height: 75px;}
+.resetPasswordModal .sendCodeInputContainer input{margin: 10px; text-align: center; color: var(--whiteColor);}
+.resetPasswordModal .needHelp span{padding: 5px; font: 400 15px var(--font-main);}
+.resetPasswordModal .resetPasswordFormWrap .error{text-align: left; padding-top: 10px;}
 /* GlobalModalBox End*/
 
 /* DashBoardForms  Start*/
 .DashBoardForms {flex-wrap: wrap;}
-.DashBoardForms input{width: 100%; background: #383976; border: solid 1px #585ad1; border-radius: 10px; padding: 17px; color: var(--grey-text); opacity: 1;}
+.DashBoardForms input{width: 100%; background: #383976; border: solid 1px #585ad1; border-radius: 10px; padding: 17px; color: var(--grey-text); opacity: 1; font: 400 16px/26px var(--font-main);}
 .DashBoardForms input:disabled{color: var(--grey-text); opacity: 1; -webkit-text-fill-color: var(--grey-text);}
 .DashBoardForms input::placeholder{color: var(--grey-text); font: 400 16px/26px var(--font-main);}
 .DashBoardForms label{ width: 100%; display: block; font: 400 16px/26px var(--font-main); color: var(--whiteColor);}
@@ -134,9 +139,9 @@ button{cursor: pointer;}
 .DashBoardForms input:checked ~ .checkmark{background-color: var(--whiteColor); border-color: #4CAF50; }
 /* Edit Button Pencil */
 .DashBoardForms .input-wrapper{position: relative;}
-.DashBoardForms .input-wrapper button.edit-btn{background: transparent; border: none; position: absolute; right: 10px; top: 10px;}
+.DashBoardForms .input-wrapper button.edit-btn{background: transparent; border: none; position: absolute; right: 10px; top: 16px;}
 .DashBoardForms .normal-fields-wrapper .password-field-wrap{position: relative;}
-.DashBoardForms .normal-fields-wrapper .password-field-wrap .edit-btn{position: absolute; right: 10px; top: 5px; background: transparent; font: 400 16px/26px var(--font-main); color: var(--grey-text); border: 0;}
+.DashBoardForms .normal-fields-wrapper .password-field-wrap .edit-btn{position: absolute; right: 10px; top: 10px; background: transparent; font: 400 16px/26px var(--font-main); color: var(--grey-text); border: 0;}
 /* DashBoardForms  End*/
 
 
