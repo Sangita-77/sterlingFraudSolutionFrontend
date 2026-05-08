@@ -6,13 +6,13 @@
 
 /* Gobal Variables Start */
 :root {
-  --primary-color: #0C0E22;
-  --secondary-color: #151639;
+  --main-color: #0C0E22;
+  --second-color: #151639;
   --whiteColor: #fff;
   --fontColor: #DCE8F3;
   --font-main: 'Aeonik Regular';
   --button-border-radius: 8px;
-  --purple-text: #242889;
+  --indexpurple-text: #242889;
   --dark-text: #2D3A51;
   --color-skyblue: #1682E7;
 }
@@ -43,7 +43,7 @@ main .container{width: 90%; margin: 0 auto;}
 .Our_Solution .TextPlate{display: flex; padding-bottom: 40px;}
 .Our_Solution .ESText{ width: 55%; margin-right: 30px;}
 .Our_Solution .ESImage{width: 45%; justify-content: end; display: flex;}
-.Our_Solution .H2Headings{text-align: center; color: var(--purple-text); max-width: 1200px; margin: 0 auto; text-align: center;}
+.Our_Solution .H2Headings{text-align: center; color: var(--indexpurple-text); max-width: 1200px; margin: 0 auto; text-align: center;}
 /* Our Solution End */
 
 /* Our Partner Start */
@@ -68,7 +68,7 @@ main .container{width: 90%; margin: 0 auto;}
 
 /* Trusted_worldwide start */
 .Trusted_worldwide{padding: 30px 0px 50px;}
-.Trusted_worldwide h3.H3Headings{ text-align: center; color: var(--purple-text); padding-bottom: 50px;}
+.Trusted_worldwide h3.H3Headings{ text-align: center; color: var(--indexpurple-text); padding-bottom: 50px;}
 /* Trusted_worldwide End */
 
 /* Footer Start */

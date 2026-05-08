@@ -90,8 +90,10 @@ p.PageDescription{color: var(--whiteColor); font: 400 16px/26px var(--font-main)
 .admin-profile .navbar-profile-initial { border-radius: 50%; display: flex; align-items: center; justify-content: center; background: #383976; border: 2px solid #4f46e5; color: #fff; font: 600 18px/1 var(--font-main); }
 /* Navbar End*/
 
+
+/* GlobalModalBox Start*/
 .GlobalModalBox { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--overlay-bg); display: flex; align-items: center; justify-content: center; z-index: 999; }
-.GlobalModalBox .modalBox { background: var(--secondary-color); color: var(--whiteColor); padding: 20px; border-radius: 12px; width: 300px; text-align: center; border: 1px solid var(--border-color); }
+.GlobalModalBox .modalBox { background: var(--secondary-color); color: var(--whiteColor); padding: 20px; border-radius: 12px; min-width: 300px; text-align: center; border: 1px solid var(--border-color); }
 .GlobalModalBox .modalBox h3 { margin-bottom: 10px; }
 .GlobalModalBox .modalBox p { color: var(--fontColor); font-size: 14px; }
 .GlobalModalBox .modalActions { display: flex; justify-content: space-between; margin-top: 20px; gap: 10px; } 
@@ -99,8 +101,11 @@ p.PageDescription{color: var(--whiteColor); font: 400 16px/26px var(--font-main)
 .GlobalModalBox .confirmBtn { flex: 1; background: var(--danger-color); color: var(--whiteColor); border: none; padding: 8px 12px; cursor: pointer; border-radius: 6px; }
 .GlobalModalBox .cancelBtn:hover { opacity: 0.85; } 
 .GlobalModalBox .confirmBtn:hover { opacity: 0.9; }
-.GlobalModalBox .modalBox { animation: modalFade 0.25s ease; }
+.GlobalModalBox .modalBox { animation: modalFade 0.25s ease; position: relative;}
+.GlobalModalBox .modalCloseBtn{position: absolute; right: -15px; top: -15px; border-radius: 50%; border: solid 1px var(--Purple-Border);     font-size: 33px; height: 38px; width: 38px; background: var(--Purple-Card); color: var(--whiteColor);}
+/* ResetPassword Modal Start */
 
+/* GlobalModalBox End*/
 
 /* DashBoardForms  Start*/
 .DashBoardForms {flex-wrap: wrap;}
@@ -140,6 +145,7 @@ p.PageDescription{color: var(--whiteColor); font: 400 16px/26px var(--font-main)
 .ProfileForm .submit-button button{background: var(--button-background); border-radius: 8px; padding: 15px 40px; color: var(--grey-text); border: solid 1px var(--button-border); font: 400 16px/26px var(--font-main);}
 .ProfileForm {margin: 40px 50px 100px; position: relative;}
 .ProfileForm  .submit-button{position: absolute; bottom: -100px; right: -7px;}
+.ProfileForm .ResetButton{width: 88%; text-align: right;}
 /* Profile Form End */
 
 

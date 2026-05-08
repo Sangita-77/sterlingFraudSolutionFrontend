@@ -122,17 +122,36 @@ const filteredMenu = menuItems.filter(item =>
 
 {/* Logout Popup */}
 
- {showLogoutModal && (
+{showLogoutModal && (
   <ConfirmModal
-    title="Are you sure?"
-    message="Do you really want to logout?"
-    confirmText="Yes, Logout"
-    cancelText="Cancel"
-    onConfirm={confirmLogout}
+   showCloseButton={false}
+    header={<h3>Are you sure?</h3>}
+    body={
+      <>
+        <p>
+          Are you sure you want to Log Out
+        </p>
+
+        <div className="modalActions">
+          <button
+            className="cancelBtn"
+            onClick={() => setShowLogoutModal(false)}
+          >
+            Cancel
+          </button>
+
+          <button
+            className="confirmBtn"
+            onClick={confirmLogout}
+          >
+            Yes, Logout
+          </button>
+        </div>
+      </>
+    }
     onCancel={() => setShowLogoutModal(false)}
   />
 )}
-
 
     </div>
   );

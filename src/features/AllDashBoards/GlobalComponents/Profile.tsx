@@ -5,7 +5,7 @@ import { BASE_URL } from "../../../api/config";
 import { fetchWithAuth, getAuthSession, getUserRole, getAuthUser, saveAuthUser } from "../../../api/authService";
 import GlobalButtons from "../GlobalComponents/GlobalButtons";
 import ForgetPasswordForm from "../../Components/authentication-form/ForgetPaswordForm";
-import "../../Components/IndexComponents.css";
+import ResetPassword from "./GlobalModal";
 
 type UserDetails = {
   profileImage?: {
@@ -69,7 +69,7 @@ const Profile: React.FC = () => {
   const [profileError, setProfileError] = useState("");
   const [profileSuccess, setProfileSuccess] = useState("");
 
-   const [openForgetModal, setOpenForgetModal] = useState(false);
+  const [openForgetModal, setOpenForgetModal] = useState(false);
 
   const handleOpenSendCode = (email: string) => {
     console.log(email);
@@ -236,10 +236,12 @@ const Profile: React.FC = () => {
         <div className="ProfileForm gradientBox">  
           <div className="RoleWrap d-flex">
             <h3>{role}</h3>
-            <GlobalButtons text="Reset Password" />
+            <div className="ResetButton">
+              <GlobalButtons text="Reset Password" onClick={() => setOpenForgetModal(true)}/>
+              </div>
             {/* <GlobalButtons text="Reset Password" onClick={() => setOpenForgetModal(true)}/> */}
                     {/* MODAL */}
-                    {openForgetModal && (
+                    {/* {openForgetModal && (
                       <div className="modalOverlay">
                         <div className="modalContent">
 
@@ -256,7 +258,7 @@ const Profile: React.FC = () => {
                           />
                         </div>
                       </div>
-                    )}
+                    )} */}
           </div>
           {/* {isLoading && <p className="profile-message">Loading profile details...</p>} */}
           {profileError && <p className="error">{profileError}</p>}
@@ -264,8 +266,28 @@ const Profile: React.FC = () => {
           <CustomForm fields={fields} initialValues={profileData} onSubmit={handleSubmit} SubmitText={isSaving ? "Saving..." : "Save Changes"} isSubmitting={isSaving} variant="view"/>
         </div>
     </div>
+
+
+{openForgetModal && (
+  <ResetPassword
+    customeClass="resetPasswordModal"
+    header={<h3>Reset Password</h3>}
+    body={
+      <ForgetPasswordForm
+        onClose={() => setOpenForgetModal(false)}
+        openSendCode={handleOpenSendCode}
+      />
+    }
+    onCancel={() => setOpenForgetModal(false)}
+  />
+)}
     </>
   );
+  
 };
+
+
+
+
 
 export default Profile; 

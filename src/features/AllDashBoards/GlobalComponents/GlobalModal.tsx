@@ -2,43 +2,49 @@ import React from "react";
 import "./GlobalComponents.css";
 
 interface ConfirmModalProps {
-  title?: string;
-  message?: string;
-  confirmText?: string;
-  cancelText?: string;
-  onConfirm: () => void;
-  onCancel: () => void;
+  header?: React.ReactNode;
+  body?: React.ReactNode;
+  onCancel?: () => void;
+  showCloseButton?: boolean;
+  customeClass?: string;
 }
 
-const ConfirmModal: React.FC<ConfirmModalProps> = ({
-  title = "Are you sure?",
-  message = "Do you really want to proceed?",
-  confirmText = "Yes",
-  cancelText = "Cancel",
-  onConfirm,
+const GlobalmModal: React.FC<ConfirmModalProps> = ({
+  header = "Are you sure?",
+  body,
   onCancel,
+  customeClass = "",
+  showCloseButton = true,
 }) => {
   return (
-    <div className="GlobalModalBox modalOverlay" onClick={onCancel}>
+    <div
+      className={`GlobalModalBox modalOverlay ${customeClass}`}
+      onClick={onCancel}
+    >
       <div
         className="modalBox"
         onClick={(e) => e.stopPropagation()}
       >
-        <h3>{title}</h3>
-        <p>{message}</p>
+        <div className="modalHeader">
+          <div>{header}</div>
 
-        <div className="modalActions">
-          <button className="cancelBtn" onClick={onCancel}>
-            {cancelText}
-          </button>
+          {showCloseButton && (
+            <button
+              type="button"
+              className="modalCloseBtn"
+              onClick={onCancel}
+            >
+              ×
+            </button>
+          )}
+        </div>
 
-          <button className="confirmBtn" onClick={onConfirm}>
-            {confirmText}
-          </button>
+        <div className="modalBody">
+          {body}
         </div>
       </div>
     </div>
   );
 };
 
-export default ConfirmModal;
+export default GlobalmModal;
