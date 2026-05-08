@@ -36,6 +36,17 @@ type CardVariant =
 //   onFileSelect?: (file: File) => void;
 // }
 
+// interface CardProps {
+//   icon: string;
+//   text: string;
+//   buttonText: string;
+//   variant?: CardVariant;
+//   documentType: string;
+//   documentId?: string;
+//   documentUrl?: string;
+//   onFileSelect?: (file: File) => void;
+// }
+
 interface CardProps {
   icon: string;
   text: string;
@@ -44,6 +55,7 @@ interface CardProps {
   documentType: string;
   documentId?: string;
   documentUrl?: string;
+  status?: number;
   onFileSelect?: (file: File) => void;
 }
 
@@ -55,6 +67,7 @@ const IconTextButtonCard: React.FC<CardProps> = ({
   documentType,
   documentId,
   documentUrl,
+  status,
   onFileSelect,
 }) => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -173,6 +186,23 @@ const IconTextButtonCard: React.FC<CardProps> = ({
     await handleDocumentUpload(file);
   };
 
+  const getStatusText = () => {
+    console.log("Document Status:", status);
+    if (status === 0) {
+      return "Under Progress";
+    }
+
+    if (status === 1) {
+      return "Verified";
+    }
+
+    if (status === 2) {
+      return "Rejected";
+    }
+
+    return "Not Uploaded";
+  };
+
 
   return (
     
@@ -190,6 +220,9 @@ const IconTextButtonCard: React.FC<CardProps> = ({
           alt="icon"
           className="icon-card-image"
         />
+        <p className="document-status-text">
+          {getStatusText()}
+        </p>
 
         <p className="icon-card-text">{text}</p>
 
@@ -217,13 +250,26 @@ const IconTextButtonCard: React.FC<CardProps> = ({
           </p>
         )}
 
-        <button
+        {/* <button
           type="button"
           className="icon-card-button"
           onClick={handleButtonClick}
           disabled={isSaving}
         >
           {isSaving ? "Uploading..." : buttonText}
+        </button> */}
+
+        <button
+          type="button"
+          className="icon-card-button"
+          onClick={handleButtonClick}
+          disabled={isSaving || status === 1}
+        >
+          {isSaving
+            ? "Uploading..."
+            : status === 1
+            ? "Verified"
+            : buttonText}
         </button>
 
         {/* <input

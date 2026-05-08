@@ -153,6 +153,17 @@ const DrivingLicense: React.FC = () => {
     return PassportFrontIcon;
   };
 
+    const getDocumentStatus = (
+      documentType: string
+    ) => {
+      const document = documents.find(
+        (doc) => doc.documentType === documentType
+      );
+
+      return document?.status;
+    };
+
+
   return (
     <div className="DrivingLicense UpdatedocumentsWarp">
 
@@ -172,6 +183,9 @@ const DrivingLicense: React.FC = () => {
           "driving_license_front"
         )}
         variant={getVariantByStatus(
+          "driving_license_front"
+        )}
+        status={getDocumentStatus(
           "driving_license_front"
         )}
       />
@@ -194,6 +208,9 @@ const DrivingLicense: React.FC = () => {
         variant={getVariantByStatus(
           "driving_license_back"
         )}
+        status={getDocumentStatus(
+          "driving_license_back"
+        )}
       />
 
       <DocumentUpdateCard
@@ -212,6 +229,9 @@ const DrivingLicense: React.FC = () => {
           "driving_license_selfie"
         )}
         variant={getVariantByStatus(
+          "driving_license_selfie"
+        )}
+        status={getDocumentStatus(
           "driving_license_selfie"
         )}
       />

@@ -157,6 +157,16 @@ const PassportUpdate: React.FC = () => {
     return PassportFrontIcon;
   };
 
+  const getDocumentStatus = (
+    documentType: string
+  ) => {
+    const document = documents.find(
+      (doc) => doc.documentType === documentType
+    );
+
+    return document?.status;
+  };
+
   return (
     <div className="PassportUpdate UpdatedocumentsWarp">
 
@@ -168,6 +178,7 @@ const PassportUpdate: React.FC = () => {
       documentId={getDocumentId("passport_front")}
       documentUrl={getDocumentUrl("passport_front")}
       variant={getVariantByStatus("passport_front")}
+      status={getDocumentStatus("passport_front")}
     />
 
     <DocumentUpdateCard
@@ -178,6 +189,7 @@ const PassportUpdate: React.FC = () => {
       documentId={getDocumentId("passport_back")}
       documentUrl={getDocumentUrl("passport_back")}
       variant={getVariantByStatus("passport_back")}
+      status={getDocumentStatus("passport_back")}
     />
 
     <DocumentUpdateCard
@@ -188,6 +200,7 @@ const PassportUpdate: React.FC = () => {
       documentId={getDocumentId("passport_selfie")}
       documentUrl={getDocumentUrl("passport_selfie")}
       variant={getVariantByStatus("passport_selfie")}
+      status={getDocumentStatus("passport_selfie")}
     />
 
     </div>
