@@ -6,6 +6,8 @@ import {
   getAuthSession,
   getAuthUser,
 } from "../../../api/authService";
+import {EyeIcon} from 'lucide-animated';
+import Tooltip from "./ToolTip";
 
 // type CardVariant = "purple" | "green" | "orange";
 
@@ -63,6 +65,7 @@ const IconTextButtonCard: React.FC<CardProps> = ({
   const [isSaving, setIsSaving] = useState(false);
   const [uploadError, setUploadError] = useState("");
   const [uploadSuccess, setUploadSuccess] = useState("");
+  const [isDragging, setIsDragging] = useState(false);
 
   const handleButtonClick = () => {
     fileInputRef.current?.click();
@@ -144,8 +147,43 @@ const IconTextButtonCard: React.FC<CardProps> = ({
     await handleDocumentUpload(file);
   };
 
+
+  // Drag Events
+  const handleDragOver = (
+    e: React.DragEvent<HTMLDivElement>
+  ) => {
+    e.preventDefault();
+    setIsDragging(true);
+  };
+
+  const handleDragLeave = () => {
+    setIsDragging(false);
+  };
+
+  const handleDrop = async (
+    e: React.DragEvent<HTMLDivElement>
+  ) => {
+    e.preventDefault();
+    setIsDragging(false);
+
+    const file = e.dataTransfer.files?.[0];
+
+    if (!file) return;
+
+    await handleDocumentUpload(file);
+  };
+
+
   return (
-    <div className={`icon-card ${variant}`}>
+    
+    <div
+      className={`DocumentUpdate-card ${variant} ${
+        isDragging ? "dragging" : ""
+      }`}
+      onDragOver={handleDragOver}
+      onDragLeave={handleDragLeave}
+      onDrop={handleDrop}
+    >
       <div className="icon-card-content">
         <img
           src={icon}
@@ -161,15 +199,15 @@ const IconTextButtonCard: React.FC<CardProps> = ({
 
         {documentUrl && (
           <div className="document-preview-wrap">
+          <Tooltip text="Preview Document" position="top">
             <button
               type="button"
               className="document-preview-btn"
-              onClick={() =>
-                window.open(documentUrl, "_blank")
-              }
+              onClick={() => window.open(documentUrl, "_blank")}
             >
-              View Document
+              <EyeIcon />
             </button>
+          </Tooltip>
           </div>
         )}
 

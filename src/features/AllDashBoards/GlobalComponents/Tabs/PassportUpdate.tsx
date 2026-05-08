@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import DocumentUpdateCard from "../DocumentUpdateCard";
 import PassportFrontIcon from "../../assets/images/PassportFrontIcon.svg";
+import RejectedIcon from "../../assets/images/RejectedIcon.svg";
 
 import { BASE_URL } from "../../../../api/config";
 
@@ -148,7 +149,7 @@ const PassportUpdate: React.FC = () => {
     />
 
     <DocumentUpdateCard
-      icon={PassportFrontIcon}
+      icon={RejectedIcon}
       text="Selfie with your Passport"
       buttonText={loading ? "Loading..." : "Update"}
       documentType="passport_selfie"
