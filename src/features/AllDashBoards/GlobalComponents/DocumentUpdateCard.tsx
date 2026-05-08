@@ -186,22 +186,22 @@ const IconTextButtonCard: React.FC<CardProps> = ({
     await handleDocumentUpload(file);
   };
 
-  const getStatusText = () => {
-    console.log("Document Status:", status);
-    if (status === 0) {
-      return "Under Progress";
-    }
+  // const getStatusText = () => {
+  //   console.log("Document Status:", status);
+  //   if (status === 0) {
+  //     return "Under Progress";
+  //   }
 
-    if (status === 1) {
-      return "Verified";
-    }
+  //   if (status === 1) {
+  //     return "Verified";
+  //   }
 
-    if (status === 2) {
-      return "Rejected";
-    }
+  //   if (status === 2) {
+  //     return "Rejected";
+  //   }
 
-    return "Not Uploaded";
-  };
+  //   return "Not Uploaded";
+  // };
 
 
   return (
@@ -220,9 +220,9 @@ const IconTextButtonCard: React.FC<CardProps> = ({
           alt="icon"
           className="icon-card-image"
         />
-        <p className="document-status-text">
+        {/* <p className="document-status-text">
           {getStatusText()}
-        </p>
+        </p> */}
 
         <p className="icon-card-text">{text}</p>
 
@@ -269,7 +269,9 @@ const IconTextButtonCard: React.FC<CardProps> = ({
             ? "Uploading..."
             : status === 1
             ? "Verified"
-            : buttonText}
+            : status === 2
+            ? "Rejected"
+            : status === 0 ? "Under Progress" : buttonText}
         </button>
 
         {/* <input
