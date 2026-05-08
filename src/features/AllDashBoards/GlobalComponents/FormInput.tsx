@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import PencilEdit from "../assets/images/PencilEdit.svg";
-import PasswordInput from "../../Components/PasswordInput";
+import ModalBox from "./GlobalModal";
+import ForgetPasswordForm from "../../Components/authentication-form/ForgetPaswordForm";
+// import SendCode from "../../Components/authentication-form/SendCode";
 
 interface FormInputProps {
   label: string;
@@ -19,6 +21,7 @@ interface FormInputProps {
   DefaultProfile?: string;
   preview?: string;
   profileInitial?: string;
+  resetpasswordbutton?: boolean;
 }
 
 const FormInput: React.FC<FormInputProps> = ({
@@ -32,6 +35,7 @@ const FormInput: React.FC<FormInputProps> = ({
   options,
   onChange,
   editable,
+  resetpasswordbutton = false,
   onEdit,
   preview,
   required= false,
@@ -41,6 +45,10 @@ const FormInput: React.FC<FormInputProps> = ({
 const fileInputRef = useRef<HTMLInputElement>(null);
 const [imageFailed, setImageFailed] = useState(false);
 const imageSrc = preview || value || DefaultProfile || "";
+const [openForgetModal, setOpenForgetModal] = useState(false);
+const handleOpenSendCode = (email: string) => {
+  console.log(email);
+};
 
 useEffect(() => {
   setImageFailed(false);
@@ -119,12 +127,24 @@ const renderProfileUpload = () => (
             ))}
           </div>
         ) : type === "password" ? (
-        <PasswordInput
-          name={name}
-          value={value}
-          placeholder={placeholder}
-          onChange={onChange}
-        />
+          <div className="password-field-wrap">
+            <input
+              name={name}
+              value={value}
+              placeholder={placeholder}
+              onChange={onChange}
+              disabled={!editable}
+            />
+            {!resetpasswordbutton &&
+              <button
+                type="button"
+                onClick={() => setOpenForgetModal(true)}
+                className="edit-btn"
+              >
+                Reset Password
+              </button>
+            }
+          </div>
       ) : type === "file" ? (
         renderProfileUpload()
         ) :  (
@@ -148,7 +168,23 @@ const renderProfileUpload = () => (
         )}
 
       {error && <span className="error">{error}</span>}
-    </div>
+
+   {openForgetModal && (
+        <ModalBox
+          customeClass="resetPasswordModal"
+          header={<h3>Reset Password</h3>}
+          body={
+            <ForgetPasswordForm
+              onClose={() => setOpenForgetModal(false)}
+              openSendCode={handleOpenSendCode}
+            />
+          }
+          onCancel={() => setOpenForgetModal(false)}
+        />
+  )}
+
+</div>
+    
   );
 };
 

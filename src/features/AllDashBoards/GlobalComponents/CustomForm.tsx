@@ -9,6 +9,7 @@ export interface FieldConfig {
   width?: "full" | "half";
   options?: { label: string; value: string }[]; 
   required?: boolean;
+  resetpasswordbutton?: boolean;
   defaultImage?: string;
 }
 
@@ -36,7 +37,7 @@ const CustomForm: React.FC<CustomFormProps> = ({ fields, onSubmit, SubmitText, v
   const [editableFields, setEditableFields] = useState<Record<string, boolean>>({});
   const [formData, setFormData] = useState<Record<string, FormValue>>(initialState);
   const [errors, setErrors] = useState<Record<string, string>>({});
-const [preview, setPreview] = useState<string>("");
+  const [preview, setPreview] = useState<string>("");
 
 useEffect(() => {
   setFormData({
@@ -110,6 +111,10 @@ const getStringValue = (name: string): string => {
 };
 
 
+const isResetPasswordButtonVisible = (
+  field: FieldConfig
+) => field.resetpasswordbutton ?? false;
+
   return (
 <div className="">    
 <form id={formId} onSubmit={handleSubmit} className="DashBoardForms d-flex">
@@ -154,6 +159,7 @@ const getStringValue = (name: string): string => {
         editable={field.type === "radio" ? true : isEditable(field.name)}
         onEdit={() => handleEditToggle(field.name)}
         required={field.required}
+        resetpasswordbutton={isResetPasswordButtonVisible(field)}
       />
     ))}
   </div>
