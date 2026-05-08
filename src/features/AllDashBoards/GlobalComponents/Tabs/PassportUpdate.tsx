@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import DocumentUpdateCard from "../DocumentUpdateCard";
 import PassportFrontIcon from "../../assets/images/PassportFrontIcon.svg";
 import RejectedIcon from "../../assets/images/RejectedIcon.svg";
+import UnderProgress from "../../assets/images/UnderProgress.svg";
+import VarifiedIcon from "../../assets/images/VarifiedIcon.svg";
 
 import { BASE_URL } from "../../../../api/config";
 
@@ -125,11 +127,41 @@ const PassportUpdate: React.FC = () => {
     )}/uploads/documents/${document.fileName}`;
   };
 
+  const getIconByStatus = (
+    documentType: string
+  ) => {
+    const document = documents.find(
+      (doc) => doc.documentType === documentType
+    );
+
+    // default
+    if (!document) {
+      return PassportFrontIcon;
+    }
+
+    // pending
+    if (document.status === 0) {
+      return UnderProgress;
+    }
+
+    // approved
+    if (document.status === 1) {
+      return VarifiedIcon;
+    }
+
+    // rejected
+    if (document.status === 2) {
+      return RejectedIcon;
+    }
+
+    return PassportFrontIcon;
+  };
+
   return (
     <div className="PassportUpdate UpdatedocumentsWarp">
 
     <DocumentUpdateCard
-      icon={PassportFrontIcon}
+      icon={getIconByStatus("passport_front")}
       text="Front side of your Passport"
       buttonText={loading ? "Loading..." : "Update"}
       documentType="passport_front"
@@ -139,7 +171,7 @@ const PassportUpdate: React.FC = () => {
     />
 
     <DocumentUpdateCard
-      icon={PassportFrontIcon}
+      icon={getIconByStatus("passport_back")}
       text="Back side of your Passport"
       buttonText={loading ? "Loading..." : "Update"}
       documentType="passport_back"
@@ -149,7 +181,7 @@ const PassportUpdate: React.FC = () => {
     />
 
     <DocumentUpdateCard
-      icon={RejectedIcon}
+      icon={getIconByStatus("passport_selfie")}
       text="Selfie with your Passport"
       buttonText={loading ? "Loading..." : "Update"}
       documentType="passport_selfie"
