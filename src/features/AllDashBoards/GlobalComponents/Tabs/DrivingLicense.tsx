@@ -188,6 +188,7 @@ const DrivingLicense: React.FC = () => {
         status={getDocumentStatus(
           "driving_license_front"
         )}
+        onUploadSuccess={fetchDocuments}
       />
 
       <DocumentUpdateCard
@@ -211,6 +212,7 @@ const DrivingLicense: React.FC = () => {
         status={getDocumentStatus(
           "driving_license_back"
         )}
+        onUploadSuccess={fetchDocuments}
       />
 
       <DocumentUpdateCard
@@ -234,6 +236,7 @@ const DrivingLicense: React.FC = () => {
         status={getDocumentStatus(
           "driving_license_selfie"
         )}
+        onUploadSuccess={fetchDocuments}
       />
 
     </div>

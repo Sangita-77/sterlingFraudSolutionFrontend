@@ -179,6 +179,7 @@ const PassportUpdate: React.FC = () => {
       documentUrl={getDocumentUrl("passport_front")}
       variant={getVariantByStatus("passport_front")}
       status={getDocumentStatus("passport_front")}
+      onUploadSuccess={fetchDocuments}
     />
 
     <DocumentUpdateCard
@@ -190,6 +191,7 @@ const PassportUpdate: React.FC = () => {
       documentUrl={getDocumentUrl("passport_back")}
       variant={getVariantByStatus("passport_back")}
       status={getDocumentStatus("passport_back")}
+      onUploadSuccess={fetchDocuments}
     />
 
     <DocumentUpdateCard
@@ -201,6 +203,7 @@ const PassportUpdate: React.FC = () => {
       documentUrl={getDocumentUrl("passport_selfie")}
       variant={getVariantByStatus("passport_selfie")}
       status={getDocumentStatus("passport_selfie")}
+      onUploadSuccess={fetchDocuments}
     />
 
     </div>

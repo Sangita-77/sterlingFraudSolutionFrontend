@@ -17,35 +17,6 @@ type CardVariant =
   | "orange"
   | "red";
 
-// interface CardProps {
-//   icon: string;
-//   text: string;
-//   buttonText: string;
-//   variant?: CardVariant;
-//   documentType: string;
-//   onFileSelect?: (file: File) => void;
-// }
-
-// interface CardProps {
-//   icon: string;
-//   text: string;
-//   buttonText: string;
-//   variant?: CardVariant;
-//   documentType: string;
-//   documentId?: string;
-//   onFileSelect?: (file: File) => void;
-// }
-
-// interface CardProps {
-//   icon: string;
-//   text: string;
-//   buttonText: string;
-//   variant?: CardVariant;
-//   documentType: string;
-//   documentId?: string;
-//   documentUrl?: string;
-//   onFileSelect?: (file: File) => void;
-// }
 
 interface CardProps {
   icon: string;
@@ -57,6 +28,7 @@ interface CardProps {
   documentUrl?: string;
   status?: number;
   onFileSelect?: (file: File) => void;
+  onUploadSuccess?: () => void;
 }
 
 const IconTextButtonCard: React.FC<CardProps> = ({
@@ -69,6 +41,7 @@ const IconTextButtonCard: React.FC<CardProps> = ({
   documentUrl,
   status,
   onFileSelect,
+  onUploadSuccess,
 }) => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -130,12 +103,15 @@ const IconTextButtonCard: React.FC<CardProps> = ({
 
       console.log("Document Upload Success:", result);
 
-      setUploadSuccess(
-        documentId
-          ? "Document updated successfully."
-          : "Document uploaded successfully."
-      );
-      window.location.reload();
+      // setUploadSuccess(
+      //   documentId
+      //     ? "Document updated successfully."
+      //     : "Document uploaded successfully."
+      // );
+      // window.location.reload();
+      if (onUploadSuccess) {
+        onUploadSuccess();
+      }
 
       if (onFileSelect) {
         onFileSelect(file);

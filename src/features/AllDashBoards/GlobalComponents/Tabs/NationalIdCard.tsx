@@ -184,6 +184,7 @@ const NationalIdUpdate: React.FC = () => {
           "national_id_front"
         )}
         status={getDocumentStatus("national_id_front")}
+        onUploadSuccess={fetchDocuments}
       />
 
       <DocumentUpdateCard
@@ -203,6 +204,7 @@ const NationalIdUpdate: React.FC = () => {
           "national_id_back"
         )}
         status={getDocumentStatus("national_id_back")}
+        onUploadSuccess={fetchDocuments}
       />
 
       <DocumentUpdateCard
@@ -222,6 +224,7 @@ const NationalIdUpdate: React.FC = () => {
           "national_id_selfie"
         )}
         status={getDocumentStatus("national_id_selfie")}
+        onUploadSuccess={fetchDocuments}
       />
 
     </div>
