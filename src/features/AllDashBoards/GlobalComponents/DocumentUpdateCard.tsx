@@ -1,13 +1,47 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import "./GlobalComponents.css";
+import { BASE_URL } from "../../../api/config";
+import {
+  fetchWithAuth,
+  getAuthSession,
+  getAuthUser,
+} from "../../../api/authService";
 
-type CardVariant = "purple" | "green" | "orange";
+// type CardVariant = "purple" | "green" | "orange";
+
+type CardVariant =
+  | "purple"
+  | "green"
+  | "orange"
+  | "red";
+
+// interface CardProps {
+//   icon: string;
+//   text: string;
+//   buttonText: string;
+//   variant?: CardVariant;
+//   documentType: string;
+//   onFileSelect?: (file: File) => void;
+// }
+
+// interface CardProps {
+//   icon: string;
+//   text: string;
+//   buttonText: string;
+//   variant?: CardVariant;
+//   documentType: string;
+//   documentId?: string;
+//   onFileSelect?: (file: File) => void;
+// }
 
 interface CardProps {
   icon: string;
   text: string;
   buttonText: string;
   variant?: CardVariant;
+  documentType: string;
+  documentId?: string;
+  documentUrl?: string;
   onFileSelect?: (file: File) => void;
 }
 
@@ -16,42 +50,154 @@ const IconTextButtonCard: React.FC<CardProps> = ({
   text,
   buttonText,
   variant = "purple",
+  documentType,
+  documentId,
+  documentUrl,
   onFileSelect,
 }) => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+  const user = getAuthUser();
+  const session = getAuthSession();
+
+  const [isSaving, setIsSaving] = useState(false);
+  const [uploadError, setUploadError] = useState("");
+  const [uploadSuccess, setUploadSuccess] = useState("");
 
   const handleButtonClick = () => {
     fileInputRef.current?.click();
   };
 
-  const handleFileChange = (
+
+  const handleDocumentUpload = async (file: File) => {
+    const userId = user?.id || session?.userId;
+
+    if (!userId) {
+      setUploadError("User id not found. Please login again.");
+      return;
+    }
+
+    setIsSaving(true);
+    setUploadError("");
+    setUploadSuccess("");
+
+    try {
+      const payload = new FormData();
+
+      payload.append("userId", userId);
+      payload.append("documentType", documentType);
+      payload.append("file", file);
+
+      let apiUrl = `${BASE_URL}/upload-document`;
+
+      // if document already exists -> update
+      if (documentId) {
+        apiUrl = `${BASE_URL}/update-documents`;
+
+        payload.append("id", documentId);
+        payload.append("status", "0");
+      }
+
+      const response = await fetchWithAuth(apiUrl, {
+        method: "POST",
+        body: payload,
+      });
+
+      const result = await response.json();
+
+      if (!response.ok || !result.success) {
+        setUploadError(
+          result.message || "Unable to upload document."
+        );
+        return;
+      }
+
+      console.log("Document Upload Success:", result);
+
+      setUploadSuccess(
+        documentId
+          ? "Document updated successfully."
+          : "Document uploaded successfully."
+      );
+      window.location.reload();
+
+      if (onFileSelect) {
+        onFileSelect(file);
+      }
+    } catch (error) {
+      console.error("Document upload error:", error);
+
+      setUploadError(
+        "Something went wrong while uploading document."
+      );
+    } finally {
+      setIsSaving(false);
+    }
+  };
+  const handleFileChange = async (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
     const file = e.target.files?.[0];
 
-    if (file && onFileSelect) {
-      onFileSelect(file);
-    }
+    if (!file) return;
+
+    await handleDocumentUpload(file);
   };
 
   return (
-    
     <div className={`icon-card ${variant}`}>
       <div className="icon-card-content">
-        <img src={icon} alt="icon" className="icon-card-image" />
+        <img
+          src={icon}
+          alt="icon"
+          className="icon-card-image"
+        />
 
         <p className="icon-card-text">{text}</p>
+
+        {uploadError && (
+          <p className="error">{uploadError}</p>
+        )}
+
+        {documentUrl && (
+          <div className="document-preview-wrap">
+            <button
+              type="button"
+              className="document-preview-btn"
+              onClick={() =>
+                window.open(documentUrl, "_blank")
+              }
+            >
+              View Document
+            </button>
+          </div>
+        )}
+
+        {uploadSuccess && (
+          <p className="profile-message">
+            {uploadSuccess}
+          </p>
+        )}
 
         <button
           type="button"
           className="icon-card-button"
           onClick={handleButtonClick}
+          disabled={isSaving}
         >
-          {buttonText}
+          {isSaving ? "Uploading..." : buttonText}
         </button>
+
+        {/* <input
+          type="file"
+          ref={fileInputRef}
+          style={{ display: "none" }}
+          onChange={handleFileChange}
+        /> */}
 
         <input
           type="file"
+          accept=".jpg,.jpeg,.png,.pdf,.doc,.docx"
           ref={fileInputRef}
           style={{ display: "none" }}
           onChange={handleFileChange}
