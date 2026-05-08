@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import Sidebar from "../../GlobalComponents/Sidebar";
 import Navbar from "../Components/Navbar";
+// import Navbar from "../../GlobalComponents/Navbar";
 import "../../admin/Pages/Dashboard.css";
 
 const CustomerDashboardLayOut: React.FC = () => {

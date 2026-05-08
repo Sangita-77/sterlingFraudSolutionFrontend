@@ -23,11 +23,12 @@ interface CustomFormProps {
   SubmitText?: string;
   initialValues?: Record<string, string>;
   isSubmitting?: boolean;
+  showResetButton?: boolean;
 }
 
 const emptyInitialValues: Record<string, string> = {};
 
-const CustomForm: React.FC<CustomFormProps> = ({ fields, onSubmit, SubmitText, variant, formId = "customForm", initialValues, isSubmitting = false}) => {
+const CustomForm: React.FC<CustomFormProps> = ({ fields, onSubmit, SubmitText, variant, formId = "customForm", initialValues, isSubmitting = false, showResetButton = false,}) => {
   const resolvedInitialValues = initialValues ?? emptyInitialValues;
   const initialState = useMemo(() => fields.reduce((acc, field) => {
     acc[field.name] = "";
@@ -111,6 +112,16 @@ const getStringValue = (name: string): string => {
 };
 
 
+const handleReset = () => {
+  setFormData({
+    ...initialState,
+    ...resolvedInitialValues,
+  });
+
+  setErrors({});
+  setPreview("");
+};
+
 const isResetPasswordButtonVisible = (
   field: FieldConfig
 ) => field.resetpasswordbutton ?? false;
@@ -163,7 +174,21 @@ const isResetPasswordButtonVisible = (
       />
     ))}
   </div>
-  <div className="submit-button"><button type="submit" disabled={isSubmitting}>{SubmitText}</button></div>
+    <div className="submit-button d-flex">
+      <button type="submit" disabled={isSubmitting}>
+        {SubmitText}
+      </button>
+
+      {showResetButton && (
+        <button
+          type="button"
+          onClick={handleReset}
+          className="reset-btn"
+        >
+          Reset
+        </button>
+      )}
+    </div>
 
 </form>
 </div>

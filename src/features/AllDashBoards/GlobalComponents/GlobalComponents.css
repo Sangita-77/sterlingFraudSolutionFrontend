@@ -135,6 +135,8 @@ button{cursor: pointer;}
 /* Edit Button Pencil */
 .DashBoardForms .input-wrapper{position: relative;}
 .DashBoardForms .input-wrapper button.edit-btn{background: transparent; border: none; position: absolute; right: 10px; top: 10px;}
+.DashBoardForms .normal-fields-wrapper .password-field-wrap{position: relative;}
+.DashBoardForms .normal-fields-wrapper .password-field-wrap .edit-btn{position: absolute; right: 10px; top: 5px; background: transparent; font: 400 16px/26px var(--font-main); color: var(--grey-text); border: 0;}
 /* DashBoardForms  End*/
 
 
@@ -142,13 +144,14 @@ button{cursor: pointer;}
 /* Profile page */
 .ProfileForm .profile-fields-wrapper{width: 18%;}
 .ProfileForm .normal-fields-wrapper{width: 82%;  display: flex; flex-wrap: wrap;}
-.profileWrap .RoleWrap h3{width: 12%; text-align: center; color: var(--whiteColor); text-transform: capitalize;}
-.ProfileForm .submit-button{text-align: right; width: 100%;}
+.profileWrap .RoleWrap h3{width: 12%; text-align: center; color: var(--whiteColor); text-transform: capitalize; padding-bottom: 20px;}
 .ProfileForm .profile-upload img.profile-img{border-radius: 50%; width: 136px; height: 136px; object-fit: cover;}
 .ProfileForm .profile-upload .profile-initial{width: 136px; height: 136px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: #383976; border: solid 1px #585ad1; color: var(--whiteColor); font: 600 48px/1 var(--font-main);}
 .ProfileForm .profile-upload{position: relative;}
 .ProfileForm .profile-upload button.edit-btn{position: absolute; left: 90px; bottom: 0; background: #383976; border: solid 1px #585ad1; border-radius: 50%; width: 40px; height: 40px;}
-.ProfileForm .submit-button button{background: var(--button-background); border-radius: 8px; padding: 15px 40px; color: var(--grey-text); border: solid 1px var(--button-border); font: 400 16px/26px var(--font-main);}
+.ProfileForm .submit-button button{background: var(--button-background); border-radius: 8px; padding: 13px 40px; color: var(--grey-text); border: solid 1px var(--button-border); font: 400 16px/26px var(--font-main); width: 200px;}
+.ProfileForm .submit-button button.reset-btn{border: solid 1px var(--button-border); background: transparent; color: var(--grey-text);}
+.ProfileForm .submit-button button:hover{color: var(--whiteColor); border: solid 1px var(--whiteColor); background: transparent; transition: .5s;}
 .ProfileForm {margin: 40px 50px 100px; position: relative;}
 .ProfileForm  .submit-button{position: absolute; bottom: -100px; right: -7px;}
 .ProfileForm .ResetButton{width: 88%; text-align: right;}
@@ -181,6 +184,7 @@ button{cursor: pointer;}
 .DocumentUpdate-card.red .icon-card-button {color: var(--Red-Border); border: solid 1px var(--Red-Border);}
 .DocumentUpdate-card .document-preview-wrap{position: absolute; top: 10px; right: 10px; }
 .DocumentUpdate-card .document-preview-wrap .document-preview-btn{background: transparent; border: 0; color: var(--whiteColor); font: 400 }
+
 
 
 /* Tooltip Start*/

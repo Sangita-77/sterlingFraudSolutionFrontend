@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import PencilEdit from "../assets/images/PencilEdit.svg";
 import ModalBox from "./GlobalModal";
 import ForgetPasswordForm from "../../Components/authentication-form/ForgetPaswordForm";
-// import SendCode from "../../Components/authentication-form/SendCode";
+import "./GlobalComponents.css";
 
 interface FormInputProps {
   label: string;
