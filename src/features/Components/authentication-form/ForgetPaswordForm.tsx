@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "../IndexComponents.css";
 import Buttons from '../ButtonCompo';
 import { BASE_URL } from "../../../api/config";
+import { getAuthUser } from "../../../api/authService";
 
 
 
@@ -24,8 +25,10 @@ type SendCodeApiResponse = {
 
 const ForgetPasswordForm = ({ onClose , openSendCode }: ForgetPasswordFormProps) => {
 
+    const user = getAuthUser();
+
     const [formData, setFormData] = useState<FormData>({
-        email: "",
+        email: user?.email || "",
     });
 
     const [errors, setErrors] = useState<FormErrors>({});
@@ -69,8 +72,8 @@ const ForgetPasswordForm = ({ onClose , openSendCode }: ForgetPasswordFormProps)
     };
 
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
+    const handleSubmit = async () => {
+        // e.preventDefault();
         if(validateAllFields())return
 
         setIsSubmitting(true);
@@ -110,20 +113,29 @@ const ForgetPasswordForm = ({ onClose , openSendCode }: ForgetPasswordFormProps)
                 Don't worry ,we will send you the reset information
             </span>
             <div className="formContainer forget-password-form">
-                <form onSubmit={handleSubmit}>
+                {/* <div> */}
                     {/* Email */}
                     <div className="full-width">
                         <label>Email*</label>
+                        {/* <input
+                            type="email"
+                            name="email"
+                            value={formData.email}
+                            onChange={handleChange}
+                            placeholder="Enter Email"
+                        /> */}
+
                         <input
                             type="email"
                             name="email"
                             value={formData.email}
                             onChange={handleChange}
                             placeholder="Enter Email"
+                            disabled={!!user?.email}
                         />
                         {errors.email && <p className="error">{errors.email}</p>}
 
-                    </div>
+                    {/* </div> */}
                     {submitError && <p className="error">{submitError}</p>}
                     <br />
 
@@ -131,10 +143,11 @@ const ForgetPasswordForm = ({ onClose , openSendCode }: ForgetPasswordFormProps)
                         text={isSubmitting ? "SENDING..." : "SEND CODE"}
                         variant="primary"
                         size='full'
-                        type="submit"
+                        type="button"
                         disabled={isSubmitting}
+                        onClick={handleSubmit}
                     />
-                </form>
+                </div>
                 <div className="needHelp">
                     <a href="mailto:info@sterlingfraudsolution.com" className='link-login'>Need Help ?</a>
                     <samp className='link-forget'>Forget Password?</samp>
