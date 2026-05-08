@@ -1,7 +1,10 @@
 import React from "react";
 import { Heading1 } from "../../GlobalComponents/HeadingPara";
 import Tabs from "../../GlobalComponents/Tabs";
-import PassportUpdate from "../../GlobalComponents/Tabs/PassportUpdate"
+import PassportUpdate from "../../GlobalComponents/Tabs/PassportUpdate";
+import NationalIdCard from "../../GlobalComponents/Tabs/NationalIdCard";
+import DrivingLicense from "../../GlobalComponents/Tabs/DrivingLicense";
+
 
 
   const tabsData = [
@@ -11,11 +14,11 @@ import PassportUpdate from "../../GlobalComponents/Tabs/PassportUpdate"
     },
     {
       label: "National ID Card",
-      content: <h2>About Content</h2>,
+      content: <NationalIdCard/>,
     },
     {
       label: "Driving License",
-      content: <h2>Contact Content</h2>,
+      content: <DrivingLicense/>,
     },
   ];
 

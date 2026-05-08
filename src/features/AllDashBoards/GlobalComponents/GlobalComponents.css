@@ -16,6 +16,9 @@
   --Purple-Card: #353476;
   --Purple-Border: #6366F1;
   --Green-Color: #56CA9D;
+  --Orange-Card: #f59f0b6e;
+  --Orange-Border: #F59E0B;
+
 
   --overlay-bg: rgba(0, 0, 0, 0.5);
   --border-color: #2a2d5a;
@@ -159,17 +162,17 @@ p.PageDescription{color: var(--whiteColor); font: 400 16px/26px var(--font-main)
 .icon-card { border-radius: 16px; padding: 24px; text-align: center; width: 300px; transition: 0.3s ease; }
 .icon-card-content { display: flex; flex-direction: column; align-items: center; gap: 16px; }
 .icon-card-image { width: 70px; height: 70px; object-fit: contain; }
-.icon-card-text {color: var(--whiteColor);}
+.icon-card-text {color: var(--whiteColor); font: 400 16px/26px var(--font-main);}
 .icon-card-button { border: none; padding: 5px 35px; border-radius: 8px; cursor: pointer;transition: 0.3s ease; background: #00000012; font: 400 16px/26px var(--font-main);} 
 /* Purple Variant */
-.icon-card.purple { background: var(--Purple-Card); } 
-.icon-card.purple .icon-card-button { border: solid 1px var(--Purple-Border); color: var(--purple-text);}
+.icon-card.purple {box-shadow: inset 0px 0px 102px var(--Purple-Card); border: solid 1px var(--Purple-Border);} 
+.icon-card.purple .icon-card-button { border: solid 1px var(--Purple-Border); color: var(--purple-text); }
 /* Green Variant */
 .icon-card.green {box-shadow: inset 0px 0px 102px #56ca9d4f; background: #56ca9d12; border: solid 1px var(--Green-Color);}
 .icon-card.green .icon-card-button {color: var(--Green-Color); border: solid 1px var(--Green-Color);}
 /* Orange Variant */
-.icon-card.orange { background: #ffedd5; } 
-.icon-card.orange .icon-card-button {color: #fff; }
+.icon-card.orange {box-shadow: inset 0px 0px 102px var(--Orange-Card); background: #56ca9d12; border: solid 1px var(--Orange-Border);} 
+.icon-card.orange .icon-card-button {color: var(--Orange-Border); border: solid 1px var(--Orange-Border);}
 
 
 
