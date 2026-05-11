@@ -6,6 +6,7 @@ import VarifiedIcon from "../../assets/images/VarifiedIcon.svg";
 import UnderProgress from "../../assets/images/UnderProgress.svg";
 import RejectedIcon from "../../assets/images/RejectedIcon.svg";
 import { Heading2, UnorderedList } from "../../GlobalComponents/HeadingPara";
+import Loader from "../../GlobalComponents/Loaders";
 
 import { BASE_URL } from "../../../../api/config";
 
@@ -166,7 +167,11 @@ const NationalIdUpdate: React.FC = () => {
 
 
   return (
-    <>   
+  <>
+    {loading ? (
+      <Loader />
+    ) : (
+      <> 
      <Heading2 text="To avoid delays when verifying your account please observe below:"/>
         <UnorderedList
           items={[
@@ -237,9 +242,12 @@ const NationalIdUpdate: React.FC = () => {
         onUploadSuccess={fetchDocuments}
       />
 
-    </div>
-    </>
-  );
+        </div>
+      </>
+    )}
+  </>
+);
+
 };
 
 export default NationalIdUpdate;

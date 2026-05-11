@@ -1,0 +1,306 @@
+import React, { useMemo, useState } from "react";
+interface TableColumn {
+  key: string;
+  title: string;
+  width?: string;
+  render?: (value: any, row: any, rowIndex: number) => React.ReactNode;
+}
+
+interface TableProps {
+  columns: TableColumn[];
+  rows: Record<string, any>[];
+  className?: string;
+  selectable?: boolean;
+  pagination?: boolean;
+  rowsPerPageOptions?: number[];
+  onBulkDelete?: boolean;
+}
+
+const Table: React.FC<TableProps> = ({
+  columns,
+  rows,
+  className = "",
+  selectable = false,
+  pagination = true,
+  rowsPerPageOptions = [10, 20, 50, 200],
+  onBulkDelete = false,
+}) => {
+  const [selectedRows, setSelectedRows] = useState<number[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [rowsPerPage, setRowsPerPage] = useState(rowsPerPageOptions[0]);
+
+  // Pagination Logic
+  const totalPages = Math.ceil(rows.length / rowsPerPage);
+
+  const paginatedRows = useMemo(() => {
+    if (!pagination) return rows;
+
+    const start = (currentPage - 1) * rowsPerPage;
+    const end = start + rowsPerPage;
+
+    return rows.slice(start, end);
+  }, [rows, currentPage, rowsPerPage, pagination]);
+
+  // Checkbox Handlers
+  const isAllSelected =
+    paginatedRows.length > 0 &&
+    paginatedRows.every((_, index) => {
+      const actualIndex =
+        (currentPage - 1) * rowsPerPage + index;
+
+      return selectedRows.includes(actualIndex);
+    });
+
+  const handleSelectAll = () => {
+    if (isAllSelected) {
+      const updated = selectedRows.filter((selectedIndex) => {
+        const pageIndexes = paginatedRows.map(
+          (_, index) =>
+            (currentPage - 1) * rowsPerPage + index
+        );
+
+        return !pageIndexes.includes(selectedIndex);
+      });
+
+      setSelectedRows(updated);
+    } else {
+      const newIndexes = paginatedRows.map(
+        (_, index) =>
+          (currentPage - 1) * rowsPerPage + index
+      );
+
+      setSelectedRows([
+        ...new Set([...selectedRows, ...newIndexes]),
+      ]);
+    }
+  };
+
+  const handleRowSelect = (index: number) => {
+    if (selectedRows.includes(index)) {
+      setSelectedRows(
+        selectedRows.filter((item) => item !== index)
+      );
+    } else {
+      setSelectedRows([...selectedRows, index]);
+    }
+  };
+
+    const handleBulkDelete = () => {
+    console.log(
+        "Selected Rows:",
+        selectedRows.map((index) => rows[index])
+    );
+
+    setSelectedRows([]);
+    };
+
+  return (
+    <div className={`custom-table-wrapper ${className}`}>
+      {/* Top Actions */}
+      {selectable && onBulkDelete && selectedRows.length > 0 && (
+        <div className="table-top-actions">
+          <button
+            className="bulk-delete-btn"
+            onClick={handleBulkDelete}
+          >
+            Delete Selected ({selectedRows.length})
+          </button>
+        </div>
+      )}
+
+    <div className="GlobalTable gradientBox">
+      <table className="custom-table ">
+        <thead>
+          <tr>
+            {selectable && (
+              <th style={{ width: "50px" }}>
+                <input
+                  type="checkbox"
+                  checked={isAllSelected}
+                  onChange={handleSelectAll}
+                />
+              </th>
+            )}
+
+            {columns.map((col) => (
+              <th
+                key={col.key}
+                style={{ width: col.width || "auto" }}
+              >
+                {col.title}
+              </th>
+            ))}
+          </tr>
+        </thead>
+
+        <tbody>
+          {paginatedRows.length > 0 ? (
+            paginatedRows.map((row, rowIndex) => {
+              const actualIndex =
+                (currentPage - 1) * rowsPerPage + rowIndex;
+
+              return (
+                <tr key={actualIndex}>
+                  {selectable && (
+                    <td>
+                      <input
+                        type="checkbox"
+                        checked={selectedRows.includes(
+                          actualIndex
+                        )}
+                        onChange={() =>
+                          handleRowSelect(actualIndex)
+                        }
+                      />
+                    </td>
+                  )}
+
+                  {columns.map((col) => (
+                    <td key={col.key}>
+                      {col.render
+                        ? col.render(
+                            row[col.key],
+                            row,
+                            actualIndex
+                          )
+                        : row[col.key]}
+                    </td>
+                  ))}
+                </tr>
+              );
+            })
+          ) : (
+            <tr>
+              <td
+                colSpan={
+                  selectable
+                    ? columns.length + 1
+                    : columns.length
+                }
+              >
+                No Data Found
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </table>
+      </div>
+
+      {/* Bottom Pagination */}
+{pagination && totalPages > 1 && (
+  <div className="TablepaginationWrap">
+      <div className="table-pagination">
+        <div className="table-pagination-wrap">
+          {/* Prev Button */}
+          <button
+            className="pagination-btn"
+            disabled={currentPage === 1}
+            onClick={() =>
+              setCurrentPage((prev) => prev - 1)
+            }
+          >
+            Prev
+          </button>
+
+          {/* Page Numbers */}
+          <div className="page-numbers">
+            {/* First Page */}
+            <button
+              className={
+                currentPage === 1 ? "active-page" : ""
+              }
+              onClick={() => setCurrentPage(1)}
+            >
+              1
+            </button>
+
+            {/* Left Dots */}
+            {currentPage > 4 && <span>...</span>}
+
+            {/* Middle Pages */}
+            {Array.from(
+              { length: totalPages },
+              (_, i) => i + 1
+            )
+              .filter(
+                (page) =>
+                  page !== 1 &&
+                  page !== totalPages &&
+                  Math.abs(page - currentPage) <= 1
+              )
+              .map((page) => (
+                <button
+                  key={page}
+                  className={
+                    currentPage === page
+                      ? "active-page"
+                      : ""
+                  }
+                  onClick={() =>
+                    setCurrentPage(page)
+                  }
+                >
+                  {page}
+                </button>
+              ))}
+
+            {/* Right Dots */}
+            {currentPage < totalPages - 3 && (
+              <span>...</span>
+            )}
+
+            {/* Last Page */}
+            {totalPages > 1 && (
+              <button
+                className={
+                  currentPage === totalPages
+                    ? "active-page"
+                    : ""
+                }
+                onClick={() =>
+                  setCurrentPage(totalPages)
+                }
+              >
+                {totalPages}
+              </button>
+            )}
+          </div>
+
+          {/* Next Button */}
+          <button
+            className="pagination-btn"
+            disabled={currentPage === totalPages}
+            onClick={() =>
+              setCurrentPage((prev) => prev + 1)
+            }
+          >
+            Next
+          </button>
+
+        </div>
+     </div>
+    {/* Rows Per Page */}
+    <div className="rows-per-page">
+      <span>Rows per page:</span>
+
+      <select
+        value={rowsPerPage}
+        onChange={(e) => {
+          setRowsPerPage(Number(e.target.value));
+          setCurrentPage(1);
+        }}
+      >
+        {rowsPerPageOptions.map((option) => (
+          <option key={option} value={option}>
+            {option}
+          </option>
+        ))}
+      </select>
+    </div>
+  </div>
+)}
+    </div>
+  );
+};
+
+export default Table;

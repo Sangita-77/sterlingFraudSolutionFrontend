@@ -73,11 +73,14 @@ border-radius: var(--button-border-radius); border: 1px solid #ccc; outline: non
 .compoBtn:hover{opacity: 0.8; transition: .5s;}
 .compoBtn.solid{background: var(--whiteColor); color: var(--second-color);}
 .compoBtn.trashparent{background: transparent; color: var(--whiteColor);}
-.compoBtn.full{ width: 100%; display: flex; justify-content: center; font-size: 14px; margin: 0; margin: 12px 0;}
+.compoBtn.full{ width: 100%; display: flex; justify-content: center; font-size: 14px; margin: 0;}
 .compoBtn.form_side_btn{width: 180px; font-size: 16px ; margin: 10px 0 0px; display: flex; justify-content: center; padding: 12px 10px;}
 .compoBtn.primary{background: var(--color-skyblue); color: var(--whiteColor);}
 .compoBtn span img{margin-left: 10px;}
 /* Button end */
+.forget-password-form .compoBtn.full{margin: 12px 0;}
+
+
 
 
 /* Cards Start */

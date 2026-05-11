@@ -3,6 +3,7 @@ import CustomForm from "./CustomForm";
 import type { FieldConfig, FormValue } from "./CustomForm";
 import { BASE_URL } from "../../../api/config";
 import { fetchWithAuth, getAuthSession, getUserRole, getAuthUser, saveAuthUser } from "../../../api/authService";
+import Loader from "../GlobalComponents/Loaders";
 
 
 type UserDetails = {
@@ -62,7 +63,7 @@ const Profile: React.FC = () => {
   const session = getAuthSession();
   const role = getUserRole(user);
   const [profileData, setProfileData] = useState<Record<string, string>>({});
-  // const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [profileError, setProfileError] = useState("");
   const [profileSuccess, setProfileSuccess] = useState("");
@@ -101,7 +102,7 @@ const Profile: React.FC = () => {
     }
 
     const fetchUserDetails = async () => {
-      // setIsLoading(true);
+      setIsLoading(true);
       setProfileError("");
 
       try {
@@ -137,7 +138,7 @@ const Profile: React.FC = () => {
         console.error("Profile details error:", error);
         setProfileError("Something went wrong while loading profile details.");
       } finally {
-        // setIsLoading(false);
+        setIsLoading(false);
       }
     };
 
@@ -213,7 +214,7 @@ const Profile: React.FC = () => {
         state: getStringValue(data.state),
         zipcode: getStringValue(data.zipcode),
       }));
-      setProfileSuccess(result.message || "Profile updated successfully.");
+      // setProfileSuccess(result.message || "Profile updated successfully.");
       window.location.reload(); // Reload to reflect changes in ProfileAvatar and other components using auth data
     } catch (error) {
       console.error("Profile update error:", error);
@@ -224,7 +225,11 @@ const Profile: React.FC = () => {
   };
 
   return (
-    <>
+  <>
+    {isLoading ? (
+      <Loader />
+    ) : (
+      <>
     <div className="profileWrap">
         <div className="ProfileForm gradientBox">  
           <div className="RoleWrap d-flex">
@@ -232,14 +237,15 @@ const Profile: React.FC = () => {
             <div className="ResetButton">
             </div>
           </div>
-          {/* {isLoading && <p className="profile-message">Loading profile details...</p>} */}
           {profileError && <p className="error">{profileError}</p>}
           {profileSuccess && <p className="profile-message">{profileSuccess}</p>}
           <CustomForm fields={fields} initialValues={profileData} onSubmit={handleSubmit} SubmitText={isSaving ? "Saving..." : "Save Changes"} isSubmitting={isSaving} variant="view" showResetButton/>
         </div>
     </div>
-    </>
-  );
+      </>
+    )}
+  </>
+);
   
 };
 

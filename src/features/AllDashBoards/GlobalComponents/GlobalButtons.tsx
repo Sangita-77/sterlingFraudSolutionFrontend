@@ -1,41 +1,37 @@
-import "./GlobalComponents.css";
+import React from "react";
 
-interface GlobalButtonProps {
+interface GlobalButtons {
   text: string;
-  icon?: React.ReactNode;
-  variant?: "solid" | "trashparent" | "primary" | "danger-t" | "black-t";
-  size?: "sm" | "md" | "lg" | "full" | "form_side_btn";
-  iconPosition?: "left" | "right"; 
-  onClick?: React.MouseEventHandler<HTMLButtonElement>;
-  id?: string;
+  onClick?: () => void;
+
+  // HTML button type
   type?: "button" | "submit" | "reset";
+
+  // Custom button style/type
+  variant?: "view" | "add" | "green" | "red" ;
+
   disabled?: boolean;
+  className?: string;
 }
 
-const GlobalButtons: React.FC<GlobalButtonProps> = ({
+const DashboardButtons: React.FC<GlobalButtons> = ({
   text,
   onClick,
-  icon,
-  variant = "trashparent",
-  size = "md",
-  iconPosition = "left",
   type = "button",
+  variant = "view",
   disabled = false,
+  className = "",
 }) => {
   return (
     <button
-      className={`compoBtn ${variant} ${size}`}
-      onClick={onClick}
       type={type}
+      onClick={onClick}
       disabled={disabled}
+      className={`Global-button ${variant} ${className}`}
     >
-      <span>
-        {iconPosition === "left" && icon}
-        {text}
-        {iconPosition === "right" && icon}
-      </span>
+      {text}
     </button>
   );
 };
 
-export default GlobalButtons;
+export default DashboardButtons;

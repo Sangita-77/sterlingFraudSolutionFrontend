@@ -126,6 +126,7 @@ const ProfileAvatar: React.FC<ProfileAvatarProps> = ({ label }) => {
     : routes.SETTINGS;
 
   return (
+    
     <div className="admin-profile">
       <Link to={settingsRoute} className="admin-profile" style={{ textDecoration: "none" }}>
         {imageUrl && !imageFailed ? (
