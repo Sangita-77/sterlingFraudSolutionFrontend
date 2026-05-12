@@ -653,14 +653,14 @@ const CustomerTable = () => {
               </option>
             </select>
 
-            <Button
+            {/* <Button
               text={
                 loading
                   ? "Searching..."
                   : "Search"
               }
               onClick={fetchUsers}
-            />
+            /> */}
           </div>
         </div>
       </div>
