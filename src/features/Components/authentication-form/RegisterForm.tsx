@@ -5,6 +5,7 @@ import Buttons from "../ButtonCompo";
 import PasswordInput from "../PasswordInput";
 import { BASE_URL } from "../../../api/config";
 import { detectLanguageByIP } from "../../../api/languageService";
+import { getPasswordValidationError } from "./passwordValidation";
 
 type FormData = {
   fullName: string;
@@ -116,9 +117,7 @@ const RegisterForm = ({onClose, clickLogin, onSuccess}: formProps) => {
           }
           break;
         case "password":
-          if (value.length < 6) {
-            error = "Password must be at least 6 characters";
-          }
+          error = getPasswordValidationError(value);
           break;
         case "repeatPassword":
           if (value !== formData.password) {
@@ -139,6 +138,16 @@ const RegisterForm = ({onClose, clickLogin, onSuccess}: formProps) => {
     setFormData({ ...formData, [name]: value });
     validate(name as keyof FormData, value);
     setSubmitError("");
+
+    if (name === "password" && formData.repeatPassword) {
+      setErrors((prev) => ({
+        ...prev,
+        repeatPassword:
+          formData.repeatPassword === value
+            ? ""
+            : "Passwords do not match",
+      }));
+    }
 
   };
 
@@ -166,8 +175,12 @@ const RegisterForm = ({onClose, clickLogin, onSuccess}: formProps) => {
       newErrors.email = "Invalid email format";
     }
 
-    if (formData.password && formData.password.length < 6) {
-      newErrors.password = "Password must be at least 6 characters";
+    if (formData.password) {
+      const passwordError = getPasswordValidationError(formData.password);
+
+      if (passwordError) {
+        newErrors.password = passwordError;
+      }
     }
 
     if (formData.password !== formData.repeatPassword) {

@@ -1,10 +1,21 @@
 import React, { useMemo, useState } from "react";
+// import React, { useState } from "react";
 interface TableColumn {
   key: string;
   title: string;
   width?: string;
   render?: (value: any, row: any, rowIndex: number) => React.ReactNode;
 }
+
+// interface TableProps {
+//   columns: TableColumn[];
+//   rows: Record<string, any>[];
+//   className?: string;
+//   selectable?: boolean;
+//   pagination?: boolean;
+//   rowsPerPageOptions?: number[];
+//   onBulkDelete?: boolean;
+// }
 
 interface TableProps {
   columns: TableColumn[];
@@ -13,8 +24,34 @@ interface TableProps {
   selectable?: boolean;
   pagination?: boolean;
   rowsPerPageOptions?: number[];
+  // onBulkDelete?: boolean;
   onBulkDelete?: boolean;
+  onDeleteSelected?: (
+    selectedRows: any[]
+  ) => void;
+
+  // ADD THESE
+  currentPage?: number;
+  totalPages?: number;
+  rowsPerPage?: number;
+  onPageChange?: (
+    page: number
+  ) => void;
+
+  onRowsPerPageChange?: (
+    value: number
+  ) => void;
 }
+
+// const Table: React.FC<TableProps> = ({
+//   columns,
+//   rows,
+//   className = "",
+//   selectable = false,
+//   pagination = true,
+//   rowsPerPageOptions = [10, 20, 50, 200],
+//   onBulkDelete = false,
+// }) => {
 
 const Table: React.FC<TableProps> = ({
   columns,
@@ -23,23 +60,37 @@ const Table: React.FC<TableProps> = ({
   selectable = false,
   pagination = true,
   rowsPerPageOptions = [10, 20, 50, 200],
+  // onBulkDelete = false,
   onBulkDelete = false,
+  onDeleteSelected,
+
+  currentPage = 1,
+  totalPages = 1,
+  rowsPerPage = 10,
+
+  onPageChange,
+  onRowsPerPageChange,
 }) => {
   const [selectedRows, setSelectedRows] = useState<number[]>([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [rowsPerPage, setRowsPerPage] = useState(rowsPerPageOptions[0]);
+
+  // const [currentPage, onPageChange?.] = useState(1);
+  // const [rowsPerPage, setRowsPerPage] = useState(rowsPerPageOptions[0]);
 
   // Pagination Logic
-  const totalPages = Math.ceil(rows.length / rowsPerPage);
+  // const totalPages = Math.ceil(rows.length / rowsPerPage);
+
+  // const paginatedRows = useMemo(() => {
+  //   if (!pagination) return rows;
+
+  //   const start = (currentPage - 1) * rowsPerPage;
+  //   const end = start + rowsPerPage;
+
+  //   return rows.slice(start, end);
+  // }, [rows, currentPage, rowsPerPage, pagination]);
 
   const paginatedRows = useMemo(() => {
-    if (!pagination) return rows;
-
-    const start = (currentPage - 1) * rowsPerPage;
-    const end = start + rowsPerPage;
-
-    return rows.slice(start, end);
-  }, [rows, currentPage, rowsPerPage, pagination]);
+    return rows;
+  }, [rows]);
 
   // Checkbox Handlers
   const isAllSelected =
@@ -85,13 +136,26 @@ const Table: React.FC<TableProps> = ({
     }
   };
 
-    const handleBulkDelete = () => {
-    console.log(
-        "Selected Rows:",
-        selectedRows.map((index) => rows[index])
-    );
+    // const handleBulkDelete = () => {
+    // console.log(
+    //     "Selected Rows:",
+    //     selectedRows.map((index) => rows[index])
+    // );
 
-    setSelectedRows([]);
+    // setSelectedRows([]);
+    // };
+
+    const handleBulkDelete = () => {
+      const selectedData =
+        selectedRows.map(
+          (index) => rows[index]
+        );
+
+      onDeleteSelected?.(
+        selectedData
+      );
+
+      setSelectedRows([]);
     };
 
   return (
@@ -187,118 +251,118 @@ const Table: React.FC<TableProps> = ({
       </div>
 
       {/* Bottom Pagination */}
-{pagination && totalPages > 1 && (
-  <div className="TablepaginationWrap">
-      <div className="table-pagination">
-        <div className="table-pagination-wrap">
-          {/* Prev Button */}
-          <button
-            className="pagination-btn"
-            disabled={currentPage === 1}
-            onClick={() =>
-              setCurrentPage((prev) => prev - 1)
-            }
-          >
-            Prev
-          </button>
-
-          {/* Page Numbers */}
-          <div className="page-numbers">
-            {/* First Page */}
-            <button
-              className={
-                currentPage === 1 ? "active-page" : ""
-              }
-              onClick={() => setCurrentPage(1)}
-            >
-              1
-            </button>
-
-            {/* Left Dots */}
-            {currentPage > 4 && <span>...</span>}
-
-            {/* Middle Pages */}
-            {Array.from(
-              { length: totalPages },
-              (_, i) => i + 1
-            )
-              .filter(
-                (page) =>
-                  page !== 1 &&
-                  page !== totalPages &&
-                  Math.abs(page - currentPage) <= 1
-              )
-              .map((page) => (
+      {pagination && totalPages > 1 && (
+        <div className="TablepaginationWrap">
+            <div className="table-pagination">
+              <div className="table-pagination-wrap">
+                {/* Prev Button */}
                 <button
-                  key={page}
-                  className={
-                    currentPage === page
-                      ? "active-page"
-                      : ""
-                  }
+                  className="pagination-btn"
+                  disabled={currentPage === 1}
                   onClick={() =>
-                    setCurrentPage(page)
+                    onPageChange?.(currentPage - 1)
                   }
                 >
-                  {page}
+                  Prev
                 </button>
-              ))}
 
-            {/* Right Dots */}
-            {currentPage < totalPages - 3 && (
-              <span>...</span>
-            )}
+                {/* Page Numbers */}
+                <div className="page-numbers">
+                  {/* First Page */}
+                  <button
+                    className={
+                      currentPage === 1 ? "active-page" : ""
+                    }
+                    onClick={() => onPageChange?.(1)}
+                  >
+                    1
+                  </button>
 
-            {/* Last Page */}
-            {totalPages > 1 && (
-              <button
-                className={
-                  currentPage === totalPages
-                    ? "active-page"
-                    : ""
-                }
-                onClick={() =>
-                  setCurrentPage(totalPages)
-                }
-              >
-                {totalPages}
-              </button>
-            )}
+                  {/* Left Dots */}
+                  {currentPage > 4 && <span>...</span>}
+
+                  {/* Middle Pages */}
+                  {Array.from(
+                    { length: totalPages },
+                    (_, i) => i + 1
+                  )
+                    .filter(
+                      (page) =>
+                        page !== 1 &&
+                        page !== totalPages &&
+                        Math.abs(page - currentPage) <= 1
+                    )
+                    .map((page) => (
+                      <button
+                        key={page}
+                        className={
+                          currentPage === page
+                            ? "active-page"
+                            : ""
+                        }
+                        onClick={() =>
+                          onPageChange?.(page)
+                        }
+                      >
+                        {page}
+                      </button>
+                    ))}
+
+                  {/* Right Dots */}
+                  {currentPage < totalPages - 3 && (
+                    <span>...</span>
+                  )}
+
+                  {/* Last Page */}
+                  {totalPages > 1 && (
+                    <button
+                      className={
+                        currentPage === totalPages
+                          ? "active-page"
+                          : ""
+                      }
+                      onClick={() =>
+                        onPageChange?.(totalPages)
+                      }
+                    >
+                      {totalPages}
+                    </button>
+                  )}
+                </div>
+
+                {/* Next Button */}
+                <button
+                  className="pagination-btn"
+                  disabled={currentPage === totalPages}
+                  onClick={() =>
+                    onPageChange?.(currentPage + 1)
+                  }
+                >
+                  Next
+                </button>
+
+              </div>
           </div>
+          {/* Rows Per Page */}
+          <div className="rows-per-page">
+            <span>Rows per page:</span>
 
-          {/* Next Button */}
-          <button
-            className="pagination-btn"
-            disabled={currentPage === totalPages}
-            onClick={() =>
-              setCurrentPage((prev) => prev + 1)
-            }
-          >
-            Next
-          </button>
-
+            <select
+              value={rowsPerPage}
+              onChange={(e) => {
+                onRowsPerPageChange?.(Number(e.target.value));
+                onPageChange?.(1);
+              }}
+            >
+              {rowsPerPageOptions.map((option) => (
+                <option key={option} value={option}>
+                  {option}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
-     </div>
-    {/* Rows Per Page */}
-    <div className="rows-per-page">
-      <span>Rows per page:</span>
-
-      <select
-        value={rowsPerPage}
-        onChange={(e) => {
-          setRowsPerPage(Number(e.target.value));
-          setCurrentPage(1);
-        }}
-      >
-        {rowsPerPageOptions.map((option) => (
-          <option key={option} value={option}>
-            {option}
-          </option>
-        ))}
-      </select>
-    </div>
-  </div>
-)}
+      )}
     </div>
   );
 };

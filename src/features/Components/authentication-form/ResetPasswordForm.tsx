@@ -3,6 +3,7 @@ import "../IndexComponents.css";
 import Buttons from "../ButtonCompo";
 import PasswordInput from "../PasswordInput";
 import { BASE_URL } from "../../../api/config";
+import { getPasswordValidationError } from "./passwordValidation";
 
 type Props = {
   email: string;
@@ -36,8 +37,8 @@ const ResetPasswordForm = ({ email, onClose, onSuccess }: Props) => {
 
     if (!value.trim()) {
       error = "This field is required";
-    } else if (name === "newPassword" && value.length < 6) {
-      error = "Password must be at least 6 characters";
+    } else if (name === "newPassword") {
+      error = getPasswordValidationError(value);
     } else if (name === "confirmPassword" && value !== formData.newPassword) {
       error = "Passwords do not match";
     }
@@ -80,8 +81,12 @@ const ResetPasswordForm = ({ email, onClose, onSuccess }: Props) => {
 
     if (!formData.newPassword.trim()) {
       newErrors.newPassword = "This field is required";
-    } else if (formData.newPassword.length < 6) {
-      newErrors.newPassword = "Password must be at least 6 characters";
+    } else {
+      const passwordError = getPasswordValidationError(formData.newPassword);
+
+      if (passwordError) {
+        newErrors.newPassword = passwordError;
+      }
     }
 
     if (!formData.confirmPassword.trim()) {

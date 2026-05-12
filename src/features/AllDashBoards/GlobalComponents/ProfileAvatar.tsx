@@ -16,15 +16,21 @@ type ProfileAvatarProps = {
 
 type UserDetailsResponse = {
   success: boolean;
-  user?: {
-    user?: {
-      name?: string;
-      profileImage?: {
-        url?: string;
-      };
-      flag?: number;
-    };
+  user?: UserDetails | {
+    user?: UserDetails;
   };
+};
+
+type UserDetails = {
+  name?: string;
+  profileImage?: {
+    url?: string;
+  };
+  flag?: number;
+};
+
+type NestedUserDetails = {
+  user?: UserDetails;
 };
 
 const getProfileImageUrl = (url?: string) => {
@@ -35,6 +41,21 @@ const getProfileImageUrl = (url?: string) => {
   }
 
   return `${BASE_URL.replace(/\/api$/, "")}${url}`;
+};
+
+const getUserDetails = (
+  user: UserDetailsResponse["user"]
+): UserDetails | undefined => {
+  if (!user) return undefined;
+
+  if (
+    "user" in user &&
+    typeof (user as NestedUserDetails).user === "object"
+  ) {
+    return (user as NestedUserDetails).user;
+  }
+
+  return user as UserDetails;
 };
 
 const ProfileAvatar: React.FC<ProfileAvatarProps> = ({ label }) => {
@@ -72,7 +93,7 @@ const ProfileAvatar: React.FC<ProfileAvatarProps> = ({ label }) => {
         });
 
         const result: UserDetailsResponse = await response.json();
-        const details = result.user?.user;
+        const details = getUserDetails(result.user);
 
         // console.log("ProfileAvatar user details response:::::::::::::::::::::::::::", details);
 

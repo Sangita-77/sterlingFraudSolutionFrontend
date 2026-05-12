@@ -21,7 +21,7 @@ type UserDetails = {
   gender?: string;
   activity?: string;
   userIp?: string;
-  detectedCountry?: string;
+  detectedCountry?: string | null;
   createdAt?: string;
   updatedAt?: string;
   lastLoginAt?: string;
@@ -29,13 +29,14 @@ type UserDetails = {
   address?: string;
   city?: string;
   state?: string;
+  zip?: string;
   zipcode?: string;
 };
 
 type UserDataResponse = {
   success: boolean;
   message?: string;
-  user?: {
+  user?: UserDetails | {
     user?: UserDetails;
   };
 };
@@ -43,9 +44,13 @@ type UserDataResponse = {
 type UpdateUserResponse = {
   success: boolean;
   message?: string;
-  user?: {
+  user?: UserDetails | {
     user?: UserDetails;
   };
+};
+
+type NestedUserDetails = {
+  user?: UserDetails;
 };
 
 const getProfileImageUrl = (url?: string) => {
@@ -56,6 +61,21 @@ const getProfileImageUrl = (url?: string) => {
   }
 
   return `${BASE_URL.replace(/\/api$/, "")}${url}`;
+};
+
+const getUserDetails = (
+  user: UserDataResponse["user"] | UpdateUserResponse["user"]
+) : UserDetails | undefined => {
+  if (!user) return undefined;
+
+  if (
+    "user" in user &&
+    typeof (user as NestedUserDetails).user === "object"
+  ) {
+    return (user as NestedUserDetails).user;
+  }
+
+  return user as UserDetails;
 };
 
 const Profile: React.FC = () => {
@@ -115,7 +135,7 @@ const Profile: React.FC = () => {
         });
 
         const result: UserDataResponse = await response.json();
-        const details = result.user?.user;
+        const details = getUserDetails(result.user);
 
         if (!response.ok || !result.success || !details) {
           setProfileError(result.message || "Unable to load profile details.");
@@ -131,7 +151,7 @@ const Profile: React.FC = () => {
           address: details.address || "",
           city: details.city || "",
           state: details.state || "",
-          zipcode: details.zipcode || "",
+          zipcode: details.zip || details.zipcode || "",
           country: details.detectedCountry || "",
         });
       } catch (error) {
@@ -190,8 +210,9 @@ const Profile: React.FC = () => {
       }
 
       const updatedName = getStringValue(data.firstname);
+      const updatedDetails = getUserDetails(result.user);
       const updatedProfileImageUrl =
-        getProfileImageUrl(result.user?.user?.profileImage?.url) ||
+        getProfileImageUrl(updatedDetails?.profileImage?.url) ||
         profileData.profileImage ||
         "";
 
