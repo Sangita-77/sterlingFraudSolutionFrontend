@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import DocumentUpdateCard from "../DocumentUpdateCard";
-
 import PassportFrontIcon from "../../assets/images/PassportFrontIcon.svg";
 import VarifiedIcon from "../../assets/images/VarifiedIcon.svg";
 import UnderProgress from "../../assets/images/UnderProgress.svg";
