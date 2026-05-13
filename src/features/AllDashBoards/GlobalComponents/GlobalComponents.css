@@ -55,6 +55,7 @@ button{cursor: pointer;}
 ul.UnorderList li{color: var(--whiteColor); font: 400 14px/24px var(--font-main); margin-left: 20px; opacity: 0.7;}
 ul.UnorderList{padding: 10px 0px;}
 .main .error{color: var(--Red-Border);}
+.custom-select option { background: var(--primary-color); }
 /* Headings And paragraphs End */
 
 .main .error { position: absolute; top: 0; right: 0; transform: translateY(calc(-100% - 8px)); display: inline-flex; align-items: center; gap: 6px; max-width: 260px; padding: 10px 14px; color: #d92d20; background: #fff5f5; border: 1px solid #fda29b; border-radius: 10px; font:bold 14px/20px var(--font-main); z-index: 200; animation: fadeInError 0.2s ease; }
@@ -274,12 +275,12 @@ ul.UnorderList{padding: 10px 0px;}
 .table-pagination-wrap .pagination-btn, .table-pagination-wrap  .page-numbers button{border: solid 1px var(--dashboard-border); background: var(--dashboard-boxdark); color: var(--whiteColor); border-radius: 10px; width: 42px; height: 34px; padding-top: 2px; font: 500 14px/22px var(--font-main); margin: 0 5px;}
 .table-pagination-wrap  .page-numbers button.active-page{background: var(--dashboard-border);}
 .table-pagination-wrap{ display: flex; justify-content: space-between; align-items: center; width: 45%; margin-left: 20%; }
-.rows-per-page {display: flex; gap: 10px; width: 20%; align-items: end; justify-content: flex-end; }
+.rows-per-page {display: flex; gap: 10px; width: 20%; align-items: end; justify-content: flex-end;}
+.rows-per-page select{background: var(--dashboard-boxdark); border: solid 2px var(--dashboard-border); width: 80px; padding: 7px 10px; border-radius: 6px; color: var(--whiteColor);}
 .rows-per-page span{color:var(--grey-text); font: 500 14px/22px var(--font-main);}
 .pagination-controls { display: flex; align-items: center; gap: 10px; }
 .pagination-controls button { padding: 8px 12px; cursor: pointer; } 
-
-.custom-table { width: 100%; border-collapse: collapse; font-family: sans-serif; border-radius: 20px; background: var(--view-btn); box-shadow: inset 0px 0px 10px #ffffff6b; }
+.custom-table { width: 100%; border-collapse: collapse; font-family: sans-serif; border-radius: 20px; background: var(--view-btn); box-shadow: inset 0px 0px 10px #ffffff6b;}
 .custom-table tr:last-child{border-radius: 20px;}
 .custom-table tr:last-child td:first-child{border-radius: 0 0 0 20px;}
 .custom-table tr:last-child td:last-child{border-radius: 0 0 20px 0;}

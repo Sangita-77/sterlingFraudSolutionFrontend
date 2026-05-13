@@ -484,6 +484,7 @@ const CustomerTable = () => {
             {/* SEARCH */}
             <input type="text" placeholder="Search..." value={search} onChange={(e) => setSearch( e.target.value ) } />
             <select
+              className="custom-select"
               onChange={(e) => {
                 const value =
                   e.target.value;

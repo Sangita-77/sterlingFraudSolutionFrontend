@@ -362,6 +362,7 @@ const Table: React.FC<TableProps> = ({
             <span>Rows per page:</span>
 
             <select
+              className="custom-select"
               value={rowsPerPage}
               onChange={(e) => {
                 onRowsPerPageChange?.(Number(e.target.value));
