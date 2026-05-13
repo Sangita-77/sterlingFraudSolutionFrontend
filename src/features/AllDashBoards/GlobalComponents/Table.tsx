@@ -1,4 +1,7 @@
 import React, { useMemo, useState } from "react";
+import {DeleteIcon, ChevronLeftIcon, ChevronRightIcon} from 'lucide-animated';
+import GlobalButtons from "../GlobalComponents/GlobalButtons";
+
 // import React, { useState } from "react";
 interface TableColumn {
   key: string;
@@ -24,7 +27,6 @@ interface TableProps {
   selectable?: boolean;
   pagination?: boolean;
   rowsPerPageOptions?: number[];
-  // onBulkDelete?: boolean;
   onBulkDelete?: boolean;
   onDeleteSelected?: (
     selectedRows: any[]
@@ -60,7 +62,6 @@ const Table: React.FC<TableProps> = ({
   selectable = false,
   pagination = true,
   rowsPerPageOptions = [10, 20, 50, 200],
-  // onBulkDelete = false,
   onBulkDelete = false,
   onDeleteSelected,
 
@@ -163,12 +164,19 @@ const Table: React.FC<TableProps> = ({
       {/* Top Actions */}
       {selectable && onBulkDelete && selectedRows.length > 0 && (
         <div className="table-top-actions">
-          <button
+          <GlobalButtons
+          textsize="md"
+          text={`Delete Selected (${selectedRows.length})`}
+          variant="red"
+          icon={<DeleteIcon size={25}/>}
+          onClick={handleBulkDelete}
+        />
+          {/* <button
             className="bulk-delete-btn"
             onClick={handleBulkDelete}
           >
-            Delete Selected ({selectedRows.length})
-          </button>
+            <DeleteIcon/> Delete Selected ({selectedRows.length})
+          </button> */}
         </div>
       )}
 
@@ -177,12 +185,15 @@ const Table: React.FC<TableProps> = ({
         <thead>
           <tr>
             {selectable && (
-              <th style={{ width: "50px" }}>
-                <input
-                  type="checkbox"
-                  checked={isAllSelected}
-                  onChange={handleSelectAll}
-                />
+              <th>
+              <div className="d-flex check-button"> 
+              <input
+                type="checkbox"
+                className="custom-checkbox"
+                checked={isAllSelected}
+                onChange={handleSelectAll}
+              />
+              </div> 
               </th>
             )}
 
@@ -207,8 +218,10 @@ const Table: React.FC<TableProps> = ({
                 <tr key={actualIndex}>
                   {selectable && (
                     <td>
+                    <div className="d-flex check-button"> 
                       <input
                         type="checkbox"
+                        className="custom-checkbox"
                         checked={selectedRows.includes(
                           actualIndex
                         )}
@@ -216,6 +229,7 @@ const Table: React.FC<TableProps> = ({
                           handleRowSelect(actualIndex)
                         }
                       />
+                      </div>
                     </td>
                   )}
 
@@ -263,7 +277,7 @@ const Table: React.FC<TableProps> = ({
                     onPageChange?.(currentPage - 1)
                   }
                 >
-                  Prev
+                  <ChevronLeftIcon/>
                 </button>
 
                 {/* Page Numbers */}
@@ -338,7 +352,7 @@ const Table: React.FC<TableProps> = ({
                     onPageChange?.(currentPage + 1)
                   }
                 >
-                  Next
+                  <ChevronRightIcon/>
                 </button>
 
               </div>

@@ -20,10 +20,12 @@
   --Purple-Border: #6366F1;
   --Green-Color: #56CA9D;
   --Orange-Card: #f59f0b6e;
+  --Orange-ButtonBG: #f59f0b2e;
   --Orange-Border: #F59E0B;
-  --Red-Card: #e614143d;
-  --Red-Border: #E61414;
-
+  --Red-Card: #ef44442d;
+  --Red-Border: #EF4444;
+  --Blue-Card: #4cbbfb1c;
+  --Blue-Border: #4CBCFB;
 
   --overlay-bg: rgba(0, 0, 0, 0.5);
   --border-color: #2a2d5a;
@@ -56,7 +58,6 @@ ul.UnorderList{padding: 10px 0px;}
 /* Headings And paragraphs End */
 
 .main .error { position: absolute; top: 0; right: 0; transform: translateY(calc(-100% - 8px)); display: inline-flex; align-items: center; gap: 6px; max-width: 260px; padding: 10px 14px; color: #d92d20; background: #fff5f5; border: 1px solid #fda29b; border-radius: 10px; font:bold 14px/20px var(--font-main); z-index: 200; animation: fadeInError 0.2s ease; }
-/* Tooltip arrow */
 .main .error::before { content: ""; position: absolute; bottom: -6px; right: 16px; width: 12px; height: 12px; background: #fff5f5; border-right: 1px solid #fda29b; border-bottom: 1px solid #fda29b; transform: rotate(45deg); }
 
 /* Loader Start*/
@@ -122,7 +123,22 @@ ul.UnorderList{padding: 10px 0px;}
 .MainDashboard .DashboardRight{width: 30%;}
 /* Main DashBoard End */
 
-
+/* Global Button Start */
+.Global-button{border-radius: 6px; color: var(--grey-text); padding: 4px 10px; min-width: 80px; text-align: center; align-items: center; justify-content: center;}
+/* Font Size */
+.Global-button.sm{font: 400 12px/22px var(--font-main);}
+.Global-button.md{font: 400 16px/26px var(--font-main);}
+.GlobalButton button div{padding: 7px 4px 0px;}
+/* Button Color */
+.Global-button.red{border: solid 1px var(--Red-Border);  background: var(--Red-Card);}
+.Global-button.red:hover{background: var(--Red-Border); transition: all 0.3s ease; color: var(--whiteColor);}
+.Global-button.purple{border: solid 1px var(--Purple-Border);  background: var(--Purple-Card);}
+.Global-button.purple:hover{background: var(--Purple-Border); transition: all 0.3s ease; color: var(--whiteColor);}
+.Global-button.orange{border: solid 1px var(--Orange-Border);  background: var(--Orange-ButtonBG);}
+.Global-button.orange:hover{background: var(--Orange-Border); transition: all 0.3s ease; color: var(--whiteColor);}
+.Global-button.blue{border: solid 1px var(--Blue-Border);  background: var(--Blue-Card);}
+.Global-button.blue:hover{background: var(--Blue-Border); transition: all 0.3s ease; color: var(--whiteColor);}
+/* Global Button End */
 
 /* GlobalModalBox Start*/
 .GlobalModalBox { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--overlay-bg); display: flex; align-items: center; justify-content: center; z-index: 999; }
@@ -233,79 +249,42 @@ ul.UnorderList{padding: 10px 0px;}
 /* Tooltip Start*/
 .ListTopWrap{display: flex;}
 .tooltip-wrapper { position: relative; display: inline-block; }
-.tooltip-box { position: absolute; background: var(--button-background); color: #fff; padding: 8px 10px; border-radius: 6px;  line-height: 1; white-space: nowrap; z-index: 1000; opacity: 0; animation: fadeIn 0.2s ease forwards; font: 400 12px var(--font-main);}
-.tooltip-top { bottom: 125%; left: 50%; transform: translateX(-50%); }
-.tooltip-left { right: 125%; top: 50%; transform: translateY(-50%); }
-.tooltip-right { left: 125%; top: 50%; transform: translateY(-50%); }
+.tooltip-wrapper .tooltip-box {max-width: 344px; width: max-content; position: absolute; background: var(--button-background); color: #fff; padding: 8px 10px; border-radius: 6px; white-space: normal; z-index: 1000; opacity: 0; animation: fadeIn 0.2s ease forwards; font: 400 12px var(--font-main);}
+.tooltip-wrapper .tooltip-top { bottom: 125%; left: 20%; transform: translateX(-50%);}
+.tooltip-wrapper .tooltip-left { right: 125%; top: 50%; transform: translateY(-50%); }
+.tooltip-wrapper .tooltip-right { left: 125%; top: 50%; transform: translateY(-50%); }
+.tooltip-wrapper .tooltip-top-left{ right: 50%; bottom: 125%; transform: translateY(-50%);}
 /* Tooltip End*/
 
 /* Table Start */
+.GlobalTable .GlobalButton{display: flex; justify-self: center;}
 .GlobalTable.gradientBox{padding: 0; margin: 0; border-radius: 20px;}
-.custom-table th,
-.custom-table td {
-  text-align: center;
-  padding: 12px;
-  color: var(--whiteColor);
-  font: 400 14px/24px var(--font-main);
-}
+.custom-table th, .custom-table td { text-align: center; padding: 12px; color: var(--whiteColor); font: 400 14px/24px var(--font-main); }
+.table-top-actions{margin-bottom: 20px;}
 .custom-table tr th:nth-child(2), .custom-table tr td:nth-child(2){text-align: left;}
-
 .TablepaginationWrap{display: flex; align-items: center; margin: 30px 0px;}
-.table-top-actions {
-  display: flex;
-  margin-bottom: 20px;
-}
-
-.bulk-delete-btn {
-  padding: 10px 14px;
-  border: none;
-  background: #ef4444;
-  color: white;
-  border-radius: 8px;
-  cursor: pointer;
-}
+.custom-checkbox {cursor: pointer; appearance: none; width: 24px; height: 24px; border: solid 2px var(--border-color); border-radius: 4px; background: var(--dashboard-boxdark); cursor: pointer; position: relative; transition: 0.2s ease; border-radius: 5px; } 
+/* Checked */
+.custom-checkbox:checked { background: var(--dashboard-boxdark); border-color: var(--Purple-Border); }
+/* Tick icon */
+.custom-checkbox:checked::after { content: ""; position: absolute; left: 7px; top: 0px; width: 6px; height: 15px; border: solid var(--grey-text); border-width: 0 2px 2px 0; transform: rotate(45deg); }
+.custom-checkbox:hover { border-color: var(--Purple-Border); } 
+/* Pagination */
 .table-pagination{width: 80%; justify-content: center; display: flex; }
-.table-pagination-wrap{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 30%;
-}
+.table-pagination-wrap .pagination-btn, .table-pagination-wrap  .page-numbers button{border: solid 1px var(--dashboard-border); background: var(--dashboard-boxdark); color: var(--whiteColor); border-radius: 10px; width: 42px; height: 34px; padding-top: 2px; font: 500 14px/22px var(--font-main); margin: 0 5px;}
+.table-pagination-wrap  .page-numbers button.active-page{background: var(--dashboard-border);}
+.table-pagination-wrap{ display: flex; justify-content: space-between; align-items: center; width: 45%; margin-left: 20%; }
+.rows-per-page {display: flex; gap: 10px; width: 20%; align-items: end; justify-content: flex-end; }
+.rows-per-page span{color:var(--grey-text); font: 500 14px/22px var(--font-main);}
+.pagination-controls { display: flex; align-items: center; gap: 10px; }
+.pagination-controls button { padding: 8px 12px; cursor: pointer; } 
 
-.rows-per-page {
-  display: flex;
-  gap: 10px;
-  width: 20%;
-  align-items: end;
-  justify-content: flex-end;
-}
-
-.pagination-controls {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.pagination-controls button {
-  padding: 8px 12px;
-  cursor: pointer;
-}
-
-.custom-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-family: sans-serif;
-  border-radius: 20px;
-  background: var(--view-btn);
-  box-shadow: inset 0px 0px 10px #ffffff6b;
-}
+.custom-table { width: 100%; border-collapse: collapse; font-family: sans-serif; border-radius: 20px; background: var(--view-btn); box-shadow: inset 0px 0px 10px #ffffff6b; }
 .custom-table tr:last-child{border-radius: 20px;}
 .custom-table tr:last-child td:first-child{border-radius: 0 0 0 20px;}
 .custom-table tr:last-child td:last-child{border-radius: 0 0 20px 0;}
-.custom-table tbody{
-  background: radial-gradient(circle, var(--primary-color) 10%, var(--secondary-color) 100%); border-top: solid 1px var(--border-color); box-shadow: inset 0px -4px 10px #ffffff2e; border-radius: 0 0 20px 20px;
-}
-.custom-table tr:last-child td{padding: 20px 0px 50px 0px}
+.custom-table tbody{ background: radial-gradient(circle, var(--primary-color) 10%, var(--secondary-color) 100%); border-top: solid 1px var(--border-color); box-shadow: inset 0px -4px 10px #ffffff2e; border-radius: 0 0 20px 20px; }
+.custom-table tr:last-child td{padding-bottom: 50px;}
 .custom-table .checkmark {position: absolute; left: 0; top: 2px; height: 24px; width: 24px; background-color: transparent; border-radius: 50%; border: 4px solid var(--sky-blueColor); }
 .custom-table .radio-container:hover .checkmark{ background-color: #ddd; }
 .custom-table input:checked ~ .checkmark{background-color: var(--whiteColor); border-color: #4CAF50; }

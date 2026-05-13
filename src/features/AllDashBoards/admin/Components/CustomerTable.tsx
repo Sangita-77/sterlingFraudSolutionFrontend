@@ -58,7 +58,7 @@ type CustomerRow = {
   amount: number | string;
   status: string;
   statusDetails: string;
-  statusVariant: "green" | "red";
+  statusVariant: "green" | "red" | "orange" | "blue";
   profileImage: string;
   profileInitial: string;
 };
@@ -193,7 +193,7 @@ const getVariantByStatusLabel = (label: string) =>
   label.includes("Under Review") ||
   label.includes("Analysis") ||
   label.includes("Resulation")
-    ? "red" as const
+    ? "blue" as const
     : "green" as const;
 
 const getCustomerStatus = (user: UserItem) => {
@@ -214,7 +214,7 @@ const getCustomerStatus = (user: UserItem) => {
     return {
       label: kycStatus.label,
       details: kycStatus.details,
-      variant: "red" as const,
+      variant: "orange" as const,
     };
   }
 
@@ -261,54 +261,27 @@ const CustomerTable = () => {
 
   const [rows, setRows] = useState<CustomerRow[]>([]);
   const [loading, setLoading] = useState(false);
-
   const [page, setPage] = useState(1);
-
   const [flag, setFlag] = useState(2);
-
   const [limit, setLimit] = useState(10);
-
   const [search, setSearch] = useState("");
-
   const [sortBy, setSortBy] = useState("name");
-
   const [sortOrder, setSortOrder] = useState("asc");
-
   const [statusFilter, setStatusFilter] = useState("");
-
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
-
   const [deleteIds, setDeleteIds] = useState<string | string[]>([]);
-
   const [pagination, setPagination] =
-    useState({
-      total: 0,
-      page: 1,
-      limit: 10,
-      flag: 2,
-      totalPages: 1,
-    });
-
+  useState({ total: 0, page: 1, limit: 10, flag: 2, totalPages: 1, }); 
   useEffect(() => {
-    fetchUsers();
-  }, [
-    page,
-    limit,
-    flag,
-    sortBy,
-    sortOrder,
-    statusFilter,
-    search,
-  ]);
+  fetchUsers();
+  }, [ page, limit, flag, sortBy, sortOrder, statusFilter, search, ]);
 
   const openDeleteConfirm = (ids: string | string[]) => {
     setDeleteIds(ids);
-
     setOpenDeleteModal(true);
   };
   const getProfileImageUrl = (url?: string) => {
     if (!url) return "";
-
     if (/^https?:\/\//i.test(url)) {
       return url;
     }
@@ -322,13 +295,7 @@ const CustomerTable = () => {
     try {
       let apiUrl = `${BASE_URL}/get-all-users`;
 
-      const payload: any = {
-        page,
-        limit,
-        flag: 2,
-        sortBy,
-        sortOrder,
-      };
+      const payload: any = { page, limit, flag: 2, sortBy, sortOrder, };
 
       // status filter
       if (statusFilter !== "") {
@@ -363,31 +330,23 @@ const CustomerTable = () => {
           return {
             profileImage:
             user.profileImage?.url || "",
-
             profileInitial:
             user.name?.charAt(0)?.toUpperCase() ||
             "U",
             // id: user._id,
             id: user._id,
             _id: user._id,
-
             name: user.name || "-",
-
             location:
               user.detectedCountry || "-",
-
             number:
               user.phone || "-",
-
             email:
               user.email || "-",
 
             amount: "--",
-
             status: customerStatus.label,
-
             statusDetails: customerStatus.details,
-
             statusVariant: customerStatus.variant,
           };
         }
@@ -448,9 +407,7 @@ const CustomerTable = () => {
   const columns = [
     {
       key: "name",
-
       title: "Name",
-
       render: (
         value: string,
         row: any
@@ -472,22 +429,10 @@ const CustomerTable = () => {
         </div>
       ),
     },
-    {
-      key: "location",
-      title: "Location",
-    },
-    {
-      key: "number",
-      title: "Number",
-    },
-    {
-      key: "email",
-      title: "Mail ID",
-    },
-    {
-      key: "amount",
-      title: "Amount",
-    },
+    { key: "location", title: "Location", },
+    { key: "number", title: "Number", },
+    { key: "email", title: "Mail ID", },
+    { key: "amount", title: "Amount", },
     {
       key: "status",
       title: "Status",
@@ -505,7 +450,7 @@ const CustomerTable = () => {
         return row.statusDetails ? (
           <Tooltip
             text={row.statusDetails}
-            position="top"
+            position="top-left"
           >
             {button}
           </Tooltip>
@@ -514,14 +459,6 @@ const CustomerTable = () => {
         );
       },
     },
-    // {
-    //   key: "action",
-    //   title: "Action",
-    //   render: () => (
-    //     <Button text="View" />
-    //   ),
-    // },
-
     {
       key: "action",
       title: "Action",
@@ -531,32 +468,8 @@ const CustomerTable = () => {
         // row: any
       ) => (
         <div
-          style={{
-            display: "flex",
-            gap: "10px",
-          }}
         >
-          <Button text="View" />
-
-          {/* <Button
-            text="Delete"
-            variant="red"
-            onClick={() =>
-              handleDeleteUsers(
-                row._id
-              )
-            }
-          /> */}
-
-          {/* <Button
-            text="Delete"
-            variant="red"
-            onClick={() =>
-              openDeleteConfirm(
-                row._id
-              )
-            }
-          /> */}
+        <Button variant="purple" text="View" />
         </div>
       ),
     },
@@ -564,103 +477,32 @@ const CustomerTable = () => {
 
   return (
     <div className="CustomerList">
-
       <div className="ListTopWrap">
-
         <div className="SearchWrap">
-
           <div className="search-box">
-
-            <img
-              src={Search}
-              className="search"
-            />
-
+            <img src={Search} className="search" />
             {/* SEARCH */}
-            <input
-              type="text"
-              placeholder="Search..."
-              value={search}
-              onChange={(e) =>
-                setSearch(
-                  e.target.value
-                )
-              }
-            />
-
+            <input type="text" placeholder="Search..." value={search} onChange={(e) => setSearch( e.target.value ) } />
             <select
               onChange={(e) => {
                 const value =
                   e.target.value;
-
-                if (value ==="location_asc") {
-                  setSortBy("detectedCountry");
-                  setSortOrder("asc");
-                }
-
-                if (value ==="location_desc") {
-                  setSortBy("detectedCountry");
-                  setSortOrder("desc");
-                }
-
-                if (value ==="name_asc") {
-                  setSortBy("name");
-
-                  setSortOrder("asc");
-                }
-
-                if (value ==="name_desc") {
-                  setSortBy("name");
-
-                  setSortOrder("desc");
-                }
-
-                if (value === "active") {
-                  setStatusFilter("1");
-                }
-
-                if (value ==="pending") {
-                  setStatusFilter("0");
-                }
+                if (value ==="location_asc") { setSortBy("detectedCountry"); setSortOrder("asc"); }
+                if (value ==="location_desc") { setSortBy("detectedCountry"); setSortOrder("desc"); }
+                if (value ==="name_asc") { setSortBy("name"); setSortOrder("asc"); }
+                if (value ==="name_desc") { setSortBy("name"); setSortOrder("desc"); }
+                if (value === "active") { setStatusFilter("1"); }
+                if (value ==="pending") { setStatusFilter("0"); }
               }}
             >
-              <option value="">
-                Sort / Filter
-              </option>
-
-              <option value="location_asc">
-                Sort by Location A-Z
-              </option>
-
-              <option value="location_desc">
-                Sort by Location Z-A
-              </option>
-
-              <option value="name_asc">
-                Sort by Name A-Z
-              </option>
-
-              <option value="name_desc">
-                Sort by Name Z-A
-              </option>
-
-              <option value="active">
-                Active Users
-              </option>
-
-              <option value="pending">
-                Pending Users
-              </option>
+              <option value=""> Sort / Filter </option>
+              <option value="location_asc"> Sort by Location A-Z </option>
+              <option value="location_desc"> Sort by Location Z-A </option>
+              <option value="name_asc"> Sort by Name A-Z </option>
+              <option value="name_desc"> Sort by Name Z-A </option>
+              <option value="active"> Active Users </option>
+              <option value="pending"> Pending Users </option>
             </select>
-
-            {/* <Button
-              text={
-                loading
-                  ? "Searching..."
-                  : "Search"
-              }
-              onClick={fetchUsers}
-            /> */}
           </div>
         </div>
       </div>
@@ -714,23 +556,8 @@ const CustomerTable = () => {
             setPage(1);
             setFlag(2);
           }}
-          rowsPerPageOptions={[
-            10,
-            20,
-            50,
-            100,
-          ]}
-          // onBulkDelete={true}
+          rowsPerPageOptions={[ 10, 20, 50, 100, ]}
           onBulkDelete={true}
-
-          // onDeleteSelected={(selectedRows) => {
-          //   const ids =
-          //     selectedRows.map(
-          //       (row: any) => row._id
-          //     );
-
-          //   handleDeleteUsers(ids);
-          // }}
 
           onDeleteSelected={(selectedRows) => {
             const ids = selectedRows.map((row: any) => row._id);
