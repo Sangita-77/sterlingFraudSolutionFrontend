@@ -77,7 +77,6 @@ const renderProfileUpload = () => (
         src={imageSrc}
         alt="profile"
         className="profile-img"
-        crossOrigin="anonymous"
         referrerPolicy="no-referrer"
         onError={() => setImageFailed(true)}
       />

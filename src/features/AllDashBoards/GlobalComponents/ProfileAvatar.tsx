@@ -155,7 +155,6 @@ const ProfileAvatar: React.FC<ProfileAvatarProps> = ({ label }) => {
             src={imageUrl}
             alt={name}
             className="navbar-profile-img"
-            crossOrigin="anonymous"
             referrerPolicy="no-referrer"
             onError={() => setImageFailed(true)}
           />
