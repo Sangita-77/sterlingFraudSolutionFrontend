@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import CustomForm from "./CustomForm";
 import type { FieldConfig, FormValue } from "./CustomForm";
 import { BASE_URL } from "../../../api/config";
+import { Heading2 } from "./HeadingPara";
 import { fetchWithAuth, getAuthSession, getUserRole, getAuthUser, saveAuthUser } from "../../../api/authService";
 import Loader from "../GlobalComponents/Loaders";
 
@@ -254,9 +255,7 @@ const Profile: React.FC = () => {
     <div className="CustomerProfiledetails">
         <div className="ProfileForm gradientBox">  
           <div className="RoleWrap d-flex">
-            <h3>{role}</h3>
-            <div className="ResetButton">
-            </div>
+            <Heading2 text={role}/>
           </div>
           {profileError && <p className="error">{profileError}</p>}
           {profileSuccess && <p className="profile-message">{profileSuccess}</p>}
