@@ -15,6 +15,7 @@ import Communication from "./features/AllDashBoards/admin/Pages/Communication";
 import PermissionsRoles from "./features/AllDashBoards/admin/Pages/PermissionsRoles";
 import Reports from "./features/AllDashBoards/admin/Pages/Reports"; 
 import Settings from "./features/AllDashBoards/admin/Pages/Settings"; 
+import CustomerDetails from "./features/AllDashBoards/admin/Pages/CustomerDetails"; 
 import Visualization from "./features/Pages/Visualization";
 import ProtectedRoleRoute from "./Routes/ProtectedRoleRoute";
 
@@ -62,6 +63,7 @@ function App() {
               <Route path={routes.PERMISSIONS} element={<PermissionsRoles/>} />
               <Route path={routes.REPORTS} element={<Reports/>} />
               <Route path={routes.SETTINGS} element={<Settings/>} />
+              <Route path={`${routes.CUSTOMERDETAILS}/:id`} element={<CustomerDetails />} />
               {/* Super-Admin Start */}
             </Route>
           </Route>

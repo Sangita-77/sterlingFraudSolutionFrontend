@@ -178,9 +178,9 @@ const PassportUpdate: React.FC = () => {
     <Heading2 text="To avoid delays when verifying your account please observe below:"/>
       <UnorderedList
         items={[
-          "Chosen documents must not be expired.",
-          "Documents should be in good condition and clearly visible.",
-          "Make sure that there is no light glare on the document.",
+            {text:"Chosen documents must not be expired.",},
+            {text:"Documents should be in good condition and clearly visible.",},
+            {text:"Make sure that there is no light glare on the document.",},
         ]}
     />
 

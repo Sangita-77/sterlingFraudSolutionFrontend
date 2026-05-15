@@ -26,6 +26,7 @@
   --Red-Border: #EF4444;
   --Blue-Card: #4cbbfb1c;
   --Blue-Border: #4CBCFB;
+  --Profile-color: #573de5;
 
   --overlay-bg: rgba(0, 0, 0, 0.5);
   --border-color: #2a2d5a;
@@ -49,11 +50,14 @@
 /* Headings And paragraphs Start */
 h1.PageTitle{color: var(--whiteColor); font: bold 24px/34px var(--font-main); letter-spacing: 2px;}
 h2.PageTitle{color: var(--whiteColor); font: 600 18px/28px var(--font-main); letter-spacing: 2px;}
+h3.Heading3{color: var(--whiteColor); font: 400 18px/28px var(--font-main); letter-spacing: 2px;}
 p.PageDescription{color: var(--whiteColor); font: 400 16px/26px var(--font-main);}
+p.PageDescription2{color: var(--grey-text); font: 400 16px/26px var(--font-main);}
 .gradientBox{background: linear-gradient(120deg, #222466, #1d1f48); padding: 30px 50px; margin: 50px 30px; border-radius: 10px;}
 button{cursor: pointer;}
 ul.UnorderList li{color: var(--whiteColor); font: 400 14px/24px var(--font-main); margin-left: 20px; opacity: 0.7;}
 ul.UnorderList{padding: 10px 0px;}
+ul.UnorderList .list-icon{margin-right: 10px;}
 .main .error{color: var(--Red-Border);}
 .custom-select option { background: var(--primary-color); }
 /* Headings And paragraphs End */
@@ -186,6 +190,18 @@ ul.UnorderList{padding: 10px 0px;}
 .DashBoardForms .input-wrapper button.edit-btn{background: transparent; border: none; position: absolute; right: 10px; top: 16px;}
 .DashBoardForms .normal-fields-wrapper .password-field-wrap{position: relative;}
 .DashBoardForms .normal-fields-wrapper .password-field-wrap .edit-btn{position: absolute; right: 10px; top: 10px; background: transparent; font: 400 16px/26px var(--font-main); color: var(--grey-text); border: 0;}
+/* CustomerDetailsForm */
+.CustomerDetailsForm.ProfileForm{margin: 0px 10px 20px;}
+.CustomerDetailsForm.ProfileForm .submit-button{top: -14px; right: 1px; bottom: auto;}
+.CustomerDetailsForm.ProfileForm .profile-fields-wrapper{display: none;}
+.CustomerDetailsForm.ProfileForm .normal-fields-wrapper{width: 100%;}
+.CustomerDetailsWrap .CustomerDetailsProfile{width: 25%; text-align: center;}
+.CustomerDetailsWrap .CustomerDetailsProfile .ProfileImage img{height: 125px; width: 125px; border-radius: 50%; object-fit: cover; border: solid 2px var(--dashboard-border);}
+.CustomerDetailsWrap .CustomerDetailsProfile .ProfileImage{position: relative;}
+.CustomerDetailsWrap .CustomerDetailsProfile .ProfileImage .activeStatus{width: 27px; height: 27px; background: #46DA46; border-radius: 50%; position: absolute; right: 85px; bottom: 5px;}
+.CustomerDetailsWrap .CustomerDetailsFormWrap{width: 75%;}
+.CustomerDetailsProfile .UnorderList li{text-align: left; }
+.CustomerDetailsWrap .CustomerDetailsFormWrap .gradientBox{margin: 16px 7px 0px; padding: 20px;}
 /* DashBoardForms  End*/
 
 /*Search Start*/
@@ -220,9 +236,18 @@ ul.UnorderList{padding: 10px 0px;}
 
 
 /* Tab CSS Start */
-.DashboardsTabs .tabs-header .tab-btn{background: transparent; border: solid 1px var(--border-color); padding: 12px 30px; margin-right: 20px; font: 400 16px var(--font-main); border-radius: 8px; color: var(--whiteColor);}
-.DashboardsTabs .tabs-header{padding: 30px 0 18px;}
-.DashboardsTabs .tabs-header .tab-btn.active{background: var(--border-color);}
+.DashboardsTabs .tabs-header .tab-btn{background: transparent; font: 400 16px var(--font-main); border-radius: 8px; color: var(--whiteColor);}
+/* Default */
+.DashboardsTabs.default .tabs-header{padding: 30px 0 18px;}
+.DashboardsTabs.default .tabs-header .tab-btn{border: solid 1px var(--border-color); padding: 12px 30px; margin-right: 20px;}
+.DashboardsTabs.default .tabs-header .tab-btn.active{background: var(--border-color);}
+/* Underline */
+.DashboardsTabs.underline .tabs-header .tab-btn{background: transparent; border: transparent; padding: 18px 1.2vw; font: 400 16px var(--font-main); border-radius: 8px; color: var(--whiteColor);}
+.DashboardsTabs.underline .tabs-header .tab-btn:not(:last-child){margin-right: 4.3vw;}
+.DashboardsTabs.underline .tabs-header .tab-btn{color: var(--grey-text);}
+.DashboardsTabs.underline .tabs-header .tab-btn.active{position: relative; color: var(--whiteColor);}
+.DashboardsTabs.underline .tabs-header .tab-btn.active::after{content: ""; bottom: -2px; background: radial-gradient(circle, rgb(255 255 255) 0%, rgb(148 187 233 / 0%) 100%); height: 2px; width: 100%; position: absolute; left: 0;}
+.DashboardsTabs.underline .tabs-header{border-bottom: solid 1px var(--border-color); padding: 30px 0 0px; margin-bottom: 35px;}
 /* Tab CSS End */
 .UpdatedocumentsWarp{display: flex; gap: 60px; justify-content: center; padding-top: 50px;}
 
@@ -258,6 +283,9 @@ ul.UnorderList{padding: 10px 0px;}
 /* Tooltip End*/
 
 /* Table Start */
+.userInfoWrap { display: flex; align-items: center; gap: 10px; } 
+.userProfileImage { width: 38px; height: 38px; border-radius: 50%; object-fit: cover; border: 1px solid #ddd; }
+.userProfileInitial { width: 38px; height: 38px; border-radius: 50%; background: var(--Profile-color); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 600; text-transform: uppercase; box-shadow: inset 0px 0px 5px var(--whiteColor); font-size: 20px;}
 .GlobalTable .GlobalButton{display: flex; justify-self: center;}
 .GlobalTable.gradientBox{padding: 0; margin: 0; border-radius: 20px;}
 .custom-table th, .custom-table td { text-align: center; padding: 12px; color: var(--whiteColor); font: 400 14px/24px var(--font-main); }
@@ -275,7 +303,7 @@ ul.UnorderList{padding: 10px 0px;}
 .table-pagination-wrap .pagination-btn, .table-pagination-wrap  .page-numbers button{border: solid 1px var(--dashboard-border); background: var(--dashboard-boxdark); color: var(--whiteColor); border-radius: 10px; width: 42px; height: 34px; padding-top: 2px; font: 500 14px/22px var(--font-main); margin: 0 5px;}
 .table-pagination-wrap  .page-numbers button.active-page{background: var(--dashboard-border);}
 .table-pagination-wrap{ display: flex; justify-content: space-between; align-items: center; width: 45%; margin-left: 20%; }
-.rows-per-page {display: flex; gap: 10px; width: 20%; align-items: end; justify-content: flex-end;}
+.rows-per-page {display: flex; gap: 10px; width: 20%; align-items: center; justify-content: flex-end;}
 .rows-per-page select{background: var(--dashboard-boxdark); border: solid 2px var(--dashboard-border); width: 80px; padding: 7px 10px; border-radius: 6px; color: var(--whiteColor);}
 .rows-per-page span{color:var(--grey-text); font: 500 14px/22px var(--font-main);}
 .pagination-controls { display: flex; align-items: center; gap: 10px; }

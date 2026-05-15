@@ -5,6 +5,10 @@ export const Heading1 = ({ text }: { text: string }) => (
 export const Heading2 = ({ text }: { text: string }) => (
   <h2 className="PageTitle">{text}</h2>
 );
+
+export const Heading3 = ({ text }: { text: string }) => (
+  <h3 className="Heading3">{text}</h3>
+);
 // Headings End
 
 
@@ -12,20 +16,36 @@ export const Heading2 = ({ text }: { text: string }) => (
 export const Paragraph = ({ text }: { text: string }) => (
   <p className="PageDescription">{text}</p>
 );
+export const Paragraph2 = ({ text }: { text: string }) => (
+  <p className="PageDescription2">{text}</p>
+);
 // Paragraphs End
 
 
 // List Start
-interface ListProps {
-  items: string[];
-  className?: string;
+interface ListItem {
+  text: string;
+  icon?: React.ReactNode;
 }
+
+interface ListProps {
+  items: ListItem[];
+  className?: string;
+  variant?: "default" | "icon";
+}
+
 export const UnorderedList = ({
   items,
+  variant = "default",
 }: ListProps) => (
-  <ul className="UnorderList">
+  <ul className={`UnorderList ${variant}`}>
     {items.map((item, index) => (
-      <li key={index}>{item}</li>
+      <li key={index} className={variant === "icon" && item.icon ? "d-flex" : ""}>
+        {item.icon && (
+          <span className="list-icon">{item.icon}</span>
+        )}
+        {item.text}
+      </li>
     ))}
   </ul>
 );

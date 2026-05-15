@@ -6,6 +6,9 @@ import GlobalmModal from "../../GlobalComponents/GlobalModal";
 import Loader from "../../GlobalComponents/Loaders";
 import Tooltip from "../../GlobalComponents/ToolTip";
 import "./Components.css";
+import { routes } from "../../../../Routes/route";
+import { useNavigate } from "react-router-dom";
+ 
 
 import { BASE_URL } from "../../../../api/config";
 
@@ -404,6 +407,7 @@ const CustomerTable = () => {
       );
     }
   };
+  const navigate = useNavigate();
   const columns = [
     {
       key: "name",
@@ -414,11 +418,7 @@ const CustomerTable = () => {
       ) => (
         <div className="userInfoWrap">
           {row.profileImage ? (
-            <img
-              src={getProfileImageUrl(row.profileImage)}
-              alt={value}
-              className="userProfileImage"
-            />
+            <img src={getProfileImageUrl(row.profileImage)} alt={value} className="userProfileImage" />
           ) : (
             <div className="userProfileInitial">
               {row.profileInitial}
@@ -448,12 +448,7 @@ const CustomerTable = () => {
         );
 
         return row.statusDetails ? (
-          <Tooltip
-            text={row.statusDetails}
-            position="top-left"
-          >
-            {button}
-          </Tooltip>
+          <Tooltip text={row.statusDetails} position="top-left" > {button} </Tooltip>
         ) : (
           button
         );
@@ -465,11 +460,15 @@ const CustomerTable = () => {
 
       render: (
         _: any,
-        // row: any
+        row: any
       ) => (
         <div
         >
-        <Button variant="purple" text="View" />
+        <Button
+          variant="purple"
+          text="View"
+          onClick={() => navigate(`${routes.CUSTOMERDETAILS}/${row._id}`)}
+        />
         </div>
       ),
     },

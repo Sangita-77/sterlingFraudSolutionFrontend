@@ -58,7 +58,7 @@ const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       [name]: file,
     }));
 
-    setPreview(URL.createObjectURL(file)); // 👈 instant preview
+    setPreview(URL.createObjectURL(file)); 
   } else {
     setFormData((prev) => ({
       ...prev,
@@ -152,6 +152,7 @@ const isResetPasswordButtonVisible = (
       />
     ))}
   </div>
+
     <div className="normal-fields-wrapper">
     {normalFields.map((field) => (
       <FormInput
