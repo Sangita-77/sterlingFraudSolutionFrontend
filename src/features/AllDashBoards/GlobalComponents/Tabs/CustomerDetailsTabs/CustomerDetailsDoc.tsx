@@ -134,7 +134,7 @@ const AdminDocumentCard: React.FC<AdminDocumentCardProps> = ({
             <div className="document-admin-actions">
               <button
                 type="button"
-                className="icon-card-button"
+                className="icon-card-button admin-button"
                 disabled={isUpdating}
                 onClick={() => onStatusChange(documentItem, 1)}
               >
