@@ -8,6 +8,7 @@ import {
 } from "../../../api/authService";
 import {EyeIcon} from 'lucide-animated';
 import Tooltip from "./ToolTip";
+import GlobalmModal from "./GlobalModal";
 
 // type CardVariant = "purple" | "green" | "orange";
 
@@ -52,6 +53,10 @@ const IconTextButtonCard: React.FC<CardProps> = ({
   const [uploadError, setUploadError] = useState("");
   const [uploadSuccess, setUploadSuccess] = useState("");
   const [isDragging, setIsDragging] = useState(false);
+
+  const [openPreview, setOpenPreview] = useState(false);
+
+  const [previewUrl, setPreviewUrl] = useState("");
 
   const handleButtonClick = () => {
     fileInputRef.current?.click();
@@ -181,7 +186,7 @@ const IconTextButtonCard: React.FC<CardProps> = ({
 
 
   return (
-    
+    <>
     <div
       className={`DocumentUpdate-card ${variant} ${
         isDragging ? "dragging" : ""
@@ -212,7 +217,11 @@ const IconTextButtonCard: React.FC<CardProps> = ({
             <button
               type="button"
               className="document-preview-btn"
-              onClick={() => window.open(documentUrl, "_blank")}
+              // onClick={() => window.open(documentUrl, "_blank")}
+              onClick={() => {
+                setPreviewUrl(documentUrl);
+                setOpenPreview(true);
+              }}
             >
               <EyeIcon />
             </button>
@@ -265,6 +274,54 @@ const IconTextButtonCard: React.FC<CardProps> = ({
         />
       </div>
     </div>
+
+    {openPreview && (
+  <GlobalmModal
+    customeClass="documentPreviewModal"
+    header={<h3>Document Preview</h3>}
+    onCancel={() =>
+      setOpenPreview(false)
+    }
+    body={
+      <div className="document-preview-container">
+
+        {/* IMAGE */}
+        {previewUrl.match(
+          /\.(jpg|jpeg|png|webp)$/i
+        ) && (
+          <img
+            src={previewUrl}
+            alt="document"
+            className="document-preview-image"
+          />
+        )}
+
+        {/* PDF */}
+        {previewUrl.match(/\.pdf$/i) && (
+          <iframe
+            src={previewUrl}
+            title="PDF Preview"
+            className="document-preview-pdf"
+          />
+        )}
+
+        {/* DOC / DOCX */}
+        {previewUrl.match(
+          /\.(doc|docx)$/i
+        ) && (
+          <iframe
+            src={`https://docs.google.com/gview?url=${encodeURIComponent(
+              previewUrl
+            )}&embedded=true`}
+            title="DOC Preview"
+            className="document-preview-pdf"
+          />
+        )}
+      </div>
+    }
+  />
+)}
+</>
   );
 };
 
