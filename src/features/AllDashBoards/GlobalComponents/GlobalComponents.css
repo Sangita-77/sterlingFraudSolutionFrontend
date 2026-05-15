@@ -143,6 +143,7 @@ ul.UnorderList .list-icon{margin-right: 10px;}
 .Global-button.orange:hover{background: var(--Orange-Border); transition: all 0.3s ease; color: var(--whiteColor);}
 .Global-button.blue{border: solid 1px var(--Blue-Border);  background: var(--Blue-Card);}
 .Global-button.blue:hover{background: var(--Blue-Border); transition: all 0.3s ease; color: var(--whiteColor);}
+.Global-button.back{background: transparent; color: var(--sky-blueColor); border: none;}
 /* Global Button End */
 
 /* GlobalModalBox Start*/

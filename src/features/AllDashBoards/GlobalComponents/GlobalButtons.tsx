@@ -5,7 +5,7 @@ interface GlobalButtons {
   onClick?: () => void;
   type?: "button" | "submit" | "reset";
   textsize?: "sm" | "md";
-  variant?: "purple" | "add" | "green" | "red" | "orange" | "blue" ;
+  variant?: "purple" | "add" | "green" | "red" | "orange" | "blue" | "back";
   icon?: React.ReactNode;
   disabled?: boolean;
   className?: string;
