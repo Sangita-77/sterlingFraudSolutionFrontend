@@ -262,6 +262,9 @@ ul.UnorderList .list-icon{margin-right: 10px;}
 .DocumentUpdate-card .icon-card-text {color: var(--whiteColor); font: 500 18px/26px var(--font-main);}
 .DocumentUpdate-card .icon-card-text.drop{font-size: 16px;}
 .DocumentUpdate-card .icon-card-button {padding: 5px 35px; border-radius: 8px; cursor: pointer;transition: 0.3s ease; background: #00000012; font: 400 16px/26px var(--font-main); margin: 22px 0 0;} 
+.DocumentUpdate-card .document-admin-actions{display: flex; gap: 10px; justify-content: center; align-items: center; flex-wrap: wrap;}
+.DocumentUpdate-card .document-admin-actions .icon-card-button{margin-top: 22px; padding: 5px 24px;}
+.DocumentUpdate-card .document-admin-actions .icon-card-button:disabled{opacity: 0.65; cursor: not-allowed;}
 /* Purple Variant */
 .DocumentUpdate-card.purple {box-shadow: inset 0px 0px 102px var(--Purple-Card); border: solid 1px var(--Purple-Border);} 
 .DocumentUpdate-card.purple .icon-card-button { border: solid 1px var(--Purple-Border); color: var(--purple-text); }
