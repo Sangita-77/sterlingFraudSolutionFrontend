@@ -82,15 +82,16 @@ const filteredMenu = menuItems.filter(item =>
 );
 
   return (
+    
     <div className={`sidebar ${open ? "open" : ""}`}>
 
       {/* Header */}
       <div className="LogoWrap">
         <div className="CompanyLogo">
-          <img src={Logo} alt="CompanyLogo" />
+          <img src={Logo} alt="CompanyLogo" onClick={() => navigate(`${routes.VERIFYCHAIN}`)} />
         </div>
         <div className="closeButton" onClick={toggle}>
-          <img src={close} alt="Close" />
+          <img src={close} alt="Close"/>
         </div>
       </div>
 
