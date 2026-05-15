@@ -16,7 +16,7 @@ VIZUALIZATION: "/visualization/new/id:jkhmgkj",
   PERMISSIONS: "/admin/permissions",
   REPORTS: "/admin/reports",
   SETTINGS: "/admin/settings",
-  CUSTOMERDETAILS: "/admin/customers/details/id:",
+  CUSTOMERDETAILS: "/admin/customers/details",
   LOGOUT: "/admin",
 
   AGENT_DASHBOARD: "/agent",

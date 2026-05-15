@@ -197,6 +197,7 @@ ul.UnorderList .list-icon{margin-right: 10px;}
 .CustomerDetailsForm.ProfileForm .normal-fields-wrapper{width: 100%;}
 .CustomerDetailsWrap .CustomerDetailsProfile{width: 25%; text-align: center;}
 .CustomerDetailsWrap .CustomerDetailsProfile .ProfileImage img{height: 125px; width: 125px; border-radius: 50%; object-fit: cover; border: solid 2px var(--dashboard-border);}
+.CustomerDetailsWrap .CustomerDetailsProfile .ProfileImage .profile-initial{height: 125px; width: 125px; margin: 0 auto; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: #383976; border: solid 2px var(--dashboard-border); color: var(--whiteColor); font: 600 48px/1 var(--font-main);}
 .CustomerDetailsWrap .CustomerDetailsProfile .ProfileImage{position: relative;}
 .CustomerDetailsWrap .CustomerDetailsProfile .ProfileImage .activeStatus{width: 27px; height: 27px; background: #46DA46; border-radius: 50%; position: absolute; right: 85px; bottom: 5px;}
 .CustomerDetailsWrap .CustomerDetailsFormWrap{width: 75%;}
