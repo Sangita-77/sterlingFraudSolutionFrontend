@@ -1,9 +1,7 @@
 import React from "react";
 import Tabs from "../../GlobalComponents/Tabs";
 import CustomerDetailsProfile from "../../GlobalComponents/Tabs/CustomerDetailsTabs/CustomerDetailsProfile";
-import NationalIdCard from "../../GlobalComponents/Tabs/NationalIdCard";
-import DrivingLicense from "../../GlobalComponents/Tabs/DrivingLicense";
-
+import CustomerDetailsDoc from "../../GlobalComponents/Tabs/CustomerDetailsTabs/CustomerDetailsDoc";
 
 
   const tabsData = [
@@ -13,23 +11,23 @@ import DrivingLicense from "../../GlobalComponents/Tabs/DrivingLicense";
     },
     {
       label: "Documents",
-      content: <NationalIdCard/>,
+      content: <CustomerDetailsDoc/>,
     },
     {
       label: "Case Details",
-      content: <DrivingLicense/>,
+      content: <></>,
     },
     {
       label: "Withdrawal Request",
-      content: <DrivingLicense/>,
+      content: <></>,
     },
     {
       label: "Bank Details",
-      content: <DrivingLicense/>,
+      content: <></>,
     },
     {
       label: "Insurance",
-      content: <DrivingLicense/>,
+      content: <></>,
     },
   ];
 

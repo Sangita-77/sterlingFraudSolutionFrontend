@@ -9,14 +9,14 @@ import {
 import {EyeIcon} from 'lucide-animated';
 import Tooltip from "./ToolTip";
 import GlobalmModal from "./GlobalModal";
+import {getUserRole } from "../../../api/authService";
+
+const user = getAuthUser();
+const role = getUserRole(user);
 
 // type CardVariant = "purple" | "green" | "orange";
 
-type CardVariant =
-  | "purple"
-  | "green"
-  | "orange"
-  | "red";
+type CardVariant = | "purple" | "green" | "orange" | "red" | "";
 
 
 interface CardProps {
@@ -249,7 +249,7 @@ const IconTextButtonCard: React.FC<CardProps> = ({
       >
         <button
           type="button"
-          className="icon-card-button"
+          className={`icon-card-button ${role === "admin" ? "admin-button" : ""}`}
           onClick={handleButtonClick}
           disabled={isSaving || status === 1}
         >
@@ -257,12 +257,15 @@ const IconTextButtonCard: React.FC<CardProps> = ({
             ? "Uploading..."
             : status === 1
             ? "Verified"
-            : status === 0
+            : role === "user" && status === 0 
             ? "Under Progress"
+            : role === "admin" && status === 0 
+            ? "Approve"
             : status === 2
             ? "Rejected"
             : buttonText}
         </button>
+        {role === "admin" && status === 0 && ( <button className="RejectButton icon-card-button">Reject</button> )}
       </Tooltip>
 
         <input
