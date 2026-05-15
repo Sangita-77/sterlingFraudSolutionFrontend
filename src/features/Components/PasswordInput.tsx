@@ -42,6 +42,10 @@ const PasswordInput = ({
         placeholder={placeholder}
         onChange={onChange}
         style={{ paddingRight: "42px" }}
+        onCopy={(e) => e.preventDefault()}
+        onPaste={(e) => e.preventDefault()}
+        onCut={(e) => e.preventDefault()}
+        onDrop={(e) => e.preventDefault()}
       />
       <button
         type="button"
