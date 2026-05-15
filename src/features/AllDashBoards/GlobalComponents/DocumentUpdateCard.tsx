@@ -14,6 +14,8 @@ import {getUserRole } from "../../../api/authService";
 const user = getAuthUser();
 const role = getUserRole(user);
 
+// console.log("User Role in DocumentUpdateCard:", role);
+
 // type CardVariant = "purple" | "green" | "orange";
 
 type CardVariant = | "purple" | "green" | "orange" | "red" | "";
@@ -257,7 +259,7 @@ const IconTextButtonCard: React.FC<CardProps> = ({
             ? "Uploading..."
             : status === 1
             ? "Verified"
-            : role === "user" && status === 0 
+            : role === "customer" && status === 0 
             ? "Under Progress"
             : role === "admin" && status === 0 
             ? "Approve"
