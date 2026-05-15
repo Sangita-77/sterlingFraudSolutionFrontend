@@ -5,6 +5,7 @@ import CustomForm from "../../CustomForm";
 import type { FieldConfig, FormValue } from "../../CustomForm";
 import {Heading2, Heading1, Paragraph2, UnorderedList, Heading3} from "../../HeadingPara";
 import { MailCheckIcon} from 'lucide-animated';
+import PhoneIcon from "../../../assets/images/PhoneIcon.svg";
 import { BASE_URL } from "../../../../../api/config";
 import { fetchWithAuth } from "../../../../../api/authService";
 import Loader from "../../Loaders";
@@ -235,7 +236,7 @@ const CustomerDetailsProfile: React.FC = () => {
                 },
                 {
                 text: customer?.phone || "-",
-                icon: <MailCheckIcon/>
+                icon: <img src={PhoneIcon} alt="Phone" />,
                 },
             ]}
             />
