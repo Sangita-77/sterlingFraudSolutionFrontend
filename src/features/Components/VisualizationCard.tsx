@@ -1,16 +1,17 @@
-import { useState } from 'react'
-import './IndexComponents.css'
-import TreeStructure from '../../assets/images/visualization/TreeStructure.png'
-import Sliders from '../../assets/images/visualization/SlidersHorizontal.png'
-import Export from '../../assets/images/visualization/Export.png'
-import CaretUp from '../../assets/images/visualization/CaretUp.png'
-import CaretDown from '../../assets/images/visualization/CaretDown.png'
-import Search from '../../assets/images/Search.svg'
-import Info from '../../assets/images/visualization/Info.svg'
-import ArrowRight from '../../assets/images/visualization/ArrowRight.svg'
-import ArrowLeft from '../../assets/images/visualization/ArrowArcLeft.svg'
-import ArrowArcRight from '../../assets/images/visualization/ArrowArcRight.svg'
-import ArrowArcLeft from '../../assets/images/visualization/ArrowArcLeft.svg'
+import { useState } from 'react';
+import './IndexComponents.css';
+import {SearchIcon} from 'lucide-animated';
+import TreeStructure from '../../assets/images/visualization/TreeStructure.png';
+import Sliders from '../../assets/images/visualization/SlidersHorizontal.png';
+import Export from '../../assets/images/visualization/Export.png';
+import CaretUp from '../../assets/images/visualization/CaretUp.png';
+import CaretDown from '../../assets/images/visualization/CaretDown.png';
+
+import Info from '../../assets/images/visualization/Info.svg';
+import ArrowRight from '../../assets/images/visualization/ArrowRight.svg';
+import ArrowLeft from '../../assets/images/visualization/ArrowArcLeft.svg';
+import ArrowArcRight from '../../assets/images/visualization/ArrowArcRight.svg';
+import ArrowArcLeft from '../../assets/images/visualization/ArrowArcLeft.svg';
 
 
 
@@ -58,7 +59,7 @@ const VisualizationCard = () => {
               <div className='Details'>Search and add Object</div>
 
               <div className='inputBox'>
-                <img src={Search} width={24} />
+                <SearchIcon/>
                 <input
                   type="text"
                   placeholder='Address Or TX'
