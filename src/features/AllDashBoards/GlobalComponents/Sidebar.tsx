@@ -66,6 +66,7 @@ const menuItems = [
 // Customer  Start
     { path: routes.CUSTOMER_DASHBOARD, label: t("nav.dashboard"), roles: ["customer"], icon: DashboardIcon, end: true },
     { path: routes.CUSTOMER_DOCUMENTS, label: t("nav.documents"), roles: ["customer"], icon: Document },
+    { path: routes.CUSTOMER_REPORT_FRAUD, label: t("nav.reportfraud"), roles: ["customer"], icon: Document },
     { path: routes.CUSTOMER_SETTINGS, label: t("nav.settings"), roles: ["customer"],  icon: Settings },
 // Customer  End
 

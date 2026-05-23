@@ -2,7 +2,7 @@
 export const routes = {
 // Users Routes
 VERIFYCHAIN: "/",
-VIZUALIZATION: "/visualization/new/id:jkhmgkj",
+VIZUALIZATION: "/visualization/new/jkhmgkj",
 
 // Super admin Routes
   DASHBOARD: "/admin",
@@ -25,6 +25,7 @@ VIZUALIZATION: "/visualization/new/id:jkhmgkj",
 
   CUSTOMER_DASHBOARD: "/customer",
   CUSTOMER_DOCUMENTS: "/customer/documents",
+  CUSTOMER_REPORT_FRAUD: "/customer/report-fraud",
   CUSTOMER_SETTINGS: "/customer/settings",
 
 };

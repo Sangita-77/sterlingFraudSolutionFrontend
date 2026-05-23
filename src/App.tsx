@@ -27,6 +27,7 @@ import AgentSettings from "./features/AllDashBoards/agent/Pages/AgentSettings";
 import CustomerDashboardLayOut from "./features/AllDashBoards/customer/Layout/CustomerDashboardLayOut";
 import CustomerMainDashboard from "./features/AllDashBoards/customer/Pages/CustomerMainDashboard";
 import CustomerDocuments from "./features/AllDashBoards/customer/Pages/CustomerDocuments";
+import CutomerReportFraud from "./features/AllDashBoards/customer/Pages/CutomerReportFraud";
 import CustomerSettings from "./features/AllDashBoards/customer/Pages/CustomerSettings";
 import { routes } from "./Routes/route";
 
@@ -64,9 +65,12 @@ function App() {
               <Route path={routes.REPORTS} element={<Reports/>} />
               <Route path={routes.SETTINGS} element={<Settings/>} />
               <Route path={`${routes.CUSTOMERDETAILS}/:id`} element={<CustomerDetails />} />
-              {/* Super-Admin Start */}
             </Route>
           </Route>
+          {/* Super-Admin Start */}
+
+
+          {/* Agent Start */}
           <Route element={<ProtectedRoleRoute routeType="agent" />}>
             <Route path={routes.AGENT_DASHBOARD} element={<AgentDashboardLayOut />}>
               <Route index element={<AgentMainDashboard />} />
@@ -74,17 +78,19 @@ function App() {
               <Route path={routes.AGENT_SETTINGS} element={<AgentSettings />} />
             </Route>
           </Route>
+          {/* Agent Start */}
 
+
+          {/* Customer Start */}
           <Route element={<ProtectedRoleRoute routeType="customer" />}>
             <Route path={routes.CUSTOMER_DASHBOARD} element={<CustomerDashboardLayOut />}>
               <Route index element={<CustomerMainDashboard />} />
               <Route path={routes.CUSTOMER_DOCUMENTS} element={<CustomerDocuments />} />
-              <Route path={routes.CUSTOMER_SETTINGS} element={<CustomerSettings />} />
-              <Route path={routes.CUSTOMER_SETTINGS} element={<CustomerSettings />} />
+              <Route path={routes.CUSTOMER_REPORT_FRAUD} element={<CutomerReportFraud />} />
               <Route path={routes.CUSTOMER_SETTINGS} element={<CustomerSettings />} />
             </Route>
           </Route>
-
+          {/* Customer End */}
       </Routes>
   );
 }

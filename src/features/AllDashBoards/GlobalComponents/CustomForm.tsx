@@ -4,7 +4,7 @@ import FormInput from "./FormInput";
 export interface FieldConfig {
   label: string;
   type: string;
-  name: string;
+  name: string; 
   placeholder: string;
   width?: "full" | "half";
   options?: { label: string; value: string }[]; 
@@ -47,18 +47,24 @@ useEffect(() => {
   });
 }, [initialState, resolvedInitialValues]);
 
-const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  const { name, files, value } = e.target;
+const handleChange = (
+  e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+) => {
+  const { name, value } = e.target;
 
-  if (files && files[0]) {
-    const file = files[0];
+  if (
+    e.target instanceof HTMLInputElement &&
+    e.target.files &&
+    e.target.files[0]
+  ) {
+    const file = e.target.files[0];
 
     setFormData((prev) => ({
       ...prev,
       [name]: file,
     }));
 
-    setPreview(URL.createObjectURL(file)); 
+    setPreview(URL.createObjectURL(file));
   } else {
     setFormData((prev) => ({
       ...prev,

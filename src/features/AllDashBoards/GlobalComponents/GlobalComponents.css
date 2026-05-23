@@ -55,6 +55,8 @@ p.PageDescription{color: var(--whiteColor); font: 400 16px/26px var(--font-main)
 p.PageDescription2{color: var(--grey-text); font: 400 16px/26px var(--font-main);}
 .gradientBox{background: linear-gradient(120deg, #222466, #1d1f48); padding: 30px 50px; margin: 50px 30px; border-radius: 10px;}
 button{cursor: pointer;}
+.gradientBox2{background: linear-gradient(50deg, #1017329e 75%, #11313e 100%); padding: 20px; box-shadow: inset 0px 0px 19px #ffffff61, 0px 0px 20px #00000096; border-radius: 15px;}
+.gradientBox3{background: linear-gradient(50deg, #1017329e 75%, #15113e75 100%); padding: 20px; border-radius: 15px; width: 100%; border: solid 1px var(--border-color);}
 ul.UnorderList li{color: var(--whiteColor); font: 400 14px/24px var(--font-main); margin-left: 20px; opacity: 0.7;}
 ul.UnorderList{padding: 10px 0px;}
 ul.UnorderList .list-icon{margin-right: 10px;}
@@ -181,7 +183,8 @@ ul.UnorderList .list-icon{margin-right: 10px;}
 
 /* DashBoardForms  Start*/
 .DashBoardForms {flex-wrap: wrap;}
-.DashBoardForms input{width: 100%; background: #383976; border: solid 1px #585ad1; border-radius: 10px; padding: 17px; color: var(--grey-text); opacity: 1; font: 400 16px/26px var(--font-main);}
+.DashBoardForms input, .DashBoardForms select{width: 100%; background: #383976; border: solid 1px #585ad1; border-radius: 10px; padding: 17px; color: var(--grey-text); opacity: 1; font: 400 16px/26px var(--font-main); height: 60px;}
+.DashBoardForms [type="textarea"]{height: 120px;}
 .DashBoardForms input:disabled{color: var(--grey-text); opacity: 1; -webkit-text-fill-color: var(--grey-text);}
 .DashBoardForms input::placeholder{color: var(--grey-text); font: 400 16px/26px var(--font-main);}
 .DashBoardForms label{ width: 100%; display: block; font: 400 16px/26px var(--font-main); color: var(--whiteColor);}
@@ -217,6 +220,37 @@ ul.UnorderList .list-icon{margin-right: 10px;}
 .CustomerDetailsWrap .CustomerDetailsFormWrap{width: 75%;}
 .CustomerDetailsProfile .UnorderList li{text-align: left; }
 .CustomerDetailsWrap .CustomerDetailsFormWrap .gradientBox{margin: 16px 7px 0px; padding: 20px;}
+/* .......Step Form Start........ */
+.StepFormwrapper{display: flex; flex-wrap: wrap;}
+.step-form-container {color: var(--whiteColor); font:400 16px/28px var(--font-main);}
+.step-form-container .step-header { position: relative; margin-bottom: 30px; } 
+/* Background line */
+.step-form-container .progress-track { width: 95%; height: 2px; background: var(--Blue-Card); border-radius: 20px; position: absolute; top: 29px; z-index: 1; left: 29px; }
+/* Filled progress */
+.step-form-container .progress-fill { height: 100%; background:  linear-gradient(90deg, var(--Blue-Border) 50%, transparent 100%); border-radius: 20px; transition: width 0.4s ease; } 
+/* Step circles */
+.step-form-container .step-indicators { display: flex; justify-content: space-between; position: relative; z-index: 2; }
+.step-form-container .step-circle { width: 60px; height: 60px; background: var(--primary-color); color: var(--purple-text); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; transition: all 0.3s ease; border: solid 1px var(--Blue-Card); }
+.step-form-container .step-circle.active { background: var(--Blue-Border); color: var(--whiteColor); } 
+.step-form-container .step-actions { display: flex; justify-content: end; margin-top: 20px; } 
+.step-form-container .step-form-container .step-actions button:hover { opacity: 0.9; } 
+.step-form-container .step-actions button:disabled {display: none;}
+.step-form-container .step-item { display: flex; flex-direction: column; align-items: center; }
+.step-form-container .step-title { margin-top: 8px; font-size: 14px; text-align: center; }
+.step-form-container .Stepicon svg{color: var(--Purple-Border);}
+.step-form-container .Stepicon{border: solid 1px var(--Purple-Border); border-radius: 50%; width: 60px; display: flex; justify-content: center; align-items: center; height: 60px; padding-top: 7px; margin-right: 20px;}
+.step-form-container .StepTitle{align-items: center; border-bottom: solid 2px var(--dashboard-border); padding-bottom: 15px;     margin-bottom: 25px;}
+.step-form-container .StepFormwrapper p.PolicyText{color: var(--Profile-color); position: absolute; bottom: -70px; left: 10px; display: flex;}
+.step-form-container .StepFormwrapper p.PolicyText span{margin-right: 10px;}
+.step-form-container .step-content{position: relative;}
+/* Drop N Down */
+.upload-box { width: 100%; border: 1px solid var(--Purple-Border); border-radius: 12px; padding: 60px; text-align: center; cursor: pointer; transition: 0.3s; background: var(--Purple-Card); margin: 10px 0px;}
+.upload-box.active { background: var(--Blue-Card); border: dashed 1px  var(--Blue-Border); } 
+.upload-box p { font: 400 16px/26px var(--font-main); }
+.upload-box p .browse{ color: var(--Blue-Border); font-size: 20px;}
+.upload-box span { color: var(--grey-text); font-size: 14px; }
+/* .......Step Form End........ */
+
 /* DashBoardForms  End*/
 
 /*Search Start*/
@@ -349,6 +383,118 @@ ul.UnorderList .list-icon{margin-right: 10px;}
 
 
 
+
+
+
+/* =========================
+   Mobile Responsive Table
+   One Row = One Card
+========================= */
+
+/* .mobile-bulk-actions{
+  display: none;
+}
+
+@media(max-width:768px){
+
+  .mobile-bulk-actions{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    padding:12px;
+    margin-bottom:12px;
+    border-radius:12px;
+    background:#111827;
+
+    position:sticky;
+    top:0;
+    z-index:20;
+  }
+
+  .mobile-bulk-buttons{
+    display:flex;
+    gap:10px;
+  }
+
+  .mobile-bulk-actions button{
+    border:none;
+    padding:8px 14px;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:14px;
+  }
+
+  .select-all-mobile-btn{
+    background:#374151;
+
+  }
+
+  .bulk-delete-btn{
+    background:#dc2626;
+  }
+
+  /* Better mobile table */
+  /*.custom-table{
+    min-width:700px;
+  }
+
+  .custom-table-wrapper{
+    overflow-x:auto;
+  }
+}
+@media (max-width: 767px) {
+ .table-top-actions.desktop{display: none;}
+  .GlobalTable.gradientBox {
+    overflow-x: unset;
+  }
+
+  .custom-table {
+    min-width: 100%;
+    border: 0;
+  }
+
+  .custom-table thead {
+    display: none;
+  }
+
+  .custom-table tbody,
+  .custom-table tr,
+  .custom-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .custom-table tr {
+    margin-bottom: 16px;
+    border-radius: 12px;
+    padding: 12px;
+  }
+
+  .custom-table td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: right;
+    padding: 10px 0;
+    white-space: normal;
+    gap: 15px;
+  }
+
+  .custom-table td:last-child {
+    border-bottom: none;
+  }
+
+  /* Column Title */
+  /*.custom-table td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    text-align: left;
+    color: #111827;
+  }
+ 
+}  */
+
 /* KeyFrames Start */
 @keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes modalFade { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
@@ -360,24 +506,24 @@ ul.UnorderList .list-icon{margin-right: 10px;}
 /* Desktop: always visible */
 @media (min-width: 768px) {
 .sidebar { left: 0; }
-.menu-toggle {display: none;} }
+.menu-toggle {display: none;}
+}
+
 
 /* Show only on mobile */
 @media (max-width: 768px) {
 .DashBoardForms .half{flex: 0 0 100%; width: 100%;}
-
 .sidebar .LogoWrap .closeButton{display: block; padding: 10px;}
 .sidebar .LogoWrap .CompanyLogo img{width: 100%;}
 .sidebar .CompanyLogo { padding: 12px; }
 .sidebar ul a{padding: 12px;}
 .navbar {align-items: stretch; gap: 10px; }
-.navbar .nav-left{width: 70%; display: flex; align-items: center;}
-.navbar .nav-right { justify-content: space-between; width: 30%;} 
+.navbar .nav-left{width: 10%; display: flex; align-items: center;}
+.navbar .nav-right { justify-content: space-between; width: 90%;} 
 .navbar .menu_icon{padding-right: 15px;}
 .navbar .notification-dropdown{top: 60px;}
 /* SEARCH FULL WIDTH */
 .navbar .search-box { flex: 1; height: 25px;} 
-.navbar .search-box input { width: 100%;}
 /* HIDE ADMIN TEXT */ 
 .navbar .admin-profile span { display: none; }
 }

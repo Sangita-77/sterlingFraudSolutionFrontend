@@ -36,7 +36,8 @@
     "reports": "Rapporti",
     "settings": "Impostazioni",
     "visualization": "Visualizzazione",
-    "documents": "Documento"
+    "documents": "Documento",
+    "reportfraud": "Segnala una frode"
   },
   "messages": {
     "welcome": "Benvenuto in Sterling Fraud Solutions",

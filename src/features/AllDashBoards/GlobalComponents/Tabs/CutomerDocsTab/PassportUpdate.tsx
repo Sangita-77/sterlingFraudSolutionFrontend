@@ -1,20 +1,25 @@
 import React, { useEffect, useState } from "react";
-import DocumentUpdateCard from "../DocumentUpdateCard";
+import DocumentUpdateCard from "../../DocumentUpdateCard";
+import PassportFrontIcon from "../../../assets/images/PassportFrontIcon.svg";
+import RejectedIcon from "../../../assets/images/RejectedIcon.svg";
+import UnderProgress from "../../../assets/images/UnderProgress.svg";
+import VarifiedIcon from "../../../assets/images/VarifiedIcon.svg";
+import { Heading2, UnorderedList } from "../../HeadingPara";
+import Loader from "../../Loaders";
 
-import PassportFrontIcon from "../../assets/images/PassportFrontIcon.svg";
-import VarifiedIcon from "../../assets/images/VarifiedIcon.svg";
-import UnderProgress from "../../assets/images/UnderProgress.svg";
-import RejectedIcon from "../../assets/images/RejectedIcon.svg";
-import { Heading2, UnorderedList } from "../../GlobalComponents/HeadingPara";
-import Loader from "../../GlobalComponents/Loaders";
-
-import { BASE_URL } from "../../../../api/config";
+import { BASE_URL } from "../../../../../api/config";
 
 import {
   fetchWithAuth,
   getAuthSession,
   getAuthUser,
-} from "../../../../api/authService";
+} from "../../../../../api/authService";
+
+// type DocumentItem = {
+//   _id: string;
+//   documentType: string;
+//   status: number;
+// };
 
 type DocumentItem = {
   _id: string;
@@ -24,7 +29,7 @@ type DocumentItem = {
   fileName?: string;
 };
 
-const NationalIdUpdate: React.FC = () => {
+const PassportUpdate: React.FC = () => {
   const user = getAuthUser();
   const session = getAuthSession();
 
@@ -99,7 +104,6 @@ const NationalIdUpdate: React.FC = () => {
 
     return "purple";
   };
-
   const getDocumentId = (
     documentType: string
   ) => {
@@ -117,7 +121,7 @@ const NationalIdUpdate: React.FC = () => {
       (doc) => doc.documentType === documentType
     );
 
-    if (!document?.fileName) return "";
+    if (!document?.filePath) return "";
 
     return `${BASE_URL.replace(
       /\/api$/,
@@ -155,99 +159,73 @@ const NationalIdUpdate: React.FC = () => {
     return PassportFrontIcon;
   };
 
-    const getDocumentStatus = (
-      documentType: string
-    ) => {
-      const document = documents.find(
-        (doc) => doc.documentType === documentType
-      );
+  const getDocumentStatus = (
+    documentType: string
+  ) => {
+    const document = documents.find(
+      (doc) => doc.documentType === documentType
+    );
 
-      return document?.status;
-    };
-
+    return document?.status;
+  };
 
   return (
-  <>
+    <>
     {loading ? (
       <Loader />
     ) : (
-      <> 
-     <Heading2 text="To avoid delays when verifying your account please observe below:"/>
-        <UnorderedList
-          items={[
+      <>
+    <Heading2 text="To avoid delays when verifying your account please observe below:"/>
+      <UnorderedList
+        items={[
             {text:"Chosen documents must not be expired.",},
             {text:"Documents should be in good condition and clearly visible.",},
             {text:"Make sure that there is no light glare on the document.",},
-          ]}
-          />
+        ]}
+    />
+
     <div className="PassportUpdate UpdatedocumentsWarp">
 
-      <DocumentUpdateCard
-        icon={getIconByStatus("national_id_front")}
-        text="Front side of your National ID"
-        buttonText={
-          loading ? "Loading..." : "Update"
-        }
-        documentType="national_id_front"
-        documentId={getDocumentId(
-          "national_id_front"
-        )}
-        documentUrl={getDocumentUrl(
-          "national_id_front"
-        )}
-        variant={getVariantByStatus(
-          "national_id_front"
-        )}
-        status={getDocumentStatus("national_id_front")}
-        onUploadSuccess={fetchDocuments}
-      />
+    <DocumentUpdateCard
+      icon={getIconByStatus("passport_front")}
+      text="Front side of your Passport"
+      buttonText={loading ? "Loading..." : "Update"}
+      documentType="passport_front"
+      documentId={getDocumentId("passport_front")}
+      documentUrl={getDocumentUrl("passport_front")}
+      variant={getVariantByStatus("passport_front")}
+      status={getDocumentStatus("passport_front")}
+      onUploadSuccess={fetchDocuments}
+    />
 
-      <DocumentUpdateCard
-        icon={getIconByStatus("national_id_back")}
-        text="Back side of your National ID"
-        buttonText={
-          loading ? "Loading..." : "Update"
-        }
-        documentType="national_id_back"
-        documentId={getDocumentId(
-          "national_id_back"
-        )}
-        documentUrl={getDocumentUrl(
-          "national_id_back"
-        )}
-        variant={getVariantByStatus(
-          "national_id_back"
-        )}
-        status={getDocumentStatus("national_id_back")}
-        onUploadSuccess={fetchDocuments}
-      />
+    <DocumentUpdateCard
+      icon={getIconByStatus("passport_back")}
+      text="Back side of your Passport"
+      buttonText={loading ? "Loading..." : "Update"}
+      documentType="passport_back"
+      documentId={getDocumentId("passport_back")}
+      documentUrl={getDocumentUrl("passport_back")}
+      variant={getVariantByStatus("passport_back")}
+      status={getDocumentStatus("passport_back")}
+      onUploadSuccess={fetchDocuments}
+    />
 
-      <DocumentUpdateCard
-        icon={getIconByStatus("national_id_selfie")}
-        text="Selfie with your National ID"
-        buttonText={
-          loading ? "Loading..." : "Update"
-        }
-        documentType="national_id_selfie"
-        documentId={getDocumentId(
-          "national_id_selfie"
-        )}
-        documentUrl={getDocumentUrl(
-          "national_id_selfie"
-        )}
-        variant={getVariantByStatus(
-          "national_id_selfie"
-        )}
-        status={getDocumentStatus("national_id_selfie")}
-        onUploadSuccess={fetchDocuments}
-      />
-
+    <DocumentUpdateCard
+      icon={getIconByStatus("passport_selfie")}
+      text="Selfie with your Passport"
+      buttonText={loading ? "Loading..." : "Update"}
+      documentType="passport_selfie"
+      documentId={getDocumentId("passport_selfie")}
+      documentUrl={getDocumentUrl("passport_selfie")}
+      variant={getVariantByStatus("passport_selfie")}
+      status={getDocumentStatus("passport_selfie")}
+      onUploadSuccess={fetchDocuments}
+          />
         </div>
       </>
     )}
   </>
 );
-
 };
 
-export default NationalIdUpdate;
+export default PassportUpdate;
