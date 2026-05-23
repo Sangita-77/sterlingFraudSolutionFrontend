@@ -1,9 +1,9 @@
 import React from "react";
 import { Heading1 } from "../../GlobalComponents/HeadingPara";
 import Tabs from "../../GlobalComponents/Tabs";
-import PassportUpdate from "../../GlobalComponents/Tabs/PassportUpdate";
-import NationalIdCard from "../../GlobalComponents/Tabs/NationalIdCard";
-import DrivingLicense from "../../GlobalComponents/Tabs/DrivingLicense";
+import PassportUpdate from "../../GlobalComponents/Tabs/CutomerDocsTab/PassportUpdate";
+import NationalIdCard from "../../GlobalComponents/Tabs/CutomerDocsTab/NationalIdCard";
+import DrivingLicense from "../../GlobalComponents/Tabs/CutomerDocsTab/DrivingLicense";
 
 
 

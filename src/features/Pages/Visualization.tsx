@@ -3,7 +3,7 @@ import "./VizualizationPages.css";
 import Draggable from "react-draggable";
 
 import Header from "../Components/header";
-// import VisualizationCard from "../Components/VisualizationCard";
+import VisualizationCard from "../Components/VisualizationCard";
 
 import Cursor from "../../assets/images/map/Cursor.svg";
 import Hand from "../../assets/images/map/Hand.svg";
@@ -94,9 +94,9 @@ const [isCalendarOpen, setIsCalendarOpen] = useState(false);
     <>
       <Header variant="colored" />
 
-      {/* <div className="viz-card-wrapper">
+      <div className="viz-card-wrapper">
         <VisualizationCard />
-      </div> */}
+      </div>
 
       <div className="viz-container">
 

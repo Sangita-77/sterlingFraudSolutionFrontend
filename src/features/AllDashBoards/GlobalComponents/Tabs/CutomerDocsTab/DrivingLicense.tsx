@@ -1,25 +1,19 @@
 import React, { useEffect, useState } from "react";
-import DocumentUpdateCard from "../DocumentUpdateCard";
-import PassportFrontIcon from "../../assets/images/PassportFrontIcon.svg";
-import RejectedIcon from "../../assets/images/RejectedIcon.svg";
-import UnderProgress from "../../assets/images/UnderProgress.svg";
-import VarifiedIcon from "../../assets/images/VarifiedIcon.svg";
-import { Heading2, UnorderedList } from "../../GlobalComponents/HeadingPara";
-import Loader from "../../GlobalComponents/Loaders";
+import DocumentUpdateCard from "../../DocumentUpdateCard";
+import PassportFrontIcon from "../../../assets/images/PassportFrontIcon.svg";
+import VarifiedIcon from "../../../assets/images/VarifiedIcon.svg";
+import UnderProgress from "../../../assets/images/UnderProgress.svg";
+import RejectedIcon from "../../../assets/images/RejectedIcon.svg";
+import { Heading2, UnorderedList } from "../../HeadingPara";
+import Loader from "../../Loaders";
 
-import { BASE_URL } from "../../../../api/config";
+import { BASE_URL } from "../../../../../api/config";
 
 import {
   fetchWithAuth,
   getAuthSession,
   getAuthUser,
-} from "../../../../api/authService";
-
-// type DocumentItem = {
-//   _id: string;
-//   documentType: string;
-//   status: number;
-// };
+} from "../../../../../api/authService";
 
 type DocumentItem = {
   _id: string;
@@ -29,7 +23,7 @@ type DocumentItem = {
   fileName?: string;
 };
 
-const PassportUpdate: React.FC = () => {
+const DrivingLicense: React.FC = () => {
   const user = getAuthUser();
   const session = getAuthSession();
 
@@ -104,6 +98,7 @@ const PassportUpdate: React.FC = () => {
 
     return "purple";
   };
+
   const getDocumentId = (
     documentType: string
   ) => {
@@ -121,7 +116,7 @@ const PassportUpdate: React.FC = () => {
       (doc) => doc.documentType === documentType
     );
 
-    if (!document?.filePath) return "";
+    if (!document?.fileName) return "";
 
     return `${BASE_URL.replace(
       /\/api$/,
@@ -159,73 +154,75 @@ const PassportUpdate: React.FC = () => {
     return PassportFrontIcon;
   };
 
-  const getDocumentStatus = (
-    documentType: string
-  ) => {
-    const document = documents.find(
-      (doc) => doc.documentType === documentType
-    );
+    const getDocumentStatus = (
+      documentType: string
+    ) => {
+      const document = documents.find(
+        (doc) => doc.documentType === documentType
+      );
 
-    return document?.status;
-  };
+      return document?.status;
+    };
 
-  return (
-    <>
+
+return (
+  <>
     {loading ? (
       <Loader />
     ) : (
       <>
-    <Heading2 text="To avoid delays when verifying your account please observe below:"/>
-      <UnorderedList
-        items={[
+        <Heading2 text="To avoid delays when verifying your account please observe below:" />
+
+        <UnorderedList
+          items={[
             {text:"Chosen documents must not be expired.",},
             {text:"Documents should be in good condition and clearly visible.",},
             {text:"Make sure that there is no light glare on the document.",},
-        ]}
-    />
+          ]}
+        />
 
-    <div className="PassportUpdate UpdatedocumentsWarp">
+        <div className="DrivingLicense UpdatedocumentsWarp">
+          <DocumentUpdateCard
+            icon={getIconByStatus("driving_license_front")}
+            text="Front side of your Driving License"
+            buttonText="Update"
+            documentType="driving_license_front"
+            documentId={getDocumentId("driving_license_front")}
+            documentUrl={getDocumentUrl("driving_license_front")}
+            variant={getVariantByStatus("driving_license_front")}
+            status={getDocumentStatus("driving_license_front")}
+            onUploadSuccess={fetchDocuments}
+          />
 
-    <DocumentUpdateCard
-      icon={getIconByStatus("passport_front")}
-      text="Front side of your Passport"
-      buttonText={loading ? "Loading..." : "Update"}
-      documentType="passport_front"
-      documentId={getDocumentId("passport_front")}
-      documentUrl={getDocumentUrl("passport_front")}
-      variant={getVariantByStatus("passport_front")}
-      status={getDocumentStatus("passport_front")}
-      onUploadSuccess={fetchDocuments}
-    />
+          <DocumentUpdateCard
+            icon={getIconByStatus("driving_license_back")}
+            text="Back side of your Driving License"
+            buttonText="Update"
+            documentType="driving_license_back"
+            documentId={getDocumentId("driving_license_back")}
+            documentUrl={getDocumentUrl("driving_license_back")}
+            variant={getVariantByStatus("driving_license_back")}
+            status={getDocumentStatus("driving_license_back")}
+            onUploadSuccess={fetchDocuments}
+          />
 
-    <DocumentUpdateCard
-      icon={getIconByStatus("passport_back")}
-      text="Back side of your Passport"
-      buttonText={loading ? "Loading..." : "Update"}
-      documentType="passport_back"
-      documentId={getDocumentId("passport_back")}
-      documentUrl={getDocumentUrl("passport_back")}
-      variant={getVariantByStatus("passport_back")}
-      status={getDocumentStatus("passport_back")}
-      onUploadSuccess={fetchDocuments}
-    />
-
-    <DocumentUpdateCard
-      icon={getIconByStatus("passport_selfie")}
-      text="Selfie with your Passport"
-      buttonText={loading ? "Loading..." : "Update"}
-      documentType="passport_selfie"
-      documentId={getDocumentId("passport_selfie")}
-      documentUrl={getDocumentUrl("passport_selfie")}
-      variant={getVariantByStatus("passport_selfie")}
-      status={getDocumentStatus("passport_selfie")}
-      onUploadSuccess={fetchDocuments}
+          <DocumentUpdateCard
+            icon={getIconByStatus("driving_license_selfie")}
+            text="Selfie with your Driving License"
+            buttonText="Update"
+            documentType="driving_license_selfie"
+            documentId={getDocumentId("driving_license_selfie")}
+            documentUrl={getDocumentUrl("driving_license_selfie")}
+            variant={getVariantByStatus("driving_license_selfie")}
+            status={getDocumentStatus("driving_license_selfie")}
+            onUploadSuccess={fetchDocuments}
           />
         </div>
       </>
     )}
   </>
 );
+
 };
 
-export default PassportUpdate;
+export default DrivingLicense;

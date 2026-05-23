@@ -12,7 +12,7 @@ interface FormInputProps {
   name: string;
   value: string;
   placeholder?: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: ( e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement> ) => void;
   error?: string;
   options?: { label: string; value: string }[];
   width?: "full" | "half";
@@ -136,6 +136,39 @@ const renderProfileUpload = () => (
               </label>
             ))}
           </div>
+        ): type === "select" && options ? (
+
+          <div className="input-wrapper">
+            <select
+              name={name}
+              value={value}
+              onChange={onChange}
+              disabled={!editable}
+              required={required}
+              className="form-select"
+            >
+              <option value="">
+                {placeholder || "Select option"}
+              </option>
+
+              {options.map((opt) => (
+                <option key={opt.value} value={opt.value}>
+                  {opt.label}
+                </option>
+              ))}
+            </select>
+
+            {!editable && onEdit && (
+              <button
+                type="button"
+                onClick={onEdit}
+                className="edit-btn"
+              >
+                <img src={PencilEdit} alt="edit" />
+              </button>
+            )}
+          </div>
+
         ) : type === "password" ? (
           <div className="password-field-wrap">
             <input
