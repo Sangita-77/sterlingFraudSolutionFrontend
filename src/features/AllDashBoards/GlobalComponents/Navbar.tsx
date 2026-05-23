@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import "./GlobalComponents.css";
 // import Search from "../assets/images/Search.svg";
-import Bell from "../assets/images/Bell.svg";
 import hamburger from "../assets/images/hamburger.svg";
 import Toggle from "./Toggle"
 import LanguageSwitcher from "../../Components/LanguageSwitcher";
 import ProfileAvatar from "./ProfileAvatar";
+import NotificationBell from "./NotificationBell";
 
 
 interface NavbarProps {
@@ -13,8 +13,6 @@ interface NavbarProps {
 }
 
 const Navbar: React.FC<NavbarProps> = ({ toggle }) => {
-  const [showNotifications, setShowNotifications] = useState(false);
-
   return (
     <div className="navbar">
       {/* LEFT SIDE */}
@@ -31,17 +29,7 @@ const Navbar: React.FC<NavbarProps> = ({ toggle }) => {
       <div className="nav-right">
         <LanguageSwitcher />
         <Toggle/>
-        {/* Notification */}
-        <div className="notification">
-          <img src={Bell} className="search"  onClick={() => setShowNotifications(!showNotifications)} />
-
-          {showNotifications && (
-            <div className="notification-dropdown">
-              <p>No new notifications</p>
-              {/* You can map notifications here */}
-            </div>
-          )}
-        </div>
+        <NotificationBell />
 
         <ProfileAvatar label="Admin" />
       </div>
